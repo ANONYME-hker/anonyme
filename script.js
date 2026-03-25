@@ -57,20 +57,20 @@ function initializeInteractions() {
         if (clickCount === 1) {
             surprise.classList.add('show');
             createHeartExplosion();
-            showMessage("Tu es vraiment quelqu'un d'exceptionnel ✨");
+            showMessage("Ce moment était magique ✨");
         } else if (clickCount === 2) {
-            showMessage("Ta présence illumine les moments 🌟");
-            createGentleHearts();
+            showMessage("Oceanne, tu es vraiment spéciale 🌟");
+            createRainbowHearts();
         } else if (clickCount === 3) {
-            showMessage("Tu inspires les gens autour de toi 💫");
-            createSparkles();
+            showMessage("J'ai hâte de te revoir �");
+            createFireworks();
         } else if (clickCount === 4) {
-            showMessage("Continue d'être cette personne incroyable 🌸");
-            loveButton.textContent = "Merci d'être toi";
-            loveButton.style.background = "linear-gradient(45deg, #74b9ff, #a29bfe)";
+            showMessage("Ce baiser m'a marqué 💋");
+            loveButton.textContent = "Magique!";
+            loveButton.style.background = "linear-gradient(45deg, #ff1744, #f50057)";
         } else {
-            showMessage("Tu mérites tout le bonheur du monde 🌺");
-            createGentleExplosion();
+            showMessage("Pour la suite de notre histoire 📖");
+            createMassiveHeartExplosion();
         }
     });
 }
@@ -271,10 +271,10 @@ function initPhotoGallery() {
     photos.forEach((photo, index) => {
         photo.addEventListener('click', function() {
             const messages = [
-                "Une qualité précieuse que tu possèdes ✨",
-                " quelque chose qui te rend unique 🌟",
-                "Ce qui fait ta beauté intérieure 💫",
-                "Ta personnalité exceptionnelle �"
+                "Ta gentillesse me touche énormément 🥰",
+                "Ta beauté intérieure rayonne ✨",
+                "Ton intelligence m'impressionne 🧠",
+                "Ta personnalité est unique 🌺"
             ];
             
             showMessage(messages[index]);
