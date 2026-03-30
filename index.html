@@ -3,66 +3,1427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pour Oceanne ✨</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Othniel Delloh - Développeur Freelance | Abidjan</title>
+    <meta name="description" content="Développeur informatique freelance à Abidjan. Spécialisé en WinDev, HFSQL, bases de données, sites web et automatisation Excel.">
+    
+    <!-- CSS intégré -->
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --bleu-fonce: #1A56A0;
+            --bleu-clair: #2E7BC4;
+            --doré: #F0A500;
+            --blanc: #FFFFFF;
+            --gris-clair: #F8F9FA;
+            --gris-texte: #6C757D;
+            --noir: #212529;
+            --ombre: rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET ET BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--noir);
+            background-color: var(--blanc);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER ET NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--blanc);
+            box-shadow: 0 2px 10px var(--ombre);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--bleu-fonce);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--noir);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--bleu-fonce);
+        }
+
+        .btn-devis {
+            background: var(--doré);
+            color: var(--blanc);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-devis:hover {
+            background: #D49400;
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--noir);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* ===== SECTIONS COMMUNES ===== */
+        section {
+            padding: 80px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--bleu-fonce);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--doré);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== SECTION ACCUEIL ===== */
+        #accueil {
+            background: linear-gradient(135deg, var(--bleu-fonce) 0%, var(--bleu-clair) 100%);
+            color: var(--blanc);
+        }
+
+        .accueil-content {
+            text-align: center;
+        }
+
+        .accueil-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .accueil-content .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .accueil-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: both;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--doré);
+            color: var(--blanc);
+        }
+
+        .btn-primary:hover {
+            background: #D49400;
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--blanc);
+            border: 2px solid var(--blanc);
+        }
+
+        .btn-secondary:hover {
+            background: var(--blanc);
+            color: var(--bleu-fonce);
+        }
+
+        /* ===== SECTION SERVICES ===== */
+        #services {
+            background: var(--gris-clair);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--blanc);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--ombre);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px var(--ombre);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--bleu-fonce);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: var(--bleu-fonce);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--gris-texte);
+            margin-bottom: 1rem;
+        }
+
+        .service-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--doré);
+        }
+
+        /* ===== SECTION PORTFOLIO ===== */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-card {
+            background: var(--blanc);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--ombre);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px var(--ombre);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--bleu-fonce), var(--bleu-clair));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blanc);
+            font-size: 3rem;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-content h3 {
+            color: var(--bleu-fonce);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-content p {
+            color: var(--gris-texte);
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: var(--gris-clair);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.875rem;
+            color: var(--bleu-fonce);
+        }
+
+        .project-badge {
+            background: var(--doré);
+            color: var(--blanc);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+
+        /* ===== SECTION DEVIS ===== */
+        #devis {
+            background: var(--blanc);
+        }
+
+        .devis-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--gris-clair);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--ombre);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--bleu-fonce);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--bleu-fonce);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background: #28A745;
+            color: var(--blanc);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* ===== SECTION CONTACT ===== */
+        #contact {
+            background: linear-gradient(135deg, var(--bleu-fonce) 0%, var(--bleu-clair) 100%);
+            color: var(--blanc);
+        }
+
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--doré);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item a {
+            color: var(--blanc);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--doré);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--blanc);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--doré);
+            transform: translateY(-3px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--noir);
+            color: var(--blanc);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--blanc);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px var(--ombre);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .accueil-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .accueil-content .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .accueil-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .accueil-content h1 {
+                font-size: 2rem;
+            }
+
+            .services-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== ANIMATIONS KEYFRAMES ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                border-color: transparent;
+            }
+            51%, 100% {
+                border-color: var(--doré);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== EFFETS VISUELS AVANCÉS ===== */
+        .gradient-text {
+            background: linear-gradient(45deg, var(--doré), #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .typing-effect {
+            overflow: hidden;
+            border-right: 3px solid var(--doré);
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+        }
+
+        .slide-left {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .slide-right {
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        /* ===== PARTICULES D'ARRIÈRE-PLAN ===== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--doré);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        /* ===== EFFETS DE SURVOL AVANCÉS ===== */
+        .glow-effect {
+            transition: all 0.3s ease;
+        }
+
+        .glow-effect:hover {
+            box-shadow: 0 0 20px var(--doré), 0 0 40px var(--doré);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .tilt-effect {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .tilt-effect:hover {
+            transform: perspective(1000px) rotateX(10deg) rotateY(-10deg);
+        }
+
+        /* ===== LOADING SPINNER ===== */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bleu-fonce);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--doré);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== CURSEUR PERSONNALISÉ ===== */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--doré);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.1s ease;
+            opacity: 0.7;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--doré);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            transition: all 0.3s ease;
+            opacity: 0.3;
+        }
+
+        /* ===== BADGES ANIMÉS ===== */
+        .animated-badge {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-badge::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--doré), #FFD700, var(--doré));
+            background-size: 400% 400%;
+            border-radius: 15px;
+            z-index: -1;
+            animation: gradientShift 2s ease infinite;
+        }
+
+        /* ===== PROGRESS BARS ===== */
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--doré), #FFD700);
+            border-radius: 4px;
+            animation: progressAnimation 2s ease forwards;
+        }
+
+        @keyframes progressAnimation {
+            from {
+                width: 0%;
+            }
+        }
+
+        /* ===== EFFETS DE TEXTE ===== */
+        .text-glow {
+            text-shadow: 0 0 10px var(--doré), 0 0 20px var(--doré), 0 0 30px var(--doré);
+        }
+
+        .neon-text {
+            animation: neonFlicker 2s infinite alternate;
+        }
+
+        @keyframes neonFlicker {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--doré), 0 0 20px var(--doré), 0 0 30px var(--doré);
+            }
+            50% {
+                text-shadow: 0 0 5px var(--doré), 0 0 10px var(--doré), 0 0 15px var(--doré);
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="stars"></div>
-        <div class="hearts"></div>
-        
-        <main class="love-message">
-            <div class="message-container">
-                <h1 class="title">Oceanne</h1>
-                <div class="typewriter">
-                    <p class="love-text">Ce baiser m'a tout changé 💕</p>
-                </div>
-                <div class="reasons">
-                    <p class="reason fade-in">Notre connexion est magique</p>
-                    <p class="reason fade-in">Ton sourire me fait fondre</p>
-                    <p class="reason fade-in">Ce moment était parfait</p>
-                    <p class="reason fade-in">J'ai envie de découvrir la suite</p>
-                </div>
-                <div class="interactive-area">
-                    <button class="love-button" id="loveBtn">
-                        <span>Découvre plus</span>
-                        <div class="pulse"></div>
-                    </button>
-                    <div class="surprise-message" id="surprise">
-                        <p>Tu mérites tout le bonheur du monde 🌟</p>
-                        <div class="heart-explosion"></div>
-                    </div>
-                </div>
-            </div>
-        </main>
+    <!-- Loading Spinner -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
 
-        <div class="photo-gallery">
-            <div class="gallery-title">Quelques qualités que j'admire</div>
-            <div class="photo-grid">
-                <div class="photo-placeholder">
-                    <div class="heart-icon">⭐</div>
-                    <span>Ta gentillesse</span>
-                </div>
-                <div class="photo-placeholder">
-                    <div class="heart-icon">🌸</div>
-                    <span>Ta beauté intérieure</span>
-                </div>
-                <div class="photo-placeholder">
-                    <div class="heart-icon">✨</div>
-                    <span>Ton intelligence</span>
-                </div>
-                <div class="photo-placeholder">
-                    <div class="heart-icon">🌺</div>
-                    <span>Ta personnalité unique</span>
+    <!-- Curseur Personnalisé -->
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <!-- Particules d'arrière-plan -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header avec navigation -->
+    <header>
+        <nav class="container">
+            <a href="#accueil" class="logo gradient-text floating">Othniel Delloh</a>
+            <ul class="nav-menu">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#devis">Devis</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#devis" class="btn-devis glow-effect">Demander un devis</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Section Accueil -->
+    <section id="accueil">
+        <div class="container">
+            <div class="accueil-content fade-in">
+                <h1 class="gradient-text neon-text">Othniel Delloh</h1>
+                <p class="subtitle typing-effect">Développeur Informatique Freelance à Abidjan</p>
+                <div class="accueil-buttons">
+                    <a href="#services" class="btn-primary pulse-animation">Voir mes services</a>
+                    <a href="#contact" class="btn-secondary glow-effect">Me contacter</a>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="music-note">🎵</div>
-        <div class="floating-hearts"></div>
-    </div>
+    <!-- Section Services -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title fade-in">Mes Services</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in tilt-effect">
+                    <div class="service-icon floating">🖥️</div>
+                    <h3 class="gradient-text">Application de gestion</h3>
+                    <p>Développement d'applications de gestion sur mesure avec WinDev et HFSQL pour optimiser vos processus métier.</p>
+                    <div class="service-price text-glow">250 000 FCFA</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 95%"></div>
+                    </div>
+                </div>
+                <div class="service-card fade-in tilt-effect">
+                    <div class="service-icon floating" style="animation-delay: 0.5s">🗄️</div>
+                    <h3 class="gradient-text">Base de données + Formulaires</h3>
+                    <p>Création de bases de données robustes et interfaces intuitives pour la saisie et la gestion de vos données.</p>
+                    <div class="service-price text-glow">150 000 FCFA</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="service-card fade-in tilt-effect">
+                    <div class="service-icon floating" style="animation-delay: 1s">🌐</div>
+                    <h3 class="gradient-text">Site web vitrine</h3>
+                    <p>Création de sites web modernes et responsives pour présenter votre activité et attirer de nouveaux clients.</p>
+                    <div class="service-price text-glow">100 000 FCFA</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="service-card fade-in tilt-effect">
+                    <div class="service-icon floating" style="animation-delay: 1.5s">📊</div>
+                    <h3 class="gradient-text">Automatisation Excel</h3>
+                    <p>Automatisation de vos tâches Excel avec macros et VBA pour gagner du temps et réduire les erreurs.</p>
+                    <div class="service-price text-glow">75 000 FCFA</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 88%"></div>
+                    </div>
+                </div>
+                <div class="service-card fade-in tilt-effect">
+                    <div class="service-icon floating" style="animation-delay: 2s">🔧</div>
+                    <h3 class="gradient-text">Correction d'applications existantes</h3>
+                    <p>Dépannage et correction de bugs dans vos applications existantes pour les rendre plus performantes.</p>
+                    <div class="service-price text-glow">50 000 FCFA</div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 92%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- Section Portfolio -->
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title fade-in">Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-card fade-in glow-effect">
+                    <div class="portfolio-image floating">👥</div>
+                    <div class="portfolio-content">
+                        <h3 class="gradient-text">Système de Gestion RH</h3>
+                        <p>Application complète pour la gestion des employés, congés et paie avec WinDev et HFSQL.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge animated-badge">WinDev</span>
+                            <span class="tech-badge animated-badge">HFSQL</span>
+                            <span class="tech-badge animated-badge">Rapports</span>
+                        </div>
+                        <span class="project-badge pulse-animation">Projet réalisé</span>
+                    </div>
+                </div>
+                <div class="portfolio-card fade-in glow-effect">
+                    <div class="portfolio-image floating" style="animation-delay: 0.5s">📦</div>
+                    <div class="portfolio-content">
+                        <h3 class="gradient-text">Gestion de Stock</h3>
+                        <p>Système de suivi des stocks en temps réel avec alertes et statistiques pour une entreprise de distribution.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge animated-badge">WinDev</span>
+                            <span class="tech-badge animated-badge">HFSQL</span>
+                            <span class="tech-badge animated-badge">Barcodes</span>
+                        </div>
+                        <span class="project-badge pulse-animation">Projet réalisé</span>
+                    </div>
+                </div>
+                <div class="portfolio-card fade-in glow-effect">
+                    <div class="portfolio-image floating" style="animation-delay: 1s">🏢</div>
+                    <div class="portfolio-content">
+                        <h3 class="gradient-text">Site Vitrine Immobilier</h3>
+                        <p>Site web moderne pour une agence immobilière avec galerie de propriétés et formulaire de contact.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge animated-badge">HTML5</span>
+                            <span class="tech-badge animated-badge">CSS3</span>
+                            <span class="tech-badge animated-badge">JavaScript</span>
+                        </div>
+                        <span class="project-badge pulse-animation">Projet réalisé</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Devis -->
+    <section id="devis">
+        <div class="container">
+            <h2 class="section-title fade-in">Demander un Devis</h2>
+            <form class="devis-form fade-in glow-effect" id="devisForm">
+                <div class="form-group">
+                    <label for="nom" class="gradient-text">Nom complet *</label>
+                    <input type="text" id="nom" name="nom" required class="tilt-effect">
+                </div>
+                <div class="form-group">
+                    <label for="entreprise" class="gradient-text">Entreprise</label>
+                    <input type="text" id="entreprise" name="entreprise" class="tilt-effect">
+                </div>
+                <div class="form-group">
+                    <label for="telephone" class="gradient-text">Téléphone WhatsApp *</label>
+                    <input type="tel" id="telephone" name="telephone" required class="tilt-effect">
+                </div>
+                <div class="form-group">
+                    <label for="service" class="gradient-text">Type de service *</label>
+                    <select id="service" name="service" required class="tilt-effect">
+                        <option value="">Choisir un service</option>
+                        <option value="Application de gestion">Application de gestion</option>
+                        <option value="Base de données + Formulaires">Base de données + Formulaires</option>
+                        <option value="Site web vitrine">Site web vitrine</option>
+                        <option value="Automatisation Excel">Automatisation Excel</option>
+                        <option value="Correction d'applications existantes">Correction d'applications existantes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="besoin" class="gradient-text">Description du besoin *</label>
+                    <textarea id="besoin" name="besoin" required placeholder="Décrivez votre projet en détail..." class="tilt-effect"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="budget" class="gradient-text">Budget approximatif *</label>
+                    <select id="budget" name="budget" required class="tilt-effect">
+                        <option value="">Choisir une fourchette</option>
+                        <option value="Moins de 50 000 FCFA">Moins de 50 000 FCFA</option>
+                        <option value="50 000 – 150 000 FCFA">50 000 – 150 000 FCFA</option>
+                        <option value="150 000+ FCFA">150 000+ FCFA</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit pulse-animation">Envoyer la demande</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Contact</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item fade-in glow-effect">
+                        <div class="contact-icon floating">📱</div>
+                        <h3 class="gradient-text">WhatsApp</h3>
+                        <a href="https://wa.me/2250747651961" target="_blank" class="pulse-animation">+225 07 47 65 19 61</a>
+                        <br>
+                        <a href="https://wa.me/2250103451452" target="_blank" class="pulse-animation">+225 01 03 45 14 52</a>
+                    </div>
+                    <div class="contact-item fade-in glow-effect">
+                        <div class="contact-icon floating" style="animation-delay: 0.5s">📧</div>
+                        <h3 class="gradient-text">Email</h3>
+                        <a href="mailto:othnieldelloh@gmail.com" class="pulse-animation">othnieldelloh@gmail.com</a>
+                    </div>
+                    <div class="contact-item fade-in glow-effect">
+                        <div class="contact-icon floating" style="animation-delay: 1s">📍</div>
+                        <h3 class="gradient-text">Localisation</h3>
+                        <p>Abidjan, Côte d'Ivoire</p>
+                        <p>Disponible soirs et week-ends</p>
+                    </div>
+                </div>
+                <div class="social-links fade-in">
+                    <a href="https://linkedin.com/in/othnieldelloh" target="_blank" class="social-link tilt-effect" title="LinkedIn">
+                        <span>in</span>
+                    </a>
+                    <a href="https://wa.me/2250747651961" target="_blank" class="social-link tilt-effect" title="WhatsApp">
+                        <span>WA</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Othniel Delloh. Tous droits réservés. | Développeur Freelance à Abidjan</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript intégré -->
+    <script>
+        // ===== LOADING SPINNER =====
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // ===== CURSEUR PERSONNALISÉ =====
+        const cursor = document.getElementById('cursor');
+        const cursorFollower = document.getElementById('cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX - 10 + 'px';
+                cursorFollower.style.top = e.clientY - 10 + 'px';
+            }, 100);
+        });
+
+        // Effet de grossissement du curseur au survol des éléments interactifs
+        const interactiveElements = document.querySelectorAll('a, button, input, textarea, select');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursorFollower.style.transform = 'scale(1.5)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursorFollower.style.transform = 'scale(1)';
+            });
+        });
+
+        // ===== PARTICULES D'ARRIÈRE-PLAN =====
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ===== MENU HAMBURGER =====
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // ===== ANIMATIONS AU SCROLL =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Animation des barres de progression
+                    const skillBars = entry.target.querySelectorAll('.skill-progress');
+                    skillBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 200);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observer tous les éléments avec la classe fade-in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ===== EFFET DE PARALLAX SUR LE HERO =====
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.accueil-content');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - scrolled / 600;
+            }
+        });
+
+        // ===== FORMULAIRE DEVIS VERS WHATSAPP =====
+        document.getElementById('devisForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Animation de soumission
+            const submitBtn = this.querySelector('.btn-submit');
+            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.style.background = '#FFA500';
+            
+            setTimeout(() => {
+                // Récupérer les valeurs du formulaire
+                const nom = document.getElementById('nom').value;
+                const entreprise = document.getElementById('entreprise').value;
+                const telephone = document.getElementById('telephone').value;
+                const service = document.getElementById('service').value;
+                const besoin = document.getElementById('besoin').value;
+                const budget = document.getElementById('budget').value;
+                
+                // Construire le message WhatsApp avec emojis
+                let message = `🚀 *NOUVELLE DEMANDE DE DEVIS* 🚀\n\n`;
+                message += `👤 *Nom:* ${nom}\n`;
+                if (entreprise) message += `🏢 *Entreprise:* ${entreprise}\n`;
+                message += `📱 *Téléphone:* ${telephone}\n`;
+                message += `💼 *Service souhaité:* ${service}\n`;
+                message += `💰 *Budget:* ${budget}\n\n`;
+                message += `📝 *Description du besoin:*\n${besoin}\n\n`;
+                message += `📅 *Date:* ${new Date().toLocaleDateString('fr-FR')}\n`;
+                message += `---\n`;
+                message += `✨ Envoyé depuis le site web d'Othniel Delloh ✨`;
+                
+                // Encoder le message pour l'URL
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Numéro WhatsApp
+                const whatsappNumber = '2250747651961';
+                
+                // Créer l'URL WhatsApp
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                
+                // Ouvrir WhatsApp dans un nouvel onglet
+                window.open(whatsappUrl, '_blank');
+                
+                // Vider le formulaire après envoi
+                this.reset();
+                
+                // Réinitialiser le bouton
+                submitBtn.textContent = 'Envoyer la demande';
+                submitBtn.style.background = '#28A745';
+                
+                // Afficher une notification de succès
+                showNotification('Votre demande de devis a été envoyée avec succès via WhatsApp !');
+            }, 1500);
+        });
+
+        // ===== NOTIFICATION PERSONALISÉE =====
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(135deg, #28A745, #20C997);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 5px 20px rgba(40, 167, 69, 0.3);
+                z-index: 10000;
+                animation: slideInRight 0.5s ease;
+                max-width: 300px;
+            `;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.5rem;">✅</span>
+                    <div>${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 4000);
+        }
+
+        // ===== HEADER SCROLL EFFECT =====
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'var(--blanc)';
+                header.style.backdropFilter = 'none';
+                header.style.boxShadow = '0 2px 10px var(--ombre)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // ===== SMOOTH SCROLL POUR LES ANCRES =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ===== EFFET DE TYPING DYNAMIQUE =====
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.textContent = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // ===== INITIALISATION AU CHARGEMENT =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ajouter la classe visible au premier élément de la page
+            const firstElement = document.querySelector('.accueil-content');
+            if (firstElement) {
+                firstElement.classList.add('visible');
+            }
+            
+            // Animation de typing pour le sous-titre
+            const subtitle = document.querySelector('.subtitle');
+            if (subtitle) {
+                const originalText = subtitle.textContent;
+                setTimeout(() => {
+                    typeWriter(subtitle, originalText, 80);
+                }, 2000);
+            }
+            
+            // Ajouter des animations aux logos
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('mouseenter', () => {
+                    logo.style.animation = 'pulse 0.5s ease';
+                });
+                logo.addEventListener('mouseleave', () => {
+                    logo.style.animation = '';
+                });
+            }
+            
+            // Effet de brillance au survol des cartes
+            const cards = document.querySelectorAll('.service-card, .portfolio-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    card.style.background = `
+                        radial-gradient(
+                            circle at ${x}px ${y}px,
+                            rgba(240, 165, 0, 0.1),
+                            transparent 50%
+                        ),
+                        var(--blanc)
+                    `;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.background = '';
+                });
+            });
+        });
+
+        // ===== ANIMATION DE NOMBRES =====
+        function animateNumbers() {
+            const prices = document.querySelectorAll('.service-price');
+            prices.forEach(price => {
+                const finalText = price.textContent;
+                const number = parseInt(finalText.replace(/[^0-9]/g, ''));
+                let current = 0;
+                const increment = number / 50;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= number) {
+                        current = number;
+                        clearInterval(timer);
+                    }
+                    price.textContent = Math.floor(current).toLocaleString() + ' FCFA';
+                }, 30);
+            });
+        }
+
+        // Déclencher l'animation des nombres quand la section services est visible
+        const servicesSection = document.querySelector('#services');
+        const servicesObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateNumbers();
+                    servicesObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (servicesSection) {
+            servicesObserver.observe(servicesSection);
+        }
+    </script>
 </body>
 </html>
