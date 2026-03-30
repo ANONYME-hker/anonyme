@@ -518,43 +518,188 @@
             }
 
             .accueil-content h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
 
             .accueil-content .subtitle {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .accueil-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 1rem;
             }
 
             .btn-primary, .btn-secondary {
                 width: 250px;
             }
-        }
 
-        @media (max-width: 480px) {
+            /* Icônes flottantes mobile */
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .linkedin-float {
+                bottom: 20px;
+                left: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            /* Contact mobile */
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .contact-item {
+                padding: 1.5rem;
+            }
+
+            /* Services mobile */
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            /* Portfolio mobile */
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            /* Formulaire mobile */
+            .devis-form {
+                padding: 1.5rem;
+            }
+
+            .email-modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+                max-width: calc(100% - 2rem);
+            }
+
+            /* Social links mobile */
+            .social-links {
+                gap: 0.8rem;
+            }
+
+            .social-link {
+                width: 45px;
+                height: 45px;
+                font-size: 0.9rem;
+            }
+
+            /* Cache curseur sur mobile */
+            .custom-cursor,
+            .cursor-follower {
+                display: none;
+            }
+
+            /* Particules moins nombreuses sur mobile */
+            .particle {
+                display: none;
+            }
+
+            /* Sections mobile */
+            section {
+                padding: 60px 0;
+                min-height: auto;
+            }
+
+            /* Container mobile */
             .container {
                 padding: 0 15px;
             }
+        }
 
-            section {
-                padding: 60px 0;
-            }
-
+        @media (max-width: 480px) {
             .accueil-content h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
-            .services-grid,
-            .portfolio-grid {
-                grid-template-columns: 1fr;
+            .accueil-content .subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 200px;
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .service-card {
+                padding: 1rem;
+            }
+
+            .service-icon {
+                font-size: 2.5rem;
+            }
+
+            .contact-item {
+                padding: 1rem;
+            }
+
+            .devis-form {
+                padding: 1rem;
+            }
+
+            .email-modal-content {
+                padding: 1rem;
+            }
+
+            .whatsapp-float,
+            .linkedin-float {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+                bottom: 15px;
+            }
+
+            .whatsapp-float {
+                right: 15px;
+            }
+
+            .linkedin-float {
+                left: 15px;
+            }
+        }
+
+        /* Optimisation pour les très petits écrans */
+        @media (max-width: 320px) {
+            .accueil-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .service-price {
+                font-size: 1.2rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 180px;
+                font-size: 0.8rem;
             }
         }
 
@@ -1303,33 +1448,37 @@
         const cursor = document.getElementById('cursor');
         const cursorFollower = document.getElementById('cursor-follower');
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX - 10 + 'px';
-                cursorFollower.style.top = e.clientY - 10 + 'px';
-            }, 100);
-        });
+        // Désactiver le curseur personnalisé sur mobile
+        if (!isMobileDevice()) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                setTimeout(() => {
+                    cursorFollower.style.left = e.clientX - 10 + 'px';
+                    cursorFollower.style.top = e.clientY - 10 + 'px';
+                }, 100);
+            });
 
-        // Effet de grossissement du curseur au survol des éléments interactifs
-        const interactiveElements = document.querySelectorAll('a, button, input, textarea, select');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'scale(1.5)';
-                cursorFollower.style.transform = 'scale(1.5)';
+            // Effet de grossissement du curseur au survol des éléments interactifs
+            const interactiveElements = document.querySelectorAll('a, button, input, textarea, select');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'scale(1.5)';
+                    cursorFollower.style.transform = 'scale(1.5)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'scale(1)';
+                    cursorFollower.style.transform = 'scale(1)';
+                });
             });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'scale(1)';
-                cursorFollower.style.transform = 'scale(1)';
-            });
-        });
+        }
 
         // ===== PARTICULES D'ARRIÈRE-PLAN =====
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
+            const isMobile = window.innerWidth <= 768;
+            const particleCount = isMobile ? 10 : 50; // Moins de particules sur mobile
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -1340,6 +1489,19 @@
                 particlesContainer.appendChild(particle);
             }
         }
+
+        // Détecter si c'est un mobile
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   window.innerWidth <= 768;
+        }
+
+        // Adapter les animations selon l'appareil
+        if (isMobileDevice()) {
+            // Réduire les animations sur mobile pour les performances
+            document.documentElement.style.setProperty('--animation-speed', '0.5s');
+        }
+
         createParticles();
 
         // ===== MENU HAMBURGER =====
@@ -1389,14 +1551,16 @@
         });
 
         // ===== EFFET DE PARALLAX SUR LE HERO =====
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.accueil-content');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-                hero.style.opacity = 1 - scrolled / 600;
-            }
-        });
+        if (!isMobileDevice()) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.accueil-content');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                    hero.style.opacity = 1 - scrolled / 600;
+                }
+            });
+        }
 
         // ===== FORMULAIRE DEVIS VERS WHATSAPP =====
         document.getElementById('devisForm').addEventListener('submit', function(e) {
