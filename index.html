@@ -987,6 +987,33 @@
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
         }
+
+        /* ===== ICÔNE LINKEDIN FLOTTANTE ===== */
+        .linkedin-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #0A66C2;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(10, 102, 194, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            animation-delay: 1s;
+        }
+
+        .linkedin-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(10, 102, 194, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -1214,7 +1241,7 @@
                     </div>
                 </div>
                 <div class="social-links fade-in">
-                    <a href="https://linkedin.com/in/othnieldelloh" target="_blank" class="social-link tilt-effect" title="LinkedIn">
+                    <a href="https://www.linkedin.com/in/bomisso-dellotoh-othniel-delloh-026422380?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="social-link tilt-effect" title="LinkedIn">
                         <span>in</span>
                     </a>
                     <a href="https://wa.me/2250747651961" target="_blank" class="social-link tilt-effect whatsapp-icon" title="WhatsApp">
@@ -1252,6 +1279,11 @@
             </form>
         </div>
     </div>
+
+    <!-- Icône LinkedIn flottante -->
+    <a href="https://www.linkedin.com/in/bomisso-dellotoh-othniel-delloh-026422380?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="linkedin-float" title="Mon profil LinkedIn">
+        💼
+    </a>
 
     <!-- Icône WhatsApp flottante -->
     <a href="https://wa.me/2250747651961" target="_blank" class="whatsapp-float" title="Contactez-moi sur WhatsApp">
