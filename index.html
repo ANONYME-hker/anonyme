@@ -1203,7 +1203,7 @@
                         <a href="mailto:othnieldelloh@gmail.com" class="pulse-animation">othnieldelloh@gmail.com</a>
                         <br>
                         <button class="btn-email pulse-animation" onclick="openEmailForm()" style="margin-top: 10px; padding: 8px 16px; background: var(--doré); color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 0.9rem;">
-                            ✉️ M'envoyer un email
+                            ✉️ Formulaire de contact
                         </button>
                     </div>
                     <div class="contact-item fade-in glow-effect">
@@ -1236,15 +1236,19 @@
     <div class="email-modal" id="emailModal">
         <div class="email-modal-content">
             <div class="modal-header">
-                <h3>✉️ M'envoyer un email</h3>
+                <h3>✉️ Contact rapide</h3>
                 <button class="close-modal" onclick="closeEmailForm()">×</button>
             </div>
+            <p style="text-align: center; color: var(--gris-texte); margin-bottom: 1rem;">
+                💬 <strong>Recevez une réponse immédiate via WhatsApp</strong><br>
+                <small>Le plus fiable et le plus rapide</small>
+            </p>
             <form class="email-form" onsubmit="sendEmail(event)">
                 <input type="text" placeholder="Votre nom complet" required>
                 <input type="email" placeholder="Votre adresse email" required>
                 <input type="text" placeholder="Objet du message" required>
                 <textarea placeholder="Votre message..." required></textarea>
-                <button type="submit" class="btn-send-email">📧 Envoyer l'email</button>
+                <button type="submit" class="btn-send-email">� Envoyer via WhatsApp</button>
             </form>
         </div>
     </div>
@@ -1606,6 +1610,7 @@
             
             const form = event.target;
             const inputs = form.querySelectorAll('input, textarea');
+            const submitBtn = form.querySelector('.btn-send-email');
             
             // Récupérer les valeurs du formulaire
             const nom = inputs[0].value;
@@ -1613,29 +1618,56 @@
             const objet = inputs[2].value;
             const message = inputs[3].value;
             
-            // Créer le sujet et le corps de l'email
-            const subject = encodeURIComponent(`[SITE WEB] - ${objet}`);
-            const body = encodeURIComponent(
-                `Bonjour Othniel,\n\n` +
-                `Vous avez reçu un nouveau message depuis votre site web :\n\n` +
-                `Nom : ${nom}\n` +
-                `Email : ${email}\n` +
-                `Objet : ${objet}\n\n` +
-                `Message :\n${message}\n\n` +
+            // Animation de soumission
+            submitBtn.textContent = '📧 Envoi en cours...';
+            submitBtn.disabled = true;
+            
+            // Créer le message pour WhatsApp (plus fiable)
+            const whatsappMessage = `📧 *NOUVEAU MESSAGE EMAIL* 📧\n\n` +
+                `👤 *Nom:* ${nom}\n` +
+                `📧 *Email:* ${email}\n` +
+                `📝 *Objet:* ${objet}\n\n` +
+                `💬 *Message:*\n${message}\n\n` +
+                `📅 *Date:* ${new Date().toLocaleDateString('fr-FR')}\n` +
                 `---\n` +
-                `Envoyé depuis le site web othnieldelloh.com`
-            );
+                `✨ Envoyé depuis le formulaire email du site web ✨`;
             
-            // Ouvrir le client email par défaut
-            const mailtoLink = `mailto:othnieldelloh@gmail.com?subject=${subject}&body=${body}`;
-            window.location.href = mailtoLink;
+            // Encoder le message pour WhatsApp
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const whatsappUrl = `https://wa.me/2250747651961?text=${encodedMessage}`;
             
-            // Fermer la modale après un court délai
+            // Ouvrir WhatsApp avec le message
+            window.open(whatsappUrl, '_blank');
+            
+            // Alternative Email (backup)
             setTimeout(() => {
+                const subject = encodeURIComponent(`[SITE WEB] - ${objet}`);
+                const body = encodeURIComponent(
+                    `Bonjour Othniel,\n\n` +
+                    `Vous avez reçu un nouveau message depuis votre site web :\n\n` +
+                    `Nom : ${nom}\n` +
+                    `Email : ${email}\n` +
+                    `Objet : ${objet}\n\n` +
+                    `Message :\n${message}\n\n` +
+                    `---\n` +
+                    `Envoyé depuis le site web othnieldelloh.com`
+                );
+                
+                const mailtoLink = `mailto:othnieldelloh@gmail.com?subject=${subject}&body=${body}`;
+                
+                // Proposer l'alternative email
+                if (confirm('WhatsApp s\'est ouvert avec votre message. Voulez-vous également ouvrir votre client email comme sauvegarde ?')) {
+                    window.open(mailtoLink, '_blank');
+                }
+                
+                // Fermer et réinitialiser
                 closeEmailForm();
                 form.reset();
-                showNotification('Votre client email s\'est ouvert avec le message pré-rempli !');
-            }, 1000);
+                submitBtn.textContent = '📧 Envoyer l\'email';
+                submitBtn.disabled = false;
+                
+                showNotification('✅ Message envoyé via WhatsApp ! Vous le recevrez immédiatement.');
+            }, 2000);
         }
 
         // Fermer la modale en cliquant en dehors
