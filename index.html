@@ -848,6 +848,145 @@
                 text-shadow: 0 0 5px var(--doré), 0 0 10px var(--doré), 0 0 15px var(--doré);
             }
         }
+
+        /* ===== MODALE EMAIL ===== */
+        .email-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .email-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .email-modal-content {
+            background: var(--blanc);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--bleu-fonce);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gris-texte);
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--bleu-fonce);
+        }
+
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .email-form input,
+        .email-form textarea {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .email-form input:focus,
+        .email-form textarea:focus {
+            outline: none;
+            border-color: var(--bleu-fonce);
+        }
+
+        .email-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-send-email {
+            background: var(--bleu-fonce);
+            color: var(--blanc);
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-send-email:hover {
+            background: var(--bleu-clair);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== ICÔNE WHATSAPP FLOTTANTE ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -1062,6 +1201,10 @@
                         <div class="contact-icon floating" style="animation-delay: 0.5s">📧</div>
                         <h3 class="gradient-text">Email</h3>
                         <a href="mailto:othnieldelloh@gmail.com" class="pulse-animation">othnieldelloh@gmail.com</a>
+                        <br>
+                        <button class="btn-email pulse-animation" onclick="openEmailForm()" style="margin-top: 10px; padding: 8px 16px; background: var(--doré); color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 0.9rem;">
+                            ✉️ M'envoyer un email
+                        </button>
                     </div>
                     <div class="contact-item fade-in glow-effect">
                         <div class="contact-icon floating" style="animation-delay: 1s">📍</div>
@@ -1074,8 +1217,8 @@
                     <a href="https://linkedin.com/in/othnieldelloh" target="_blank" class="social-link tilt-effect" title="LinkedIn">
                         <span>in</span>
                     </a>
-                    <a href="https://wa.me/2250747651961" target="_blank" class="social-link tilt-effect" title="WhatsApp">
-                        <span>WA</span>
+                    <a href="https://wa.me/2250747651961" target="_blank" class="social-link tilt-effect whatsapp-icon" title="WhatsApp">
+                        <span>📱</span>
                     </a>
                 </div>
             </div>
@@ -1088,6 +1231,28 @@
             <p>&copy; 2024 Othniel Delloh. Tous droits réservés. | Développeur Freelance à Abidjan</p>
         </div>
     </footer>
+
+    <!-- Modale Email -->
+    <div class="email-modal" id="emailModal">
+        <div class="email-modal-content">
+            <div class="modal-header">
+                <h3>✉️ M'envoyer un email</h3>
+                <button class="close-modal" onclick="closeEmailForm()">×</button>
+            </div>
+            <form class="email-form" onsubmit="sendEmail(event)">
+                <input type="text" placeholder="Votre nom complet" required>
+                <input type="email" placeholder="Votre adresse email" required>
+                <input type="text" placeholder="Objet du message" required>
+                <textarea placeholder="Votre message..." required></textarea>
+                <button type="submit" class="btn-send-email">📧 Envoyer l'email</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Icône WhatsApp flottante -->
+    <a href="https://wa.me/2250747651961" target="_blank" class="whatsapp-float" title="Contactez-moi sur WhatsApp">
+        📱
+    </a>
 
     <!-- JavaScript intégré -->
     <script>
@@ -1424,6 +1589,68 @@
         if (servicesSection) {
             servicesObserver.observe(servicesSection);
         }
+
+        // ===== FONCTIONS EMAIL =====
+        function openEmailForm() {
+            document.getElementById('emailModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEmailForm() {
+            document.getElementById('emailModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function sendEmail(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const inputs = form.querySelectorAll('input, textarea');
+            
+            // Récupérer les valeurs du formulaire
+            const nom = inputs[0].value;
+            const email = inputs[1].value;
+            const objet = inputs[2].value;
+            const message = inputs[3].value;
+            
+            // Créer le sujet et le corps de l'email
+            const subject = encodeURIComponent(`[SITE WEB] - ${objet}`);
+            const body = encodeURIComponent(
+                `Bonjour Othniel,\n\n` +
+                `Vous avez reçu un nouveau message depuis votre site web :\n\n` +
+                `Nom : ${nom}\n` +
+                `Email : ${email}\n` +
+                `Objet : ${objet}\n\n` +
+                `Message :\n${message}\n\n` +
+                `---\n` +
+                `Envoyé depuis le site web othnieldelloh.com`
+            );
+            
+            // Ouvrir le client email par défaut
+            const mailtoLink = `mailto:othnieldelloh@gmail.com?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+            
+            // Fermer la modale après un court délai
+            setTimeout(() => {
+                closeEmailForm();
+                form.reset();
+                showNotification('Votre client email s\'est ouvert avec le message pré-rempli !');
+            }, 1000);
+        }
+
+        // Fermer la modale en cliquant en dehors
+        document.getElementById('emailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEmailForm();
+            }
+        });
+
+        // Fermer la modale avec la touche Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeEmailForm();
+            }
+        });
     </script>
 </body>
 </html>
