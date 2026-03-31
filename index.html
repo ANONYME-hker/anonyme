@@ -1,1116 +1,963 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Othniel - Développeur Informatique Freelance | Abidjan</title>
-    <meta name="description" content="Développeur informatique freelance à Abidjan. Spécialisé en applications de gestion, bases de données, sites web et automatisation Excel.">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- CSS intégré -->
-    <style>
-        /* ===== VARIABLES CSS ===== */
-        :root {
-            --bleu-principal: #1A56A0;
-            --bleu-clair: #2E7BC4;
-            --or-accent: #F0A500;
-            --blanc: #FFFFFF;
-            --gris-clair: #F5F7FA;
-            --gris-texte: #6C757D;
-            --noir: #212529;
-            --ombre: rgba(0, 0, 0, 0.1);
-        }
-
-        /* ===== RESET ET BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: var(--noir);
-            background-color: var(--blanc);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== HEADER ET NAVIGATION ===== */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--blanc);
-            box-shadow: 0 2px 10px var(--ombre);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-
-        .logo {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--bleu-principal);
-            text-decoration: none;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-menu a {
-            color: var(--noir);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu a:hover {
-            color: var(--bleu-principal);
-        }
-
-        .btn-devis {
-            background: var(--or-accent);
-            color: var(--blanc);
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .btn-devis:hover {
-            background: #D49400;
-            transform: translateY(-2px);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--noir);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* ===== TYPOGRAPHIE ===== */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        /* ===== SECTIONS COMMUNES ===== */
-        section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--bleu-principal);
-            margin-bottom: 3rem;
-            font-weight: 700;
-        }
-
-        /* ===== ANIMATIONS ===== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ===== HERO SECTION ===== */
-        #hero {
-            background: linear-gradient(135deg, var(--bleu-principal) 0%, var(--bleu-clair) 100%);
-            color: var(--blanc);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            opacity: 0.9;
-            font-weight: 500;
-        }
-
-        .hero-mention {
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            opacity: 0.8;
-            font-style: italic;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: var(--or-accent);
-            color: var(--blanc);
-        }
-
-        .btn-primary:hover {
-            background: #D49400;
-            transform: translateY(-3px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--blanc);
-            border: 2px solid var(--blanc);
-        }
-
-        .btn-secondary:hover {
-            background: var(--blanc);
-            color: var(--bleu-principal);
-        }
-
-        /* ===== SECTION SERVICES ===== */
-        #services {
-            background: var(--gris-clair);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .service-card {
-            background: var(--blanc);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px var(--ombre);
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--ombre);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gris-clair);
-            border-radius: 50%;
-        }
-
-        .service-card h3 {
-            color: var(--bleu-principal);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .service-card p {
-            color: var(--gris-texte);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .service-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--or-accent);
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-service {
-            background: var(--bleu-principal);
-            color: var(--blanc);
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 0.9rem;
-        }
-
-        .btn-service:hover {
-            background: var(--bleu-clair);
-            transform: translateY(-2px);
-        }
-
-        /* ===== MAINTENANCE SECTION ===== */
-        #maintenance {
-            background: var(--blanc);
-        }
-
-        .maintenance-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .maintenance-card {
-            background: var(--gris-clair);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .maintenance-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--ombre);
-        }
-
-        .maintenance-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bleu-principal);
-            border-radius: 50%;
-            color: var(--blanc);
-            font-size: 1.5rem;
-        }
-
-        .maintenance-card h3 {
-            color: var(--bleu-principal);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .maintenance-card p {
-            color: var(--gris-texte);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .maintenance-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--or-accent);
-        }
-
-        /* ===== SECTION PORTFOLIO ===== */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .portfolio-card {
-            background: var(--blanc);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px var(--ombre);
-            transition: all 0.3s ease;
-        }
-
-        .portfolio-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--ombre);
-        }
-
-        .portfolio-image {
-            height: 200px;
-            background: var(--bleu-principal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--blanc);
-            font-size: 3rem;
-        }
-
-        .portfolio-content {
-            padding: 1.5rem;
-        }
-
-        .portfolio-content h3 {
-            color: var(--bleu-principal);
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .portfolio-content p {
-            color: var(--gris-texte);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tech-badge {
-            background: var(--gris-clair);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            color: var(--bleu-principal);
-            font-weight: 500;
-        }
-
-        .project-badge {
-            background: var(--or-accent);
-            color: var(--blanc);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* ===== SECTION DEVIS ===== */
-        #devis {
-            background: var(--blanc);
-        }
-
-        .devis-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--gris-clair);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px var(--ombre);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--bleu-principal);
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--bleu-principal);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .btn-submit {
-            background: var(--or-accent);
-            color: var(--blanc);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .btn-submit:hover {
-            background: #D49400;
-            transform: translateY(-2px);
-        }
-
-        /* ===== SECTION CONTACT ===== */
-        #contact {
-            background: var(--gris-clair);
-        }
-
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .contact-item {
-            background: var(--blanc);
-            padding: 2rem;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--ombre);
-        }
-
-        .contact-item h3 {
-            color: var(--bleu-principal);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .contact-item a {
-            color: var(--bleu-principal);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .contact-item a:hover {
-            color: var(--or-accent);
-        }
-
-        .contact-mention {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: var(--bleu-principal);
-            color: var(--blanc);
-            border-radius: 15px;
-            font-weight: 500;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: var(--noir);
-            color: var(--blanc);
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-nav {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-nav a {
-            color: var(--blanc);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .footer-nav a:hover {
-            color: var(--or-accent);
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                flex-direction: column;
-                background: var(--blanc);
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 0 10px 27px var(--ombre);
-                padding: 2rem 0;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hamburger.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger.active span:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-
-            .hamburger.active span:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-
-            .btn-primary, .btn-secondary {
-                width: 250px;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .service-card {
-                padding: 1.5rem;
-            }
-
-            .maintenance-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .devis-form {
-                padding: 1.5rem;
-            }
-
-            .contact-info {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .contact-item {
-                padding: 1.5rem;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 1.8rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-
-            .btn-primary, .btn-secondary {
-                width: 200px;
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-            }
-
-            .service-card {
-                padding: 1rem;
-            }
-
-            .maintenance-card {
-                padding: 1.5rem;
-            }
-
-            .devis-form {
-                padding: 1rem;
-            }
-
-            .contact-item {
-                padding: 1rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Othniel — Développeur Informatique Freelance | Abidjan</title>
+<meta name="description" content="Développeur informatique freelance à Abidjan. Applications de gestion, bases de données, sites web et automatisation Excel. Tarifs adaptés startups et PME.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #1A56A0;
+  --blue-dark: #0D3A6E;
+  --blue-mid: #1e6bbf;
+  --gold: #F0A500;
+  --gold-light: #FFD166;
+  --white: #FFFFFF;
+  --off-white: #F8F9FC;
+  --gray: #F0F3F8;
+  --text: #1A1F2E;
+  --muted: #6B7280;
+  --border: rgba(26,86,160,0.1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  color:var(--text);
+  background:var(--white);
+  overflow-x:hidden;
+}
+
+/* ===== HEADER ===== */
+header{
+  position:fixed;top:0;width:100%;z-index:1000;
+  padding:0 0;
+  transition:all 0.4s ease;
+}
+header.scrolled{
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 var(--border), 0 8px 32px rgba(26,86,160,0.08);
+}
+nav{
+  max-width:1200px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.1rem 2rem;
+}
+.logo{
+  font-family:'Syne',sans-serif;
+  font-size:1.4rem;font-weight:800;
+  color:var(--white);text-decoration:none;
+  letter-spacing:-0.02em;
+  transition:color 0.3s;
+}
+header.scrolled .logo{color:var(--blue-dark);}
+
+.nav-links{display:flex;list-style:none;gap:2.5rem;align-items:center;}
+.nav-links a{
+  color:rgba(255,255,255,0.85);text-decoration:none;
+  font-size:0.9rem;font-weight:500;letter-spacing:0.01em;
+  transition:color 0.3s;
+}
+header.scrolled .nav-links a{color:var(--muted);}
+.nav-links a:hover{color:var(--gold)!important;}
+
+.nav-cta{
+  background:var(--gold);color:var(--white)!important;
+  padding:0.55rem 1.3rem;border-radius:100px;
+  font-weight:600;font-size:0.85rem;
+  transition:all 0.3s!important;
+}
+.nav-cta:hover{background:#d49400!important;transform:translateY(-1px);box-shadow:0 4px 16px rgba(240,165,0,0.35);}
+
+.hamburger{display:none;flex-direction:column;cursor:pointer;gap:5px;}
+.hamburger span{
+  width:22px;height:2px;
+  background:var(--white);border-radius:2px;
+  transition:all 0.3s;display:block;
+}
+header.scrolled .hamburger span{background:var(--text);}
+.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* ===== HERO ===== */
+#hero{
+  min-height:100vh;
+  background:var(--blue-dark);
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+}
+
+/* Grille géométrique de fond */
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+
+/* Cercles décoratifs */
+.hero-deco{
+  position:absolute;top:-100px;right:-100px;
+  width:500px;height:500px;border-radius:50%;
+  border:1px solid rgba(240,165,0,0.15);
+  pointer-events:none;
+}
+.hero-deco::before{
+  content:'';position:absolute;inset:60px;border-radius:50%;
+  border:1px solid rgba(240,165,0,0.1);
+}
+.hero-deco::after{
+  content:'';position:absolute;inset:130px;border-radius:50%;
+  border:1px solid rgba(240,165,0,0.07);
+}
+
+.hero-deco-2{
+  position:absolute;bottom:-150px;left:-80px;
+  width:350px;height:350px;border-radius:50%;
+  border:1px solid rgba(255,255,255,0.04);
+  pointer-events:none;
+}
+
+.hero-inner{
+  max-width:1200px;margin:0 auto;padding:0 2rem;
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:rgba(240,165,0,0.15);border:1px solid rgba(240,165,0,0.3);
+  color:var(--gold-light);padding:0.4rem 1rem;border-radius:100px;
+  font-size:0.8rem;font-weight:500;letter-spacing:0.05em;
+  margin-bottom:1.5rem;
+}
+.hero-badge::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--gold);display:block;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.5);}}
+
+.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:3.4rem;font-weight:800;line-height:1.1;
+  color:var(--white);letter-spacing:-0.03em;
+  margin-bottom:1.2rem;
+}
+.hero-title span{color:var(--gold);}
+
+.hero-sub{
+  font-size:1.05rem;color:rgba(255,255,255,0.65);
+  line-height:1.7;margin-bottom:2rem;font-weight:300;
+}
+
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+
+.btn-gold{
+  background:var(--gold);color:var(--white);
+  padding:0.85rem 1.8rem;border-radius:100px;
+  text-decoration:none;font-weight:600;font-size:0.95rem;
+  transition:all 0.3s;display:inline-flex;align-items:center;gap:0.5rem;
+}
+.btn-gold:hover{background:#d49400;transform:translateY(-2px);box-shadow:0 8px 24px rgba(240,165,0,0.4);}
+
+.btn-outline{
+  background:transparent;color:var(--white);
+  padding:0.85rem 1.8rem;border-radius:100px;
+  border:1px solid rgba(255,255,255,0.25);
+  text-decoration:none;font-weight:500;font-size:0.95rem;
+  transition:all 0.3s;display:inline-flex;align-items:center;gap:0.5rem;
+}
+.btn-outline:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.5);}
+
+/* Carte hero droite */
+.hero-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;padding:2rem;
+  backdrop-filter:blur(10px);
+}
+.hero-card-title{
+  font-family:'Syne',sans-serif;
+  font-size:0.75rem;font-weight:600;
+  color:var(--gold);letter-spacing:0.1em;
+  text-transform:uppercase;margin-bottom:1.5rem;
+}
+.skill-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:0.75rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.skill-item:last-child{border-bottom:none;}
+.skill-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+}
+.skill-name{color:rgba(255,255,255,0.8);font-size:0.9rem;font-weight:500;}
+.skill-tag{
+  margin-left:auto;background:rgba(26,86,160,0.4);
+  color:rgba(255,255,255,0.5);
+  padding:0.2rem 0.6rem;border-radius:100px;
+  font-size:0.75rem;
+}
+
+/* ===== SECTIONS COMMUNES ===== */
+.section{padding:90px 0;}
+.container{max-width:1200px;margin:0 auto;padding:0 2rem;}
+
+.section-label{
+  font-size:0.75rem;font-weight:600;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:0.75rem;
+}
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:2.4rem;font-weight:800;
+  color:var(--blue-dark);letter-spacing:-0.02em;
+  margin-bottom:1rem;line-height:1.15;
+}
+.section-sub{
+  color:var(--muted);font-size:1rem;
+  max-width:520px;line-height:1.7;
+  margin-bottom:3rem;
+}
+
+/* ===== SERVICES ===== */
+#services{background:var(--off-white);}
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.services-grid .service-card:last-child:nth-child(3n+2){
+  grid-column:2;
+}
+
+.service-card{
+  background:var(--white);border-radius:16px;
+  padding:2rem;
+  border:1px solid var(--border);
+  transition:all 0.35s ease;
+  position:relative;overflow:hidden;
+}
+.service-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--gold));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.35s ease;
+}
+.service-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 40px rgba(26,86,160,0.12);
+  border-color:rgba(26,86,160,0.2);
+}
+.service-card:hover::before{transform:scaleX(1);}
+
+.service-icon-wrap{
+  width:52px;height:52px;border-radius:12px;
+  background:var(--gray);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;
+  transition:background 0.3s;
+}
+.service-card:hover .service-icon-wrap{background:rgba(26,86,160,0.08);}
+.service-icon-wrap svg{stroke:var(--blue);}
+
+.service-card h3{
+  font-family:'Syne',sans-serif;
+  font-size:1.05rem;font-weight:700;
+  color:var(--blue-dark);margin-bottom:0.6rem;
+}
+.service-card p{
+  color:var(--muted);font-size:0.9rem;line-height:1.6;
+  margin-bottom:1.5rem;
+}
+.service-devis-btn{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  color:var(--blue);font-weight:600;font-size:0.85rem;
+  background:none;border:none;cursor:pointer;
+  padding:0;font-family:'DM Sans',sans-serif;
+  transition:gap 0.2s,color 0.2s;
+}
+.service-devis-btn:hover{color:var(--gold);gap:0.7rem;}
+.service-devis-btn svg{transition:transform 0.2s;}
+.service-devis-btn:hover svg{transform:translateX(3px);}
+
+/* ===== MAINTENANCE ===== */
+#maintenance{background:var(--blue-dark);position:relative;overflow:hidden;}
+#maintenance::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+  background-size:50px 50px;
+}
+#maintenance .section-title{color:var(--white);}
+#maintenance .section-sub{color:rgba(255,255,255,0.5);}
+#maintenance .section-label{color:var(--gold);}
+
+.maint-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  position:relative;z-index:1;
+}
+.maint-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;padding:2rem;
+  transition:all 0.3s;
+}
+.maint-card:hover{
+  background:rgba(255,255,255,0.08);
+  border-color:rgba(240,165,0,0.3);
+  transform:translateY(-4px);
+}
+.maint-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:rgba(240,165,0,0.15);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;
+}
+.maint-icon svg{stroke:var(--gold);}
+.maint-card h3{
+  font-family:'Syne',sans-serif;
+  color:var(--white);font-size:1.05rem;font-weight:700;
+  margin-bottom:0.6rem;
+}
+.maint-card p{color:rgba(255,255,255,0.5);font-size:0.88rem;line-height:1.6;margin-bottom:1.2rem;}
+.maint-price{
+  color:var(--gold-light);font-weight:600;font-size:0.95rem;
+  margin-bottom:1.2rem;
+}
+.maint-btn{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  color:rgba(255,255,255,0.6);font-size:0.82rem;font-weight:500;
+  background:none;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;padding:0;
+  transition:color 0.2s,gap 0.2s;
+}
+.maint-btn:hover{color:var(--gold);gap:0.7rem;}
+
+/* ===== PORTFOLIO ===== */
+#portfolio{background:var(--off-white);}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.portfolio-card{
+  background:var(--white);border-radius:16px;
+  overflow:hidden;border:1px solid var(--border);
+  transition:all 0.35s;
+}
+.portfolio-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(26,86,160,0.1);}
+
+.portfolio-thumb{
+  height:160px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.portfolio-thumb svg{width:64px;height:64px;opacity:0.9;}
+
+/* Couleurs différentes par projet */
+.portfolio-card:nth-child(1) .portfolio-thumb{background:linear-gradient(135deg,#0D3A6E,#1A56A0);}
+.portfolio-card:nth-child(2) .portfolio-thumb{background:linear-gradient(135deg,#1A56A0,#2E7BC4);}
+.portfolio-card:nth-child(3) .portfolio-thumb{background:linear-gradient(135deg,#0D3A6E,#1e6bbf);}
+
+.portfolio-body{padding:1.5rem;}
+.portfolio-body h3{
+  font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;
+  color:var(--blue-dark);margin-bottom:0.5rem;
+}
+.portfolio-body p{color:var(--muted);font-size:0.87rem;line-height:1.6;margin-bottom:1rem;}
+.badges{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;}
+.tech{
+  background:var(--gray);color:var(--blue);
+  padding:0.25rem 0.7rem;border-radius:100px;
+  font-size:0.75rem;font-weight:500;
+}
+.badge-done{
+  background:rgba(16,185,129,0.1);color:#059669;
+  padding:0.25rem 0.7rem;border-radius:100px;
+  font-size:0.75rem;font-weight:600;
+}
+
+/* ===== DEVIS ===== */
+#devis{background:var(--white);}
+.devis-wrap{
+  display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start;
+}
+.devis-left h3{
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;font-weight:700;color:var(--blue-dark);
+  margin-bottom:1rem;
+}
+.devis-left p{color:var(--muted);font-size:0.9rem;line-height:1.7;margin-bottom:2rem;}
+.devis-promise{
+  display:flex;flex-direction:column;gap:0.75rem;
+}
+.promise-item{
+  display:flex;align-items:center;gap:0.75rem;
+  font-size:0.88rem;color:var(--text);font-weight:500;
+}
+.promise-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+}
+
+.devis-form{
+  background:var(--off-white);border-radius:20px;
+  padding:2.5rem;border:1px solid var(--border);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-group{margin-bottom:1.25rem;}
+.form-group label{
+  display:block;margin-bottom:0.4rem;
+  font-size:0.82rem;font-weight:600;
+  color:var(--blue-dark);letter-spacing:0.02em;
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;padding:0.75rem 1rem;
+  border:1px solid var(--border);border-radius:10px;
+  font-size:0.9rem;font-family:'DM Sans',sans-serif;
+  color:var(--text);background:var(--white);
+  transition:border-color 0.3s,box-shadow 0.3s;
+  appearance:none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  outline:none;border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(26,86,160,0.08);
+}
+.form-group textarea{min-height:110px;resize:vertical;}
+
+.btn-send{
+  width:100%;background:var(--blue);color:var(--white);
+  padding:0.95rem;border:none;border-radius:10px;
+  font-size:0.95rem;font-weight:600;cursor:pointer;
+  font-family:'Syne',sans-serif;letter-spacing:0.02em;
+  transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.5rem;
+}
+.btn-send:hover{background:var(--blue-mid);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,86,160,0.25);}
+
+/* ===== CONTACT ===== */
+#contact{background:var(--off-white);}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem;}
+.contact-card{
+  background:var(--white);border-radius:16px;
+  padding:2rem;border:1px solid var(--border);
+  text-align:center;transition:all 0.3s;
+}
+.contact-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(26,86,160,0.08);}
+.contact-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:var(--gray);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1rem;
+}
+.contact-icon svg{stroke:var(--blue);}
+.contact-card h3{
+  font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;
+  color:var(--muted);letter-spacing:0.05em;text-transform:uppercase;
+  margin-bottom:0.5rem;
+}
+.contact-card a{
+  color:var(--blue-dark);text-decoration:none;font-weight:500;font-size:0.9rem;
+  transition:color 0.2s;display:block;
+}
+.contact-card a:hover{color:var(--gold);}
+
+.contact-banner{
+  background:var(--blue-dark);border-radius:16px;
+  padding:2rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  flex-wrap:wrap;
+}
+.contact-banner p{color:rgba(255,255,255,0.7);font-size:0.9rem;}
+.contact-banner strong{color:var(--white);font-family:'Syne',sans-serif;font-size:1.1rem;display:block;margin-bottom:0.25rem;}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--text);
+  padding:2rem 0;
+}
+.footer-inner{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{
+  font-family:'Syne',sans-serif;font-weight:800;
+  color:var(--white);font-size:1.1rem;text-decoration:none;
+}
+.footer-copy{color:rgba(255,255,255,0.35);font-size:0.82rem;}
+.footer-nav{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-nav a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.82rem;transition:color 0.2s;}
+.footer-nav a:hover{color:var(--gold);}
+
+/* ===== FADE IN ===== */
+.fade{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade.in{opacity:1;transform:translateY(0);}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .hero-title{font-size:2.5rem;}
+  .hero-card{display:none;}
+  .services-grid{grid-template-columns:1fr 1fr;}
+  .services-grid .service-card:last-child:nth-child(3n+2){grid-column:auto;}
+  .maint-grid{grid-template-columns:1fr 1fr;}
+  .portfolio-grid{grid-template-columns:1fr 1fr;}
+  .devis-wrap{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .nav-links{
+    position:fixed;top:0;left:-100%;width:100%;height:100vh;
+    flex-direction:column;justify-content:center;
+    background:var(--blue-dark);gap:2rem;
+    transition:left 0.4s ease;z-index:999;
+  }
+  .nav-links.open{left:0;}
+  .nav-links a{font-size:1.1rem;color:rgba(255,255,255,0.8)!important;}
+  .nav-links .nav-cta{font-size:1rem;}
+  .hamburger{display:flex;z-index:1000;}
+  .hero-title{font-size:2rem;}
+  .section-title{font-size:1.8rem;}
+  .services-grid,.maint-grid,.portfolio-grid,.contact-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .contact-banner{flex-direction:column;}
+  .footer-inner{flex-direction:column;text-align:center;}
+}
+</style>
 </head>
 <body>
-    <!-- Header Fixe -->
-    <header>
-        <nav class="container">
-            <a href="#hero" class="logo">Othniel</a>
-            <ul class="nav-menu">
-                <li><a href="#hero">Accueil</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#devis">Devis</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#devis" class="btn-devis">Devis gratuit</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section id="hero">
-        <div class="container">
-            <div class="hero-content fade-in">
-                <h1 class="hero-title">Des solutions informatiques sur mesure pour votre entreprise</h1>
-                <p class="hero-subtitle">Applications • Bases de données • Sites web • Automatisation</p>
-                <p class="hero-mention">Tarifs adaptés aux startups et PME — Devis gratuit sous 24h</p>
-                <div class="hero-buttons">
-                    <a href="#services" class="btn-primary">Voir mes services</a>
-                    <a href="https://wa.me/+2250747651961" target="_blank" class="btn-secondary">WhatsApp</a>
-                </div>
-            </div>
+<!-- ===== HEADER ===== -->
+<header id="header">
+  <nav>
+    <a href="#hero" class="logo">Othniel</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#maintenance">Maintenance</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#devis" class="nav-cta">Devis gratuit</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-deco"></div>
+  <div class="hero-deco-2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">Disponible — Abidjan, Côte d'Ivoire</div>
+      <h1 class="hero-title">Solutions<br>informatiques<br><span>sur mesure</span></h1>
+      <p class="hero-sub">Applications de gestion, bases de données, sites web et automatisation. Tarifs adaptés aux startups et PME — devis gratuit sous 24h.</p>
+      <div class="hero-btns">
+        <a href="#devis" class="btn-gold">
+          Demander un devis
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://wa.me/+2250747651961" target="_blank" class="btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="hero-card fade">
+      <div class="hero-card-title">Stack technique</div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">WinDev / WebDev</span><span class="skill-tag">Desktop</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">HFSQL Client/Server</span><span class="skill-tag">BDD</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">SQL Server / MySQL</span><span class="skill-tag">BDD</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">HTML / CSS / JS</span><span class="skill-tag">Web</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Excel VBA</span><span class="skill-tag">Auto</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="fade">
+      <div class="section-label">Ce que je fais</div>
+      <h2 class="section-title">Mes services</h2>
+      <p class="section-sub">Des solutions concrètes adaptées à votre activité. Chaque projet est unique — devis gratuit et sans engagement.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card fade">
+        <div class="service-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
-    </section>
+        <h3>Application de gestion</h3>
+        <p>Stock, caisse, RH, facturation — une interface simple adaptée à votre activité et à vos équipes.</p>
+        <button class="service-devis-btn" onclick="wa('Application de gestion')">
+          Demander un devis
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
 
-    <!-- Services Section -->
-    <section id="services">
-        <div class="container">
-            <h2 class="section-title fade-in">Mes Services</h2>
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <!-- SVG Application de gestion -->
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2"/>
-                            <path d="M3 9h18"/>
-                            <path d="M9 21V9"/>
-                        </svg>
-                    </div>
-                    <h3>Application de gestion</h3>
-                    <p>Développement d'applications complètes : stock, caisse, gestion RH, facturation, etc.</p>
-                    <div class="service-price">à partir de 75 000 FCFA</div>
-                    <button class="btn-service" onclick="openWhatsApp('Application de gestion')">Demander un devis</button>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <!-- SVG Base de données -->
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <ellipse cx="12" cy="5" rx="9" ry="3"/>
-                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-                        </svg>
-                    </div>
-                    <h3>Base de données + formulaires</h3>
-                    <p>Création de bases de données robustes avec interfaces de saisie intuitives.</p>
-                    <div class="service-price">à partir de 40 000 FCFA</div>
-                    <button class="btn-service" onclick="openWhatsApp('Base de données + formulaires')">Demander un devis</button>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <!-- SVG Site web -->
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M2 12h20"/>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1 4-10"/>
-                        </svg>
-                    </div>
-                    <h3>Site web vitrine</h3>
-                    <p>Sites web professionnels, modernes et responsives pour présenter votre activité.</p>
-                    <div class="service-price">à partir de 60 000 FCFA</div>
-                    <button class="btn-service" onclick="openWhatsApp('Site web vitrine')">Demander un devis</button>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <!-- SVG Automatisation Excel -->
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="16" y1="17" x2="8" y2="17"/>
-                            <polyline points="10 9 9 9 8 9"/>
-                        </svg>
-                    </div>
-                    <h3>Automatisation Excel</h3>
-                    <p>Macros et VBA pour automatiser vos tâches répétitives et gagner du temps.</p>
-                    <div class="service-price">à partir de 25 000 FCFA</div>
-                    <button class="btn-service" onclick="openWhatsApp('Automatisation Excel')">Demander un devis</button>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <!-- SVG Correction -->
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                        </svg>
-                    </div>
-                    <h3>Correction d'application</h3>
-                    <p>Débuggage et correction de bugs dans vos applications existantes.</p>
-                    <div class="service-price">à partir de 15 000 FCFA</div>
-                    <button class="btn-service" onclick="openWhatsApp('Correction d\'application')">Demander un devis</button>
-                </div>
-            </div>
+      <div class="service-card fade">
+        <div class="service-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
         </div>
-    </section>
+        <h3>Base de données + formulaires</h3>
+        <p>Saisie structurée, alertes automatiques, données toujours accessibles. Fini les cahiers papier.</p>
+        <button class="service-devis-btn" onclick="wa('Base de données + formulaires')">
+          Demander un devis
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
 
-    <!-- Maintenance Section -->
-    <section id="maintenance">
-        <div class="container">
-            <h2 class="section-title fade-in">Maintenance Mensuelle</h2>
-            <div class="maintenance-grid">
-                <div class="maintenance-card fade-in">
-                    <div class="maintenance-icon">🌐</div>
-                    <h3>Site web</h3>
-                    <p>Maintenance, mises à jour, sauvegardes et support technique.</p>
-                    <div class="maintenance-price">à partir de 10 000 FCFA/mois</div>
-                </div>
-                <div class="maintenance-card fade-in">
-                    <div class="maintenance-icon">💼</div>
-                    <h3>Application</h3>
-                    <p>Support, évolution et maintenance de vos applications métier.</p>
-                    <div class="maintenance-price">à partir de 15 000 FCFA/mois</div>
-                </div>
-                <div class="maintenance-card fade-in">
-                    <div class="maintenance-icon">📦</div>
-                    <h3>Pack complet</h3>
-                    <p>Maintenance site + application + priorité sur interventions.</p>
-                    <div class="maintenance-price">à partir de 30 000 FCFA/mois</div>
-                </div>
-            </div>
+      <div class="service-card fade">
+        <div class="service-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         </div>
-    </section>
+        <h3>Site web vitrine</h3>
+        <p>Présence en ligne professionnelle, responsive, optimisée mobile. Vos clients vous trouvent facilement.</p>
+        <button class="service-devis-btn" onclick="wa('Site web vitrine')">
+          Demander un devis
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio">
-        <div class="container">
-            <h2 class="section-title fade-in">Portfolio</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-card fade-in">
-                    <div class="portfolio-image">👥</div>
-                    <div class="portfolio-content">
-                        <h3>App RH multi-sites</h3>
-                        <p>Application de gestion RH déployée sur plusieurs sites avec synchronisation centralisée.</p>
-                        <div class="tech-stack">
-                            <span class="tech-badge">WinDev</span>
-                            <span class="tech-badge">HFSQL</span>
-                            <span class="tech-badge">Multi-sites</span>
-                        </div>
-                        <span class="project-badge">Projet réalisé</span>
-                    </div>
-                </div>
-                <div class="portfolio-card fade-in">
-                    <div class="portfolio-image">📦</div>
-                    <div class="portfolio-content">
-                        <h3>Gestion de stock</h3>
-                        <p>Système complet avec suivi en temps réel, alertes et rapports détaillés.</p>
-                        <div class="tech-stack">
-                            <span class="tech-badge">WinDev</span>
-                            <span class="tech-badge">SQL Server</span>
-                            <span class="tech-badge">Reporting</span>
-                        </div>
-                        <span class="project-badge">Projet réalisé</span>
-                    </div>
-                </div>
-                <div class="portfolio-card fade-in">
-                    <div class="portfolio-image">🏢</div>
-                    <div class="portfolio-content">
-                        <h3>Site vitrine PME</h3>
-                        <p>Site web moderne avec galerie de projets et formulaire de contact.</p>
-                        <div class="tech-stack">
-                            <span class="tech-badge">HTML</span>
-                            <span class="tech-badge">CSS</span>
-                            <span class="tech-badge">JavaScript</span>
-                        </div>
-                        <span class="project-badge">Projet réalisé</span>
-                    </div>
-                </div>
-            </div>
+      <div class="service-card fade">
+        <div class="service-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
-    </section>
+        <h3>Automatisation Excel</h3>
+        <p>Rapports automatiques, bulletins en 1 clic, calculs instantanés. Ce qui prenait 2 jours se fait en 10 minutes.</p>
+        <button class="service-devis-btn" onclick="wa('Automatisation Excel')">
+          Demander un devis
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
 
-    <!-- Formulaire Devis Section -->
-    <section id="devis">
-        <div class="container">
-            <h2 class="section-title fade-in">Demande de Devis</h2>
-            <form class="devis-form fade-in" id="devisForm">
-                <div class="form-group">
-                    <label for="nom">Nom complet *</label>
-                    <input type="text" id="nom" name="nom" required>
-                </div>
-                <div class="form-group">
-                    <label for="entreprise">Entreprise</label>
-                    <input type="text" id="entreprise" name="entreprise">
-                </div>
-                <div class="form-group">
-                    <label for="whatsapp">WhatsApp *</label>
-                    <input type="tel" id="whatsapp" name="whatsapp" required>
-                </div>
-                <div class="form-group">
-                    <label for="service">Type de service *</label>
-                    <select id="service" name="service" required>
-                        <option value="">Choisir un service</option>
-                        <option value="Application de gestion">Application de gestion</option>
-                        <option value="Base de données + formulaires">Base de données + formulaires</option>
-                        <option value="Site web vitrine">Site web vitrine</option>
-                        <option value="Automatisation Excel">Automatisation Excel</option>
-                        <option value="Correction d'application">Correction d'application</option>
-                        <option value="Maintenance mensuelle">Maintenance mensuelle</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description du besoin *</label>
-                    <textarea id="description" name="description" required placeholder="Décrivez votre projet en détail..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="budget">Budget *</label>
-                    <select id="budget" name="budget" required>
-                        <option value="">Choisir une fourchette</option>
-                        <option value="Moins de 50 000 FCFA">Moins de 50 000 FCFA</option>
-                        <option value="50 000 – 150 000 FCFA">50 000 – 150 000 FCFA</option>
-                        <option value="150 000 – 300 000 FCFA">150 000 – 300 000 FCFA</option>
-                        <option value="300 000+ FCFA">300 000+ FCFA</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-submit">Envoyer la demande</button>
-            </form>
+      <div class="service-card fade">
+        <div class="service-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         </div>
-    </section>
+        <h3>Correction d'application</h3>
+        <p>Bug, lenteur, fonctionnalité manquante — diagnostic rapide et correction sans tout refaire.</p>
+        <button class="service-devis-btn" onclick="wa('Correction d\'application')">
+          Demander un devis
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title fade-in">Contact</h2>
-            <div class="contact-content fade-in">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <h3>📱 WhatsApp Principal</h3>
-                        <a href="https://wa.me/+2250747651961" target="_blank">+225 07 47 65 19 61</a>
-                    </div>
-                    <div class="contact-item">
-                        <h3>📱 WhatsApp Secondaire</h3>
-                        <a href="https://wa.me/+2250103451452" target="_blank">+225 01 03 45 14 52</a>
-                    </div>
-                    <div class="contact-item">
-                        <h3>📧 Email</h3>
-                        <a href="mailto:othnieldelloh@gmail.com">othnieldelloh@gmail.com</a>
-                    </div>
-                </div>
-                <div class="contact-mention">
-                    📍 Abidjan, Côte d'Ivoire<br>
-                    ⏰ Réponse sous 24h — Devis gratuit et sans engagement
-                </div>
-            </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MAINTENANCE ===== -->
+<section id="maintenance" class="section">
+  <div class="container">
+    <div class="fade">
+      <div class="section-label">Abonnement mensuel</div>
+      <h2 class="section-title">Maintenance</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.5)">Votre outil fonctionne en permanence. Sans engagement longue durée.</p>
+    </div>
+    <div class="maint-grid">
+      <div class="maint-card fade">
+        <div class="maint-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2024 Othniel - Tous droits réservés</p>
-                <nav class="footer-nav">
-                    <a href="#hero">Accueil</a>
-                    <a href="#services">Services</a>
-                    <a href="#portfolio">Portfolio</a>
-                    <a href="#devis">Devis</a>
-                    <a href="#contact">Contact</a>
-                </nav>
-            </div>
+        <h3>Site web</h3>
+        <p>Mises à jour, sécurité, sauvegardes et corrections.</p>
+        <div class="maint-price">Sur devis / mois</div>
+        <button class="maint-btn" onclick="wa('Maintenance site web')">
+          En savoir plus
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div class="maint-card fade">
+        <div class="maint-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
-    </footer>
+        <h3>Application</h3>
+        <p>Support, corrections et évolutions légères de vos applications.</p>
+        <div class="maint-price">Sur devis / mois</div>
+        <button class="maint-btn" onclick="wa('Maintenance application')">
+          En savoir plus
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div class="maint-card fade">
+        <div class="maint-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <h3>Pack complet</h3>
+        <p>App + site + support utilisateurs. Priorité sur les interventions.</p>
+        <div class="maint-price">Sur devis / mois</div>
+        <button class="maint-btn" onclick="wa('Pack maintenance complet')">
+          En savoir plus
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // ===== MENU HAMBURGER =====
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+<!-- ===== PORTFOLIO ===== -->
+<section id="portfolio" class="section">
+  <div class="container">
+    <div class="fade">
+      <div class="section-label">Projets réalisés</div>
+      <h2 class="section-title">Portfolio</h2>
+      <p class="section-sub">Quelques exemples de projets développés. Chaque solution est adaptée aux besoins spécifiques du client.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card fade">
+        <div class="portfolio-thumb">
+          <svg viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="1.5">
+            <circle cx="32" cy="22" r="10"/><path d="M10 54c0-12 10-20 22-20s22 8 22 20"/>
+            <circle cx="50" cy="20" r="7"/><path d="M57 40c0-8 4-13 7-13"/>
+            <circle cx="14" cy="20" r="7"/><path d="M7 40c0-8-4-13-7-13"/>
+          </svg>
+        </div>
+        <div class="portfolio-body">
+          <h3>Application RH multi-sites</h3>
+          <p>Gestion des contrats, congés et paie déployée sur plusieurs sites avec synchronisation centralisée.</p>
+          <div class="badges">
+            <span class="tech">WinDev</span>
+            <span class="tech">HFSQL</span>
+            <span class="tech">Multi-sites</span>
+          </div>
+          <span class="badge-done">Projet réalisé</span>
+        </div>
+      </div>
+      <div class="portfolio-card fade">
+        <div class="portfolio-thumb">
+          <svg viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="1.5">
+            <rect x="8" y="16" width="48" height="36" rx="3"/><path d="M8 24h48M20 16V8M44 16V8"/>
+            <path d="M18 34h8M18 42h14M38 34h8M38 42h8"/>
+          </svg>
+        </div>
+        <div class="portfolio-body">
+          <h3>Système de gestion de stock</h3>
+          <p>Suivi en temps réel des entrées/sorties, alertes de rupture et rapports automatiques pour la direction.</p>
+          <div class="badges">
+            <span class="tech">WinDev</span>
+            <span class="tech">SQL Server</span>
+            <span class="tech">Reporting</span>
+          </div>
+          <span class="badge-done">Projet réalisé</span>
+        </div>
+      </div>
+      <div class="portfolio-card fade">
+        <div class="portfolio-thumb">
+          <svg viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="1.5">
+            <rect x="6" y="10" width="52" height="36" rx="3"/>
+            <path d="M6 18h52M22 46v8M42 46v8M14 54h36"/>
+            <rect x="14" y="24" width="16" height="14" rx="2"/>
+            <path d="M36 26h12M36 32h10M36 38h8"/>
+          </svg>
+        </div>
+        <div class="portfolio-body">
+          <h3>Site vitrine PME</h3>
+          <p>Site web moderne avec présentation des services, galerie de projets et formulaire de contact WhatsApp.</p>
+          <div class="badges">
+            <span class="tech">HTML</span>
+            <span class="tech">CSS</span>
+            <span class="tech">JavaScript</span>
+          </div>
+          <span class="badge-done">Projet réalisé</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+<!-- ===== DEVIS ===== -->
+<section id="devis" class="section">
+  <div class="container">
+    <div class="fade">
+      <div class="section-label">Gratuit et sans engagement</div>
+      <h2 class="section-title">Demande de devis</h2>
+    </div>
+    <div class="devis-wrap">
+      <div class="devis-left fade">
+        <h3>Comment ça marche ?</h3>
+        <p>Remplissez le formulaire, votre message arrive directement sur mon WhatsApp. Je vous réponds sous 24h avec une estimation claire et un plan d'action.</p>
+        <div class="devis-promise">
+          <div class="promise-item"><div class="promise-dot"></div>Devis gratuit et sans engagement</div>
+          <div class="promise-item"><div class="promise-dot"></div>Réponse sous 24h garantie</div>
+          <div class="promise-item"><div class="promise-dot"></div>Acompte 50% à la signature seulement</div>
+          <div class="promise-item"><div class="promise-dot"></div>Contrat simple fourni pour chaque projet</div>
+          <div class="promise-item"><div class="promise-dot"></div>Délai de livraison défini ensemble</div>
+        </div>
+      </div>
+      <form class="devis-form fade" id="devisForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nom complet *</label>
+            <input type="text" id="nom" required placeholder="Votre nom">
+          </div>
+          <div class="form-group">
+            <label>Entreprise</label>
+            <input type="text" id="entreprise" placeholder="Optionnel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp *</label>
+          <input type="tel" id="phone" required placeholder="+225 ...">
+        </div>
+        <div class="form-group">
+          <label>Service souhaité *</label>
+          <select id="service" required>
+            <option value="">Choisir un service</option>
+            <option>Application de gestion</option>
+            <option>Base de données + formulaires</option>
+            <option>Site web vitrine</option>
+            <option>Automatisation Excel</option>
+            <option>Correction d'application</option>
+            <option>Maintenance mensuelle</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Décrivez votre besoin *</label>
+          <textarea id="desc" required placeholder="Qu'est-ce que vous souhaitez réaliser ? Plus c'est précis, mieux c'est."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Budget approximatif</label>
+          <select id="budget">
+            <option value="">Pas encore défini</option>
+            <option>Moins de 50 000 FCFA</option>
+            <option>50 000 – 150 000 FCFA</option>
+            <option>150 000 – 300 000 FCFA</option>
+            <option>300 000+ FCFA</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-send">
+          Envoyer sur WhatsApp
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
 
-        // Fermer le menu quand on clique sur un lien
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="fade">
+      <div class="section-label">Me joindre</div>
+      <h2 class="section-title">Contact</h2>
+    </div>
+    <div class="contact-grid fade">
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </div>
+        <h3>WhatsApp 1</h3>
+        <a href="https://wa.me/+2250747651961" target="_blank">+225 07 47 65 19 61</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </div>
+        <h3>WhatsApp 2</h3>
+        <a href="https://wa.me/+2250103451452" target="_blank">+225 01 03 45 14 52</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <h3>Email</h3>
+        <a href="mailto:othnieldelloh@gmail.com">othnieldelloh@gmail.com</a>
+      </div>
+    </div>
+    <div class="contact-banner fade">
+      <div>
+        <strong>Disponible soirs et week-ends</strong>
+        <p>Abidjan, Côte d'Ivoire — Réponse sous 24h garantie</p>
+      </div>
+      <a href="https://wa.me/+2250747651961?text=Bonjour%20Othniel%2C%20je%20souhaite%20discuter%20d'un%20projet." target="_blank" class="btn-gold">
+        Démarrer une conversation
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
 
-        // ===== ANIMATIONS AU SCROLL =====
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#hero" class="footer-logo">Othniel</a>
+      <span class="footer-copy">&copy; 2026 — Tous droits réservés</span>
+      <nav class="footer-nav">
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#devis">Devis</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+</footer>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+<script>
+// Header scroll
+const header=document.getElementById('header');
+window.addEventListener('scroll',()=>{
+  header.classList.toggle('scrolled',window.scrollY>60);
+});
 
-        // Observer tous les éléments avec la classe fade-in
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+// Hamburger
+const hb=document.getElementById('hamburger');
+const nl=document.getElementById('navLinks');
+hb.addEventListener('click',()=>{
+  hb.classList.toggle('active');
+  nl.classList.toggle('open');
+});
+nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  hb.classList.remove('active');nl.classList.remove('open');
+}));
 
-        // ===== FONCTION WHATSAPP =====
-        function openWhatsApp(service) {
-            const message = encodeURIComponent(
-                `Bonjour Othniel,\n\n` +
-                `Je souhaite un devis pour : ${service}\n\n` +
-                `Pouvez-vous me donner plus d'informations ?\n\n` +
-                `Envoyé depuis votre site web`
-            );
-            const whatsappUrl = `https://wa.me/+2250747651961?text=${message}`;
-            window.open(whatsappUrl, '_blank');
-        }
+// Fade in au scroll
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
 
-        // ===== FORMULAIRE DEVIS =====
-        document.getElementById('devisForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Récupérer les valeurs du formulaire
-            const nom = document.getElementById('nom').value;
-            const entreprise = document.getElementById('entreprise').value;
-            const whatsapp = document.getElementById('whatsapp').value;
-            const service = document.getElementById('service').value;
-            const description = document.getElementById('description').value;
-            const budget = document.getElementById('budget').value;
-            
-            // Construire le message WhatsApp
-            let message = `🚀 *NOUVELLE DEMANDE DE DEVIS* 🚀\n\n`;
-            message += `👤 *Nom:* ${nom}\n`;
-            if (entreprise) message += `🏢 *Entreprise:* ${entreprise}\n`;
-            message += `📱 *WhatsApp:* ${whatsapp}\n`;
-            message += `💼 *Service:* ${service}\n`;
-            message += `💰 *Budget:* ${budget}\n\n`;
-            message += `📝 *Description:*\n${description}\n\n`;
-            message += `📅 *Date:* ${new Date().toLocaleDateString('fr-FR')}\n`;
-            message += `---\n`;
-            message += `✨ Envoyé depuis le site web d'Othniel ✨`;
-            
-            // Encoder le message pour l'URL
-            const encodedMessage = encodeURIComponent(message);
-            
-            // Créer l'URL WhatsApp
-            const whatsappUrl = `https://wa.me/+2250747651961?text=${encodedMessage}`;
-            
-            // Ouvrir WhatsApp dans un nouvel onglet
-            window.open(whatsappUrl, '_blank');
-            
-            // Vider le formulaire après envoi
-            this.reset();
-            
-            // Afficher une confirmation
-            alert('Votre demande de devis a été envoyée via WhatsApp. Je vous répondrai dans les plus brefs délais !');
-        });
+// WhatsApp helper
+function wa(service){
+  const msg=encodeURIComponent(`Bonjour Othniel,\n\nJe souhaite un devis pour : *${service}*\n\nPouvez-vous me contacter ?\n\n_(Via votre site web)_`);
+  window.open(`https://wa.me/+2250747651961?text=${msg}`,'_blank');
+}
 
-        // ===== HEADER SCROLL EFFECT =====
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'var(--blanc)';
-                header.style.backdropFilter = 'none';
-            }
-        });
-
-        // ===== INITIALISATION AU CHARGEMENT =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // Ajouter la classe visible au premier élément de la page
-            const firstElement = document.querySelector('.hero-content');
-            if (firstElement) {
-                firstElement.classList.add('visible');
-            }
-        });
-    </script>
+// Formulaire devis
+document.getElementById('devisForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const nom=document.getElementById('nom').value;
+  const ent=document.getElementById('entreprise').value;
+  const tel=document.getElementById('phone').value;
+  const srv=document.getElementById('service').value;
+  const desc=document.getElementById('desc').value;
+  const bud=document.getElementById('budget').value;
+  let msg=`*DEMANDE DE DEVIS*\n\n`;
+  msg+=`Nom : ${nom}\n`;
+  if(ent) msg+=`Entreprise : ${ent}\n`;
+  msg+=`WhatsApp : ${tel}\n`;
+  msg+=`Service : ${srv}\n`;
+  if(bud) msg+=`Budget : ${bud}\n`;
+  msg+=`\nBesoin :\n${desc}\n\n`;
+  msg+=`_Envoyé depuis le site web_`;
+  window.open(`https://wa.me/+2250747651961?text=${encodeURIComponent(msg)}`,'_blank');
+  this.reset();
+});
+</script>
 </body>
 </html>
