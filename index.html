@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Othniel Delloh - Développeur Freelance | Abidjan</title>
-    <meta name="description" content="Développeur informatique freelance à Abidjan. Spécialisé en WinDev, HFSQL, bases de données, sites web et automatisation Excel.">
+    <title>Othniel - Développeur Informatique Freelance | Abidjan</title>
+    <meta name="description" content="Développeur informatique freelance à Abidjan. Spécialisé en applications de gestion, bases de données, sites web et automatisation Excel.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- CSS intégré -->
     <style>
         /* ===== VARIABLES CSS ===== */
         :root {
-            --bleu-fonce: #1A56A0;
+            --bleu-principal: #1A56A0;
             --bleu-clair: #2E7BC4;
-            --doré: #F0A500;
+            --or-accent: #F0A500;
             --blanc: #FFFFFF;
-            --gris-clair: #F8F9FA;
+            --gris-clair: #F5F7FA;
             --gris-texte: #6C757D;
             --noir: #212529;
             --ombre: rgba(0, 0, 0, 0.1);
@@ -32,7 +37,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: var(--noir);
             background-color: var(--blanc);
@@ -63,9 +68,10 @@
         }
 
         .logo {
+            font-family: 'Outfit', sans-serif;
             font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--bleu-fonce);
+            font-weight: 700;
+            color: var(--bleu-principal);
             text-decoration: none;
         }
 
@@ -83,17 +89,19 @@
         }
 
         .nav-menu a:hover {
-            color: var(--bleu-fonce);
+            color: var(--bleu-principal);
         }
 
         .btn-devis {
-            background: var(--doré);
+            background: var(--or-accent);
             color: var(--blanc);
-            padding: 0.5rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 25px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .btn-devis:hover {
@@ -115,31 +123,24 @@
             transition: 0.3s;
         }
 
+        /* ===== TYPOGRAPHIE ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
         /* ===== SECTIONS COMMUNES ===== */
         section {
             padding: 80px 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
         }
 
         .section-title {
             text-align: center;
             font-size: 2.5rem;
-            color: var(--bleu-fonce);
+            color: var(--bleu-principal);
             margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--doré);
+            font-weight: 700;
         }
 
         /* ===== ANIMATIONS ===== */
@@ -154,50 +155,61 @@
             transform: translateY(0);
         }
 
-        /* ===== SECTION ACCUEIL ===== */
-        #accueil {
-            background: linear-gradient(135deg, var(--bleu-fonce) 0%, var(--bleu-clair) 100%);
+        /* ===== HERO SECTION ===== */
+        #hero {
+            background: linear-gradient(135deg, var(--bleu-principal) 0%, var(--bleu-clair) 100%);
             color: var(--blanc);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
 
-        .accueil-content {
+        .hero-content {
             text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .accueil-content h1 {
-            font-size: 3.5rem;
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
             margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .accueil-content .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
             opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s;
-            animation-fill-mode: both;
+            font-weight: 500;
         }
 
-        .accueil-buttons {
+        .hero-mention {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .hero-buttons {
             display: flex;
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 1s ease 0.4s;
-            animation-fill-mode: both;
         }
 
         .btn-primary, .btn-secondary {
             padding: 1rem 2rem;
             border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s ease;
             display: inline-block;
+            font-size: 1rem;
         }
 
         .btn-primary {
-            background: var(--doré);
+            background: var(--or-accent);
             color: var(--blanc);
         }
 
@@ -214,7 +226,7 @@
 
         .btn-secondary:hover {
             background: var(--blanc);
-            color: var(--bleu-fonce);
+            color: var(--bleu-principal);
         }
 
         /* ===== SECTION SERVICES ===== */
@@ -239,30 +251,113 @@
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 10px 25px var(--ombre);
         }
 
         .service-icon {
-            font-size: 3rem;
-            color: var(--bleu-fonce);
-            margin-bottom: 1rem;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gris-clair);
+            border-radius: 50%;
         }
 
         .service-card h3 {
-            color: var(--bleu-fonce);
+            color: var(--bleu-principal);
             margin-bottom: 1rem;
+            font-size: 1.2rem;
         }
 
         .service-card p {
             color: var(--gris-texte);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
         .service-price {
             font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--doré);
+            font-weight: 700;
+            color: var(--or-accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-service {
+            background: var(--bleu-principal);
+            color: var(--blanc);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .btn-service:hover {
+            background: var(--bleu-clair);
+            transform: translateY(-2px);
+        }
+
+        /* ===== MAINTENANCE SECTION ===== */
+        #maintenance {
+            background: var(--blanc);
+        }
+
+        .maintenance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .maintenance-card {
+            background: var(--gris-clair);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .maintenance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--ombre);
+        }
+
+        .maintenance-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bleu-principal);
+            border-radius: 50%;
+            color: var(--blanc);
+            font-size: 1.5rem;
+        }
+
+        .maintenance-card h3 {
+            color: var(--bleu-principal);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .maintenance-card p {
+            color: var(--gris-texte);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .maintenance-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--or-accent);
         }
 
         /* ===== SECTION PORTFOLIO ===== */
@@ -282,13 +377,13 @@
         }
 
         .portfolio-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 10px 25px var(--ombre);
         }
 
         .portfolio-image {
             height: 200px;
-            background: linear-gradient(135deg, var(--bleu-fonce), var(--bleu-clair));
+            background: var(--bleu-principal);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -301,13 +396,15 @@
         }
 
         .portfolio-content h3 {
-            color: var(--bleu-fonce);
+            color: var(--bleu-principal);
             margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
 
         .portfolio-content p {
             color: var(--gris-texte);
             margin-bottom: 1rem;
+            line-height: 1.6;
         }
 
         .tech-stack {
@@ -319,19 +416,20 @@
 
         .tech-badge {
             background: var(--gris-clair);
-            padding: 0.25rem 0.75rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 15px;
-            font-size: 0.875rem;
-            color: var(--bleu-fonce);
+            font-size: 0.8rem;
+            color: var(--bleu-principal);
+            font-weight: 500;
         }
 
         .project-badge {
-            background: var(--doré);
+            background: var(--or-accent);
             color: var(--blanc);
-            padding: 0.25rem 0.75rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 15px;
-            font-size: 0.875rem;
-            font-weight: bold;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         /* ===== SECTION DEVIS ===== */
@@ -355,18 +453,19 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--bleu-fonce);
-            font-weight: 500;
+            color: var(--bleu-principal);
+            font-weight: 600;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
+            font-family: 'Inter', sans-serif;
             transition: border-color 0.3s ease;
         }
 
@@ -374,7 +473,7 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--bleu-fonce);
+            border-color: var(--bleu-principal);
         }
 
         .form-group textarea {
@@ -383,31 +482,32 @@
         }
 
         .btn-submit {
-            background: #28A745;
+            background: var(--or-accent);
             color: var(--blanc);
             padding: 1rem 2rem;
             border: none;
             border-radius: 8px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
         }
 
         .btn-submit:hover {
-            background: #218838;
+            background: #D49400;
             transform: translateY(-2px);
         }
 
         /* ===== SECTION CONTACT ===== */
         #contact {
-            background: linear-gradient(135deg, var(--bleu-fonce) 0%, var(--bleu-clair) 100%);
-            color: var(--blanc);
+            background: var(--gris-clair);
         }
 
         .contact-content {
             text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .contact-info {
@@ -418,60 +518,41 @@
         }
 
         .contact-item {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--blanc);
             padding: 2rem;
             border-radius: 15px;
             transition: all 0.3s ease;
         }
 
         .contact-item:hover {
-            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-5px);
-        }
-
-        .contact-item i {
-            font-size: 2rem;
-            color: var(--doré);
-            margin-bottom: 1rem;
+            box-shadow: 0 10px 25px var(--ombre);
         }
 
         .contact-item h3 {
-            margin-bottom: 0.5rem;
+            color: var(--bleu-principal);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
 
         .contact-item a {
-            color: var(--blanc);
+            color: var(--bleu-principal);
             text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s ease;
         }
 
         .contact-item a:hover {
-            color: var(--doré);
+            color: var(--or-accent);
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
+        .contact-mention {
             margin-top: 2rem;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+            padding: 1.5rem;
+            background: var(--bleu-principal);
             color: var(--blanc);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: var(--doré);
-            transform: translateY(-3px);
+            border-radius: 15px;
+            font-weight: 500;
         }
 
         /* ===== FOOTER ===== */
@@ -480,6 +561,31 @@
             color: var(--blanc);
             text-align: center;
             padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: var(--blanc);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-nav a:hover {
+            color: var(--or-accent);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -517,11 +623,11 @@
                 transform: translateY(-8px) rotate(-45deg);
             }
 
-            .accueil-content h1 {
+            .hero-title {
                 font-size: 2.2rem;
             }
 
-            .accueil-content .subtitle {
+            .hero-subtitle {
                 font-size: 1.1rem;
             }
 
@@ -529,7 +635,7 @@
                 font-size: 1.8rem;
             }
 
-            .accueil-buttons {
+            .hero-buttons {
                 flex-direction: column;
                 align-items: center;
                 gap: 1rem;
@@ -539,34 +645,6 @@
                 width: 250px;
             }
 
-            /* Icônes flottantes mobile */
-            .whatsapp-float {
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-
-            .linkedin-float {
-                bottom: 20px;
-                left: 20px;
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-
-            /* Contact mobile */
-            .contact-info {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .contact-item {
-                padding: 1.5rem;
-            }
-
-            /* Services mobile */
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
@@ -576,63 +654,41 @@
                 padding: 1.5rem;
             }
 
-            /* Portfolio mobile */
+            .maintenance-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
             .portfolio-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
 
-            /* Formulaire mobile */
             .devis-form {
                 padding: 1.5rem;
             }
 
-            .email-modal-content {
-                margin: 1rem;
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .contact-item {
                 padding: 1.5rem;
-                max-width: calc(100% - 2rem);
             }
 
-            /* Social links mobile */
-            .social-links {
-                gap: 0.8rem;
-            }
-
-            .social-link {
-                width: 45px;
-                height: 45px;
-                font-size: 0.9rem;
-            }
-
-            /* Cache curseur sur mobile */
-            .custom-cursor,
-            .cursor-follower {
-                display: none;
-            }
-
-            /* Particules moins nombreuses sur mobile */
-            .particle {
-                display: none;
-            }
-
-            /* Sections mobile */
-            section {
-                padding: 60px 0;
-                min-height: auto;
-            }
-
-            /* Container mobile */
-            .container {
-                padding: 0 15px;
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
             }
         }
 
         @media (max-width: 480px) {
-            .accueil-content h1 {
+            .hero-title {
                 font-size: 1.8rem;
             }
 
-            .accueil-content .subtitle {
+            .hero-subtitle {
                 font-size: 1rem;
             }
 
@@ -650,541 +706,32 @@
                 padding: 1rem;
             }
 
-            .service-icon {
-                font-size: 2.5rem;
-            }
-
-            .contact-item {
-                padding: 1rem;
+            .maintenance-card {
+                padding: 1.5rem;
             }
 
             .devis-form {
                 padding: 1rem;
             }
 
-            .email-modal-content {
+            .contact-item {
                 padding: 1rem;
             }
-
-            .whatsapp-float,
-            .linkedin-float {
-                width: 45px;
-                height: 45px;
-                font-size: 1rem;
-                bottom: 15px;
-            }
-
-            .whatsapp-float {
-                right: 15px;
-            }
-
-            .linkedin-float {
-                left: 15px;
-            }
-        }
-
-        /* Optimisation pour les très petits écrans */
-        @media (max-width: 320px) {
-            .accueil-content h1 {
-                font-size: 1.5rem;
-            }
-
-            .section-title {
-                font-size: 1.3rem;
-            }
-
-            .service-price {
-                font-size: 1.2rem;
-            }
-
-            .btn-primary, .btn-secondary {
-                width: 180px;
-                font-size: 0.8rem;
-            }
-        }
-
-        /* ===== ANIMATIONS KEYFRAMES ===== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes typing {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
-            }
-        }
-
-        @keyframes blink {
-            0%, 50% {
-                border-color: transparent;
-            }
-            51%, 100% {
-                border-color: var(--doré);
-            }
-        }
-
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* ===== EFFETS VISUELS AVANCÉS ===== */
-        .gradient-text {
-            background: linear-gradient(45deg, var(--doré), #FFD700);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .pulse-animation {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .typing-effect {
-            overflow: hidden;
-            border-right: 3px solid var(--doré);
-            white-space: nowrap;
-            animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
-        }
-
-        .slide-left {
-            animation: slideInLeft 0.8s ease forwards;
-        }
-
-        .slide-right {
-            animation: slideInRight 0.8s ease forwards;
-        }
-
-        /* ===== PARTICULES D'ARRIÈRE-PLAN ===== */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--doré);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: particleFloat 15s linear infinite;
-        }
-
-        /* ===== EFFETS DE SURVOL AVANCÉS ===== */
-        .glow-effect {
-            transition: all 0.3s ease;
-        }
-
-        .glow-effect:hover {
-            box-shadow: 0 0 20px var(--doré), 0 0 40px var(--doré);
-            transform: translateY(-5px) scale(1.02);
-        }
-
-        .tilt-effect {
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-        }
-
-        .tilt-effect:hover {
-            transform: perspective(1000px) rotateX(10deg) rotateY(-10deg);
-        }
-
-        /* ===== LOADING SPINNER ===== */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bleu-fonce);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid var(--doré);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ===== CURSEUR PERSONNALISÉ ===== */
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: var(--doré);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.1s ease;
-            opacity: 0.7;
-        }
-
-        .cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--doré);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9997;
-            transition: all 0.3s ease;
-            opacity: 0.3;
-        }
-
-        /* ===== BADGES ANIMÉS ===== */
-        .animated-badge {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .animated-badge::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--doré), #FFD700, var(--doré));
-            background-size: 400% 400%;
-            border-radius: 15px;
-            z-index: -1;
-            animation: gradientShift 2s ease infinite;
-        }
-
-        /* ===== PROGRESS BARS ===== */
-        .skill-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--doré), #FFD700);
-            border-radius: 4px;
-            animation: progressAnimation 2s ease forwards;
-        }
-
-        @keyframes progressAnimation {
-            from {
-                width: 0%;
-            }
-        }
-
-        /* ===== EFFETS DE TEXTE ===== */
-        .text-glow {
-            text-shadow: 0 0 10px var(--doré), 0 0 20px var(--doré), 0 0 30px var(--doré);
-        }
-
-        .neon-text {
-            animation: neonFlicker 2s infinite alternate;
-        }
-
-        @keyframes neonFlicker {
-            0%, 100% {
-                text-shadow: 0 0 10px var(--doré), 0 0 20px var(--doré), 0 0 30px var(--doré);
-            }
-            50% {
-                text-shadow: 0 0 5px var(--doré), 0 0 10px var(--doré), 0 0 15px var(--doré);
-            }
-        }
-
-        /* ===== MODALE EMAIL ===== */
-        .email-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 10000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .email-modal.active {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .email-modal-content {
-            background: var(--blanc);
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.3s ease;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-header h3 {
-            color: var(--bleu-fonce);
-            font-size: 1.5rem;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--gris-texte);
-            transition: color 0.3s ease;
-        }
-
-        .close-modal:hover {
-            color: var(--bleu-fonce);
-        }
-
-        .email-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .email-form input,
-        .email-form textarea {
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .email-form input:focus,
-        .email-form textarea:focus {
-            outline: none;
-            border-color: var(--bleu-fonce);
-        }
-
-        .email-form textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .btn-send-email {
-            background: var(--bleu-fonce);
-            color: var(--blanc);
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-send-email:hover {
-            background: var(--bleu-clair);
-            transform: translateY(-2px);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* ===== ICÔNE WHATSAPP FLOTTANTE ===== */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            text-decoration: none;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-        }
-
-        /* ===== ICÔNE LINKEDIN FLOTTANTE ===== */
-        .linkedin-float {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: #0A66C2;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            text-decoration: none;
-            box-shadow: 0 5px 20px rgba(10, 102, 194, 0.3);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-            animation-delay: 1s;
-        }
-
-        .linkedin-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(10, 102, 194, 0.4);
         }
     </style>
 </head>
 <body>
-    <!-- Loading Spinner -->
-    <div class="loader" id="loader">
-        <div class="loader-spinner"></div>
-    </div>
-
-    <!-- Curseur Personnalisé -->
-    <div class="custom-cursor" id="cursor"></div>
-    <div class="cursor-follower" id="cursor-follower"></div>
-
-    <!-- Particules d'arrière-plan -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Header avec navigation -->
+    <!-- Header Fixe -->
     <header>
         <nav class="container">
-            <a href="#accueil" class="logo gradient-text floating">Othniel Delloh</a>
+            <a href="#hero" class="logo">Othniel</a>
             <ul class="nav-menu">
-                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#hero">Accueil</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#devis">Devis</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="#devis" class="btn-devis glow-effect">Demander un devis</a></li>
+                <li><a href="#devis" class="btn-devis">Devis gratuit</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -1194,204 +741,246 @@
         </nav>
     </header>
 
-    <!-- Section Accueil -->
-    <section id="accueil">
+    <!-- Hero Section -->
+    <section id="hero">
         <div class="container">
-            <div class="accueil-content fade-in">
-                <h1 class="gradient-text neon-text">Othniel Delloh</h1>
-                <p class="subtitle typing-effect">Développeur Informatique Freelance à Abidjan</p>
-                <div class="accueil-buttons">
-                    <a href="#services" class="btn-primary pulse-animation">Voir mes services</a>
-                    <a href="#contact" class="btn-secondary glow-effect">Me contacter</a>
+            <div class="hero-content fade-in">
+                <h1 class="hero-title">Des solutions informatiques sur mesure pour votre entreprise</h1>
+                <p class="hero-subtitle">Applications • Bases de données • Sites web • Automatisation</p>
+                <p class="hero-mention">Tarifs adaptés aux startups et PME — Devis gratuit sous 24h</p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn-primary">Voir mes services</a>
+                    <a href="https://wa.me/+2250747651961" target="_blank" class="btn-secondary">WhatsApp</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Services -->
+    <!-- Services Section -->
     <section id="services">
         <div class="container">
             <h2 class="section-title fade-in">Mes Services</h2>
             <div class="services-grid">
-                <div class="service-card fade-in tilt-effect">
-                    <div class="service-icon floating">🖥️</div>
-                    <h3 class="gradient-text">Application de gestion</h3>
-                    <p>Développement d'applications de gestion sur mesure avec WinDev et HFSQL pour optimiser vos processus métier.</p>
-                    <div class="service-price text-glow">250 000 FCFA</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 95%"></div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <!-- SVG Application de gestion -->
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18"/>
+                            <path d="M9 21V9"/>
+                        </svg>
                     </div>
+                    <h3>Application de gestion</h3>
+                    <p>Développement d'applications complètes : stock, caisse, gestion RH, facturation, etc.</p>
+                    <div class="service-price">à partir de 75 000 FCFA</div>
+                    <button class="btn-service" onclick="openWhatsApp('Application de gestion')">Demander un devis</button>
                 </div>
-                <div class="service-card fade-in tilt-effect">
-                    <div class="service-icon floating" style="animation-delay: 0.5s">🗄️</div>
-                    <h3 class="gradient-text">Base de données + Formulaires</h3>
-                    <p>Création de bases de données robustes et interfaces intuitives pour la saisie et la gestion de vos données.</p>
-                    <div class="service-price text-glow">150 000 FCFA</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 90%"></div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <!-- SVG Base de données -->
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                        </svg>
                     </div>
+                    <h3>Base de données + formulaires</h3>
+                    <p>Création de bases de données robustes avec interfaces de saisie intuitives.</p>
+                    <div class="service-price">à partir de 40 000 FCFA</div>
+                    <button class="btn-service" onclick="openWhatsApp('Base de données + formulaires')">Demander un devis</button>
                 </div>
-                <div class="service-card fade-in tilt-effect">
-                    <div class="service-icon floating" style="animation-delay: 1s">🌐</div>
-                    <h3 class="gradient-text">Site web vitrine</h3>
-                    <p>Création de sites web modernes et responsives pour présenter votre activité et attirer de nouveaux clients.</p>
-                    <div class="service-price text-glow">100 000 FCFA</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 85%"></div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <!-- SVG Site web -->
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1 4-10"/>
+                        </svg>
                     </div>
+                    <h3>Site web vitrine</h3>
+                    <p>Sites web professionnels, modernes et responsives pour présenter votre activité.</p>
+                    <div class="service-price">à partir de 60 000 FCFA</div>
+                    <button class="btn-service" onclick="openWhatsApp('Site web vitrine')">Demander un devis</button>
                 </div>
-                <div class="service-card fade-in tilt-effect">
-                    <div class="service-icon floating" style="animation-delay: 1.5s">📊</div>
-                    <h3 class="gradient-text">Automatisation Excel</h3>
-                    <p>Automatisation de vos tâches Excel avec macros et VBA pour gagner du temps et réduire les erreurs.</p>
-                    <div class="service-price text-glow">75 000 FCFA</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 88%"></div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <!-- SVG Automatisation Excel -->
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
                     </div>
+                    <h3>Automatisation Excel</h3>
+                    <p>Macros et VBA pour automatiser vos tâches répétitives et gagner du temps.</p>
+                    <div class="service-price">à partir de 25 000 FCFA</div>
+                    <button class="btn-service" onclick="openWhatsApp('Automatisation Excel')">Demander un devis</button>
                 </div>
-                <div class="service-card fade-in tilt-effect">
-                    <div class="service-icon floating" style="animation-delay: 2s">🔧</div>
-                    <h3 class="gradient-text">Correction d'applications existantes</h3>
-                    <p>Dépannage et correction de bugs dans vos applications existantes pour les rendre plus performantes.</p>
-                    <div class="service-price text-glow">50 000 FCFA</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 92%"></div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <!-- SVG Correction -->
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
                     </div>
+                    <h3>Correction d'application</h3>
+                    <p>Débuggage et correction de bugs dans vos applications existantes.</p>
+                    <div class="service-price">à partir de 15 000 FCFA</div>
+                    <button class="btn-service" onclick="openWhatsApp('Correction d\'application')">Demander un devis</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Portfolio -->
+    <!-- Maintenance Section -->
+    <section id="maintenance">
+        <div class="container">
+            <h2 class="section-title fade-in">Maintenance Mensuelle</h2>
+            <div class="maintenance-grid">
+                <div class="maintenance-card fade-in">
+                    <div class="maintenance-icon">🌐</div>
+                    <h3>Site web</h3>
+                    <p>Maintenance, mises à jour, sauvegardes et support technique.</p>
+                    <div class="maintenance-price">à partir de 10 000 FCFA/mois</div>
+                </div>
+                <div class="maintenance-card fade-in">
+                    <div class="maintenance-icon">💼</div>
+                    <h3>Application</h3>
+                    <p>Support, évolution et maintenance de vos applications métier.</p>
+                    <div class="maintenance-price">à partir de 15 000 FCFA/mois</div>
+                </div>
+                <div class="maintenance-card fade-in">
+                    <div class="maintenance-icon">📦</div>
+                    <h3>Pack complet</h3>
+                    <p>Maintenance site + application + priorité sur interventions.</p>
+                    <div class="maintenance-price">à partir de 30 000 FCFA/mois</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
     <section id="portfolio">
         <div class="container">
             <h2 class="section-title fade-in">Portfolio</h2>
             <div class="portfolio-grid">
-                <div class="portfolio-card fade-in glow-effect">
-                    <div class="portfolio-image floating">👥</div>
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-image">👥</div>
                     <div class="portfolio-content">
-                        <h3 class="gradient-text">Système de Gestion RH</h3>
-                        <p>Application complète pour la gestion des employés, congés et paie avec WinDev et HFSQL.</p>
+                        <h3>App RH multi-sites</h3>
+                        <p>Application de gestion RH déployée sur plusieurs sites avec synchronisation centralisée.</p>
                         <div class="tech-stack">
-                            <span class="tech-badge animated-badge">WinDev</span>
-                            <span class="tech-badge animated-badge">HFSQL</span>
-                            <span class="tech-badge animated-badge">Rapports</span>
+                            <span class="tech-badge">WinDev</span>
+                            <span class="tech-badge">HFSQL</span>
+                            <span class="tech-badge">Multi-sites</span>
                         </div>
-                        <span class="project-badge pulse-animation">Projet réalisé</span>
+                        <span class="project-badge">Projet réalisé</span>
                     </div>
                 </div>
-                <div class="portfolio-card fade-in glow-effect">
-                    <div class="portfolio-image floating" style="animation-delay: 0.5s">📦</div>
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-image">📦</div>
                     <div class="portfolio-content">
-                        <h3 class="gradient-text">Gestion de Stock</h3>
-                        <p>Système de suivi des stocks en temps réel avec alertes et statistiques pour une entreprise de distribution.</p>
+                        <h3>Gestion de stock</h3>
+                        <p>Système complet avec suivi en temps réel, alertes et rapports détaillés.</p>
                         <div class="tech-stack">
-                            <span class="tech-badge animated-badge">WinDev</span>
-                            <span class="tech-badge animated-badge">HFSQL</span>
-                            <span class="tech-badge animated-badge">Barcodes</span>
+                            <span class="tech-badge">WinDev</span>
+                            <span class="tech-badge">SQL Server</span>
+                            <span class="tech-badge">Reporting</span>
                         </div>
-                        <span class="project-badge pulse-animation">Projet réalisé</span>
+                        <span class="project-badge">Projet réalisé</span>
                     </div>
                 </div>
-                <div class="portfolio-card fade-in glow-effect">
-                    <div class="portfolio-image floating" style="animation-delay: 1s">🏢</div>
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-image">🏢</div>
                     <div class="portfolio-content">
-                        <h3 class="gradient-text">Site Vitrine Immobilier</h3>
-                        <p>Site web moderne pour une agence immobilière avec galerie de propriétés et formulaire de contact.</p>
+                        <h3>Site vitrine PME</h3>
+                        <p>Site web moderne avec galerie de projets et formulaire de contact.</p>
                         <div class="tech-stack">
-                            <span class="tech-badge animated-badge">HTML5</span>
-                            <span class="tech-badge animated-badge">CSS3</span>
-                            <span class="tech-badge animated-badge">JavaScript</span>
+                            <span class="tech-badge">HTML</span>
+                            <span class="tech-badge">CSS</span>
+                            <span class="tech-badge">JavaScript</span>
                         </div>
-                        <span class="project-badge pulse-animation">Projet réalisé</span>
+                        <span class="project-badge">Projet réalisé</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Devis -->
+    <!-- Formulaire Devis Section -->
     <section id="devis">
         <div class="container">
-            <h2 class="section-title fade-in">Demander un Devis</h2>
-            <form class="devis-form fade-in glow-effect" id="devisForm">
+            <h2 class="section-title fade-in">Demande de Devis</h2>
+            <form class="devis-form fade-in" id="devisForm">
                 <div class="form-group">
-                    <label for="nom" class="gradient-text">Nom complet *</label>
-                    <input type="text" id="nom" name="nom" required class="tilt-effect">
+                    <label for="nom">Nom complet *</label>
+                    <input type="text" id="nom" name="nom" required>
                 </div>
                 <div class="form-group">
-                    <label for="entreprise" class="gradient-text">Entreprise</label>
-                    <input type="text" id="entreprise" name="entreprise" class="tilt-effect">
+                    <label for="entreprise">Entreprise</label>
+                    <input type="text" id="entreprise" name="entreprise">
                 </div>
                 <div class="form-group">
-                    <label for="telephone" class="gradient-text">Téléphone WhatsApp *</label>
-                    <input type="tel" id="telephone" name="telephone" required class="tilt-effect">
+                    <label for="whatsapp">WhatsApp *</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" required>
                 </div>
                 <div class="form-group">
-                    <label for="service" class="gradient-text">Type de service *</label>
-                    <select id="service" name="service" required class="tilt-effect">
+                    <label for="service">Type de service *</label>
+                    <select id="service" name="service" required>
                         <option value="">Choisir un service</option>
                         <option value="Application de gestion">Application de gestion</option>
-                        <option value="Base de données + Formulaires">Base de données + Formulaires</option>
+                        <option value="Base de données + formulaires">Base de données + formulaires</option>
                         <option value="Site web vitrine">Site web vitrine</option>
                         <option value="Automatisation Excel">Automatisation Excel</option>
-                        <option value="Correction d'applications existantes">Correction d'applications existantes</option>
+                        <option value="Correction d'application">Correction d'application</option>
+                        <option value="Maintenance mensuelle">Maintenance mensuelle</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="besoin" class="gradient-text">Description du besoin *</label>
-                    <textarea id="besoin" name="besoin" required placeholder="Décrivez votre projet en détail..." class="tilt-effect"></textarea>
+                    <label for="description">Description du besoin *</label>
+                    <textarea id="description" name="description" required placeholder="Décrivez votre projet en détail..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="budget" class="gradient-text">Budget approximatif *</label>
-                    <select id="budget" name="budget" required class="tilt-effect">
+                    <label for="budget">Budget *</label>
+                    <select id="budget" name="budget" required>
                         <option value="">Choisir une fourchette</option>
                         <option value="Moins de 50 000 FCFA">Moins de 50 000 FCFA</option>
                         <option value="50 000 – 150 000 FCFA">50 000 – 150 000 FCFA</option>
-                        <option value="150 000+ FCFA">150 000+ FCFA</option>
+                        <option value="150 000 – 300 000 FCFA">150 000 – 300 000 FCFA</option>
+                        <option value="300 000+ FCFA">300 000+ FCFA</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-submit pulse-animation">Envoyer la demande</button>
+                <button type="submit" class="btn-submit">Envoyer la demande</button>
             </form>
         </div>
     </section>
 
-    <!-- Section Contact -->
+    <!-- Contact Section -->
     <section id="contact">
         <div class="container">
             <h2 class="section-title fade-in">Contact</h2>
-            <div class="contact-content">
+            <div class="contact-content fade-in">
                 <div class="contact-info">
-                    <div class="contact-item fade-in glow-effect">
-                        <div class="contact-icon floating">📱</div>
-                        <h3 class="gradient-text">WhatsApp</h3>
-                        <a href="https://wa.me/2250747651961" target="_blank" class="pulse-animation">+225 07 47 65 19 61</a>
-                        <br>
-                        <a href="https://wa.me/2250103451452" target="_blank" class="pulse-animation">+225 01 03 45 14 52</a>
+                    <div class="contact-item">
+                        <h3>📱 WhatsApp Principal</h3>
+                        <a href="https://wa.me/+2250747651961" target="_blank">+225 07 47 65 19 61</a>
                     </div>
-                    <div class="contact-item fade-in glow-effect">
-                        <div class="contact-icon floating" style="animation-delay: 0.5s">📧</div>
-                        <h3 class="gradient-text">Email</h3>
-                        <a href="mailto:othnieldelloh@gmail.com" class="pulse-animation">othnieldelloh@gmail.com</a>
-                        <br>
-                        <button class="btn-email pulse-animation" onclick="openEmailForm()" style="margin-top: 10px; padding: 8px 16px; background: var(--doré); color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 0.9rem;">
-                            ✉️ Formulaire de contact
-                        </button>
+                    <div class="contact-item">
+                        <h3>📱 WhatsApp Secondaire</h3>
+                        <a href="https://wa.me/+2250103451452" target="_blank">+225 01 03 45 14 52</a>
                     </div>
-                    <div class="contact-item fade-in glow-effect">
-                        <div class="contact-icon floating" style="animation-delay: 1s">📍</div>
-                        <h3 class="gradient-text">Localisation</h3>
-                        <p>Abidjan, Côte d'Ivoire</p>
-                        <p>Disponible soirs et week-ends</p>
+                    <div class="contact-item">
+                        <h3>📧 Email</h3>
+                        <a href="mailto:othnieldelloh@gmail.com">othnieldelloh@gmail.com</a>
                     </div>
                 </div>
-                <div class="social-links fade-in">
-                    <a href="https://www.linkedin.com/in/bomisso-dellotoh-othniel-delloh-026422380?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="social-link tilt-effect" title="LinkedIn">
-                        <span>in</span>
-                    </a>
-                    <a href="https://wa.me/2250747651961" target="_blank" class="social-link tilt-effect whatsapp-icon" title="WhatsApp">
-                        <span>📱</span>
-                    </a>
+                <div class="contact-mention">
+                    📍 Abidjan, Côte d'Ivoire<br>
+                    ⏰ Réponse sous 24h — Devis gratuit et sans engagement
                 </div>
             </div>
         </div>
@@ -1400,110 +989,20 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Othniel Delloh. Tous droits réservés. | Développeur Freelance à Abidjan</p>
+            <div class="footer-content">
+                <p>&copy; 2024 Othniel - Tous droits réservés</p>
+                <nav class="footer-nav">
+                    <a href="#hero">Accueil</a>
+                    <a href="#services">Services</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#devis">Devis</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
         </div>
     </footer>
 
-    <!-- Modale Email -->
-    <div class="email-modal" id="emailModal">
-        <div class="email-modal-content">
-            <div class="modal-header">
-                <h3>✉️ Contact rapide</h3>
-                <button class="close-modal" onclick="closeEmailForm()">×</button>
-            </div>
-            <p style="text-align: center; color: var(--gris-texte); margin-bottom: 1rem;">
-                💬 <strong>Recevez une réponse immédiate via WhatsApp</strong><br>
-                <small>Le plus fiable et le plus rapide</small>
-            </p>
-            <form class="email-form" onsubmit="sendEmail(event)">
-                <input type="text" placeholder="Votre nom complet" required>
-                <input type="email" placeholder="Votre adresse email" required>
-                <input type="text" placeholder="Objet du message" required>
-                <textarea placeholder="Votre message..." required></textarea>
-                <button type="submit" class="btn-send-email">� Envoyer via WhatsApp</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Icône LinkedIn flottante -->
-    <a href="https://www.linkedin.com/in/bomisso-dellotoh-othniel-delloh-026422380?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="linkedin-float" title="Mon profil LinkedIn">
-        💼
-    </a>
-
-    <!-- Icône WhatsApp flottante -->
-    <a href="https://wa.me/2250747651961" target="_blank" class="whatsapp-float" title="Contactez-moi sur WhatsApp">
-        📱
-    </a>
-
-    <!-- JavaScript intégré -->
     <script>
-        // ===== LOADING SPINNER =====
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1500);
-        });
-
-        // ===== CURSEUR PERSONNALISÉ =====
-        const cursor = document.getElementById('cursor');
-        const cursorFollower = document.getElementById('cursor-follower');
-
-        // Désactiver le curseur personnalisé sur mobile
-        if (!isMobileDevice()) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                
-                setTimeout(() => {
-                    cursorFollower.style.left = e.clientX - 10 + 'px';
-                    cursorFollower.style.top = e.clientY - 10 + 'px';
-                }, 100);
-            });
-
-            // Effet de grossissement du curseur au survol des éléments interactifs
-            const interactiveElements = document.querySelectorAll('a, button, input, textarea, select');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.transform = 'scale(1.5)';
-                    cursorFollower.style.transform = 'scale(1.5)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.transform = 'scale(1)';
-                    cursorFollower.style.transform = 'scale(1)';
-                });
-            });
-        }
-
-        // ===== PARTICULES D'ARRIÈRE-PLAN =====
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const isMobile = window.innerWidth <= 768;
-            const particleCount = isMobile ? 10 : 50; // Moins de particules sur mobile
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Détecter si c'est un mobile
-        function isMobileDevice() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-                   window.innerWidth <= 768;
-        }
-
-        // Adapter les animations selon l'appareil
-        if (isMobileDevice()) {
-            // Réduire les animations sur mobile pour les performances
-            document.documentElement.style.setProperty('--animation-speed', '0.5s');
-        }
-
-        createParticles();
-
         // ===== MENU HAMBURGER =====
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
@@ -1531,16 +1030,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    
-                    // Animation des barres de progression
-                    const skillBars = entry.target.querySelectorAll('.skill-progress');
-                    skillBars.forEach(bar => {
-                        const width = bar.style.width;
-                        bar.style.width = '0%';
-                        setTimeout(() => {
-                            bar.style.width = width;
-                        }, 200);
-                    });
                 }
             });
         }, observerOptions);
@@ -1550,333 +1039,76 @@
             observer.observe(el);
         });
 
-        // ===== EFFET DE PARALLAX SUR LE HERO =====
-        if (!isMobileDevice()) {
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const hero = document.querySelector('.accueil-content');
-                if (hero) {
-                    hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-                    hero.style.opacity = 1 - scrolled / 600;
-                }
-            });
+        // ===== FONCTION WHATSAPP =====
+        function openWhatsApp(service) {
+            const message = encodeURIComponent(
+                `Bonjour Othniel,\n\n` +
+                `Je souhaite un devis pour : ${service}\n\n` +
+                `Pouvez-vous me donner plus d'informations ?\n\n` +
+                `Envoyé depuis votre site web`
+            );
+            const whatsappUrl = `https://wa.me/+2250747651961?text=${message}`;
+            window.open(whatsappUrl, '_blank');
         }
 
-        // ===== FORMULAIRE DEVIS VERS WHATSAPP =====
+        // ===== FORMULAIRE DEVIS =====
         document.getElementById('devisForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Animation de soumission
-            const submitBtn = this.querySelector('.btn-submit');
-            submitBtn.textContent = 'Envoi en cours...';
-            submitBtn.style.background = '#FFA500';
+            // Récupérer les valeurs du formulaire
+            const nom = document.getElementById('nom').value;
+            const entreprise = document.getElementById('entreprise').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const service = document.getElementById('service').value;
+            const description = document.getElementById('description').value;
+            const budget = document.getElementById('budget').value;
             
-            setTimeout(() => {
-                // Récupérer les valeurs du formulaire
-                const nom = document.getElementById('nom').value;
-                const entreprise = document.getElementById('entreprise').value;
-                const telephone = document.getElementById('telephone').value;
-                const service = document.getElementById('service').value;
-                const besoin = document.getElementById('besoin').value;
-                const budget = document.getElementById('budget').value;
-                
-                // Construire le message WhatsApp avec emojis
-                let message = `🚀 *NOUVELLE DEMANDE DE DEVIS* 🚀\n\n`;
-                message += `👤 *Nom:* ${nom}\n`;
-                if (entreprise) message += `🏢 *Entreprise:* ${entreprise}\n`;
-                message += `📱 *Téléphone:* ${telephone}\n`;
-                message += `💼 *Service souhaité:* ${service}\n`;
-                message += `💰 *Budget:* ${budget}\n\n`;
-                message += `📝 *Description du besoin:*\n${besoin}\n\n`;
-                message += `📅 *Date:* ${new Date().toLocaleDateString('fr-FR')}\n`;
-                message += `---\n`;
-                message += `✨ Envoyé depuis le site web d'Othniel Delloh ✨`;
-                
-                // Encoder le message pour l'URL
-                const encodedMessage = encodeURIComponent(message);
-                
-                // Numéro WhatsApp
-                const whatsappNumber = '2250747651961';
-                
-                // Créer l'URL WhatsApp
-                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-                
-                // Ouvrir WhatsApp dans un nouvel onglet
-                window.open(whatsappUrl, '_blank');
-                
-                // Vider le formulaire après envoi
-                this.reset();
-                
-                // Réinitialiser le bouton
-                submitBtn.textContent = 'Envoyer la demande';
-                submitBtn.style.background = '#28A745';
-                
-                // Afficher une notification de succès
-                showNotification('Votre demande de devis a été envoyée avec succès via WhatsApp !');
-            }, 1500);
+            // Construire le message WhatsApp
+            let message = `🚀 *NOUVELLE DEMANDE DE DEVIS* 🚀\n\n`;
+            message += `👤 *Nom:* ${nom}\n`;
+            if (entreprise) message += `🏢 *Entreprise:* ${entreprise}\n`;
+            message += `📱 *WhatsApp:* ${whatsapp}\n`;
+            message += `💼 *Service:* ${service}\n`;
+            message += `💰 *Budget:* ${budget}\n\n`;
+            message += `📝 *Description:*\n${description}\n\n`;
+            message += `📅 *Date:* ${new Date().toLocaleDateString('fr-FR')}\n`;
+            message += `---\n`;
+            message += `✨ Envoyé depuis le site web d'Othniel ✨`;
+            
+            // Encoder le message pour l'URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Créer l'URL WhatsApp
+            const whatsappUrl = `https://wa.me/+2250747651961?text=${encodedMessage}`;
+            
+            // Ouvrir WhatsApp dans un nouvel onglet
+            window.open(whatsappUrl, '_blank');
+            
+            // Vider le formulaire après envoi
+            this.reset();
+            
+            // Afficher une confirmation
+            alert('Votre demande de devis a été envoyée via WhatsApp. Je vous répondrai dans les plus brefs délais !');
         });
 
-        // ===== NOTIFICATION PERSONALISÉE =====
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: linear-gradient(135deg, #28A745, #20C997);
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 10px;
-                box-shadow: 0 5px 20px rgba(40, 167, 69, 0.3);
-                z-index: 10000;
-                animation: slideInRight 0.5s ease;
-                max-width: 300px;
-            `;
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 1.5rem;">✅</span>
-                    <div>${message}</div>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.5s ease';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 500);
-            }, 4000);
-        }
-
         // ===== HEADER SCROLL EFFECT =====
-        let lastScroll = 0;
-        const header = document.querySelector('header');
-
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
                 header.style.background = 'rgba(255, 255, 255, 0.95)';
                 header.style.backdropFilter = 'blur(10px)';
-                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
             } else {
                 header.style.background = 'var(--blanc)';
                 header.style.backdropFilter = 'none';
-                header.style.boxShadow = '0 2px 10px var(--ombre)';
             }
-            
-            lastScroll = currentScroll;
         });
-
-        // ===== SMOOTH SCROLL POUR LES ANCRES =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const headerOffset = 80;
-                    const elementPosition = target.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // ===== EFFET DE TYPING DYNAMIQUE =====
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.textContent = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            
-            type();
-        }
 
         // ===== INITIALISATION AU CHARGEMENT =====
         document.addEventListener('DOMContentLoaded', function() {
             // Ajouter la classe visible au premier élément de la page
-            const firstElement = document.querySelector('.accueil-content');
+            const firstElement = document.querySelector('.hero-content');
             if (firstElement) {
                 firstElement.classList.add('visible');
-            }
-            
-            // Animation de typing pour le sous-titre
-            const subtitle = document.querySelector('.subtitle');
-            if (subtitle) {
-                const originalText = subtitle.textContent;
-                setTimeout(() => {
-                    typeWriter(subtitle, originalText, 80);
-                }, 2000);
-            }
-            
-            // Ajouter des animations aux logos
-            const logo = document.querySelector('.logo');
-            if (logo) {
-                logo.addEventListener('mouseenter', () => {
-                    logo.style.animation = 'pulse 0.5s ease';
-                });
-                logo.addEventListener('mouseleave', () => {
-                    logo.style.animation = '';
-                });
-            }
-            
-            // Effet de brillance au survol des cartes
-            const cards = document.querySelectorAll('.service-card, .portfolio-card');
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    card.style.background = `
-                        radial-gradient(
-                            circle at ${x}px ${y}px,
-                            rgba(240, 165, 0, 0.1),
-                            transparent 50%
-                        ),
-                        var(--blanc)
-                    `;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.background = '';
-                });
-            });
-        });
-
-        // ===== ANIMATION DE NOMBRES =====
-        function animateNumbers() {
-            const prices = document.querySelectorAll('.service-price');
-            prices.forEach(price => {
-                const finalText = price.textContent;
-                const number = parseInt(finalText.replace(/[^0-9]/g, ''));
-                let current = 0;
-                const increment = number / 50;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= number) {
-                        current = number;
-                        clearInterval(timer);
-                    }
-                    price.textContent = Math.floor(current).toLocaleString() + ' FCFA';
-                }, 30);
-            });
-        }
-
-        // Déclencher l'animation des nombres quand la section services est visible
-        const servicesSection = document.querySelector('#services');
-        const servicesObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateNumbers();
-                    servicesObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        if (servicesSection) {
-            servicesObserver.observe(servicesSection);
-        }
-
-        // ===== FONCTIONS EMAIL =====
-        function openEmailForm() {
-            document.getElementById('emailModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeEmailForm() {
-            document.getElementById('emailModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function sendEmail(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const inputs = form.querySelectorAll('input, textarea');
-            const submitBtn = form.querySelector('.btn-send-email');
-            
-            // Récupérer les valeurs du formulaire
-            const nom = inputs[0].value;
-            const email = inputs[1].value;
-            const objet = inputs[2].value;
-            const message = inputs[3].value;
-            
-            // Animation de soumission
-            submitBtn.textContent = '📧 Envoi en cours...';
-            submitBtn.disabled = true;
-            
-            // Créer le message pour WhatsApp (plus fiable)
-            const whatsappMessage = `📧 *NOUVEAU MESSAGE EMAIL* 📧\n\n` +
-                `👤 *Nom:* ${nom}\n` +
-                `📧 *Email:* ${email}\n` +
-                `📝 *Objet:* ${objet}\n\n` +
-                `💬 *Message:*\n${message}\n\n` +
-                `📅 *Date:* ${new Date().toLocaleDateString('fr-FR')}\n` +
-                `---\n` +
-                `✨ Envoyé depuis le formulaire email du site web ✨`;
-            
-            // Encoder le message pour WhatsApp
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-            const whatsappUrl = `https://wa.me/2250747651961?text=${encodedMessage}`;
-            
-            // Ouvrir WhatsApp avec le message
-            window.open(whatsappUrl, '_blank');
-            
-            // Alternative Email (backup)
-            setTimeout(() => {
-                const subject = encodeURIComponent(`[SITE WEB] - ${objet}`);
-                const body = encodeURIComponent(
-                    `Bonjour Othniel,\n\n` +
-                    `Vous avez reçu un nouveau message depuis votre site web :\n\n` +
-                    `Nom : ${nom}\n` +
-                    `Email : ${email}\n` +
-                    `Objet : ${objet}\n\n` +
-                    `Message :\n${message}\n\n` +
-                    `---\n` +
-                    `Envoyé depuis le site web othnieldelloh.com`
-                );
-                
-                const mailtoLink = `mailto:othnieldelloh@gmail.com?subject=${subject}&body=${body}`;
-                
-                // Proposer l'alternative email
-                if (confirm('WhatsApp s\'est ouvert avec votre message. Voulez-vous également ouvrir votre client email comme sauvegarde ?')) {
-                    window.open(mailtoLink, '_blank');
-                }
-                
-                // Fermer et réinitialiser
-                closeEmailForm();
-                form.reset();
-                submitBtn.textContent = '📧 Envoyer l\'email';
-                submitBtn.disabled = false;
-                
-                showNotification('✅ Message envoyé via WhatsApp ! Vous le recevrez immédiatement.');
-            }, 2000);
-        }
-
-        // Fermer la modale en cliquant en dehors
-        document.getElementById('emailModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeEmailForm();
-            }
-        });
-
-        // Fermer la modale avec la touche Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeEmailForm();
             }
         });
     </script>
