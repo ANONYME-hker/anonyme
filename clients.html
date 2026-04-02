@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNE CashFlow - Clients</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="clients.css">
+</head>
+<body class="has-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>FNE CashFlow</h1>
+            <button class="sidebar-close" id="sidebarClose">&times;</button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link" data-page="dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-text">Tableau de bord</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="clients.html" class="nav-link active" data-page="clients">
+                        <span class="nav-icon">👥</span>
+                        <span class="nav-text">Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="factures.html" class="nav-link" data-page="factures">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-text">Factures</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="paiements.html" class="nav-link" data-page="paiements">
+                        <span class="nav-icon">💰</span>
+                        <span class="nav-text">Paiements</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="logout-btn" id="logoutBtn">
+                <span class="nav-icon">🚪</span>
+                <span class="nav-text">Déconnexion</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="header-title"><h2>Clients</h2></div>
+            <div class="header-user">
+                <span class="user-email" id="userEmail">chargement...</span>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <div class="page-actions">
+                <div class="search-bar">
+                    <input type="text" id="searchClients" placeholder="Rechercher un client..." class="search-input">
+                    <button class="search-btn" id="searchBtn">🔍</button>
+                </div>
+                <button class="btn-primary" id="addClientBtn">
+                    <span>➕</span> Ajouter un client
+                </button>
+            </div>
+
+            <div class="clients-container">
+                <div class="clients-header">
+                    <h3>Liste des clients</h3>
+                    <span class="clients-count" id="clientsCount">0 client</span>
+                </div>
+                <div class="clients-list" id="clientsList">
+                    <div class="empty-state">
+                        <p>Aucun client pour le moment</p>
+                        <button class="btn-secondary" onclick="document.getElementById('addClientBtn').click()">
+                            Ajouter votre premier client
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Ajout/Modification Client -->
+    <div class="modal" id="clientModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Ajouter un client</h2>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <form id="clientForm" class="client-form">
+                <input type="hidden" id="clientId">
+                <div class="form-group">
+                    <label for="clientNom">Nom complet *</label>
+                    <input type="text" id="clientNom" required placeholder="Ex: Konan Yapo">
+                </div>
+                <div class="form-group">
+                    <label for="clientTelephone">Téléphone *</label>
+                    <input type="tel" id="clientTelephone" required placeholder="Ex: +225 07 00 00 00 00">
+                </div>
+                <div class="form-group">
+                    <label for="clientEmail">Email (optionnel)</label>
+                    <input type="email" id="clientEmail" placeholder="email@exemple.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="clientEntreprise">Entreprise (optionnel)</label>
+                    <input type="text" id="clientEntreprise" placeholder="Ex: OLAM Cocoa Processing">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">Annuler</button>
+                    <button type="submit" class="btn-primary" id="saveClientBtn">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Confirmation Suppression -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirmer la suppression</h2>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer ce client ?</p>
+                <p class="warning-text">Cette action est irréversible et supprimera également toutes ses factures associées.</p>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" id="cancelDeleteBtn">Annuler</button>
+                <button type="button" class="btn-danger" id="confirmDeleteBtn">Supprimer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+    <script>
+
+        // ===== VARIABLES GLOBALES =====
+        let clients = [];
+        let currentEditId = null;
+        let deleteClientId = null;
+
+        // ===== POINT D'ENTRÉE — attend Firebase avant tout =====
+        document.addEventListener('DOMContentLoaded', function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // Utilisateur connecté — on initialise tout
+                    document.getElementById('userEmail').textContent = user.email;
+                    setupSidebar();
+                    setupEventListeners();
+                    loadClients();
+                } else {
+                    // Pas connecté — retour au login
+                    window.location.href = 'index.html';
+                }
+            });
+        }); // ← fin du DOMContentLoaded
+
+        // ===== SIDEBAR =====
+        function setupSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarClose = document.getElementById('sidebarClose');
+            const sidebar = document.getElementById('sidebar');
+
+            menuToggle.addEventListener('click', () => sidebar.classList.add('open'));
+            sidebarClose.addEventListener('click', () => sidebar.classList.remove('open'));
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                firebase.auth().signOut().then(() => {
+                    window.location.href = 'index.html';
+                });
+            });
+        }
+
+        // ===== ÉVÉNEMENTS =====
+        function setupEventListeners() {
+            document.getElementById('addClientBtn').addEventListener('click', () => openClientModal());
+            document.getElementById('searchBtn').addEventListener('click', searchClients);
+            document.getElementById('searchClients').addEventListener('input', searchClients);
+            document.getElementById('closeModalBtn').addEventListener('click', closeClientModal);
+            document.getElementById('cancelBtn').addEventListener('click', closeClientModal);
+            document.getElementById('clientForm').addEventListener('submit', saveClient);
+            document.getElementById('cancelDeleteBtn').addEventListener('click', closeDeleteModal);
+            document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDelete);
+            document.getElementById('clientModal').addEventListener('click', (e) => {
+                if (e.target.id === 'clientModal') closeClientModal();
+            });
+            document.getElementById('deleteModal').addEventListener('click', (e) => {
+                if (e.target.id === 'deleteModal') closeDeleteModal();
+            });
+        }
+
+        // ===== CHARGER LES CLIENTS =====
+        async function loadClients() {
+            try {
+                const userId = firebase.auth().currentUser.uid;
+                const snapshot = await firebase.firestore()
+                    .collection('users').doc(userId)
+                    .collection('clients').get();
+
+                clients = [];
+                snapshot.forEach(doc => {
+                    clients.push({ id: doc.id, ...doc.data() });
+                });
+
+                await calculateClientsDebts();
+                displayClients(clients);
+
+            } catch (error) {
+                console.error('Erreur chargement clients:', error);
+            }
+        }
+
+        // ===== CALCULER LES DETTES =====
+        async function calculateClientsDebts() {
+            const userId = firebase.auth().currentUser.uid;
+
+            for (let client of clients) {
+                try {
+                    // Total factures
+                    const facturesSnap = await firebase.firestore()
+                        .collection('users').doc(userId)
+                        .collection('factures')
+                        .where('clientId', '==', client.id).get();
+
+                    let totalFactures = 0;
+                    facturesSnap.forEach(doc => totalFactures += doc.data().montant);
+
+                    // Total paiements
+                    const paiementsSnap = await firebase.firestore()
+                        .collection('users').doc(userId)
+                        .collection('paiements')
+                        .where('clientId', '==', client.id).get();
+
+                    let totalPaiements = 0;
+                    paiementsSnap.forEach(doc => totalPaiements += doc.data().montant);
+
+                    client.totalDu = totalFactures - totalPaiements;
+
+                } catch (error) {
+                    console.error('Erreur calcul dette:', error);
+                    client.totalDu = 0;
+                }
+            }
+        }
+
+        // ===== AFFICHER LES CLIENTS =====
+        function displayClients(clientsToDisplay) {
+            const clientsList = document.getElementById('clientsList');
+            const clientsCount = document.getElementById('clientsCount');
+
+            clientsCount.textContent = `${clientsToDisplay.length} client${clientsToDisplay.length > 1 ? 's' : ''}`;
+
+            if (clientsToDisplay.length === 0) {
+                clientsList.innerHTML = `
+                    <div class="empty-state">
+                        <p>Aucun client trouvé</p>
+                        <button class="btn-secondary" onclick="document.getElementById('addClientBtn').click()">
+                            Ajouter votre premier client
+                        </button>
+                    </div>`;
+                return;
+            }
+
+            clientsList.innerHTML = clientsToDisplay.map(client => `
+                <div class="client-card">
+                    <div class="client-info">
+                        <div class="client-header">
+                            <h4 class="client-name">${client.nom}</h4>
+                            ${client.entreprise ? `<span class="client-company">${client.entreprise}</span>` : ''}
+                        </div>
+                        <div class="client-contact">
+                            <span class="client-phone">📱 ${client.telephone}</span>
+                        </div>
+                    </div>
+                    <div class="client-debt">
+                        <div class="debt-amount ${client.totalDu > 0 ? 'debt-positive' : 'debt-zero'}">
+                            ${formatAmount(client.totalDu)}
+                        </div>
+                        <div class="debt-label">${client.totalDu > 0 ? 'Dû' : 'À jour'}</div>
+                    </div>
+                    <div class="client-actions">
+                        <button class="btn-whatsapp" onclick="openWhatsApp('${client.telephone}', '${client.nom}', ${client.totalDu})" title="WhatsApp">📱</button>
+                        <button class="btn-edit" onclick="editClient('${client.id}')" title="Modifier">✏️</button>
+                        <button class="btn-delete" onclick="deleteClient('${client.id}')" title="Supprimer">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ===== RECHERCHE =====
+        function searchClients() {
+            const term = document.getElementById('searchClients').value.toLowerCase();
+            if (!term) { displayClients(clients); return; }
+            const filtered = clients.filter(c =>
+                c.nom.toLowerCase().includes(term) ||
+                c.telephone.includes(term) ||
+                (c.entreprise && c.entreprise.toLowerCase().includes(term))
+            );
+            displayClients(filtered);
+        }
+
+        // ===== MODAL CLIENT =====
+        function openClientModal(clientId = null) {
+            const modal = document.getElementById('clientModal');
+            document.getElementById('clientForm').reset();
+            currentEditId = clientId;
+
+            if (clientId) {
+                const client = clients.find(c => c.id === clientId);
+                document.getElementById('modalTitle').textContent = 'Modifier un client';
+                document.getElementById('clientId').value = client.id;
+                document.getElementById('clientNom').value = client.nom;
+                document.getElementById('clientTelephone').value = client.telephone;
+                document.getElementById('clientEmail').value = client.email || '';
+                document.getElementById('clientEntreprise').value = client.entreprise || '';
+            } else {
+                document.getElementById('modalTitle').textContent = 'Ajouter un client';
+                document.getElementById('clientId').value = '';
+                document.getElementById('clientEmail').value = '';
+            }
+            modal.classList.add('show');
+        }
+
+        function closeClientModal() {
+            document.getElementById('clientModal').classList.remove('show');
+            currentEditId = null;
+        }
+
+        // ===== SAUVEGARDER UN CLIENT =====
+        async function saveClient(e) {
+            e.preventDefault();
+            const userId = firebase.auth().currentUser.uid;
+            const clientData = {
+                nom: document.getElementById('clientNom').value,
+                telephone: document.getElementById('clientTelephone').value,
+                email: document.getElementById('clientEmail').value,
+                entreprise: document.getElementById('clientEntreprise').value,
+                updatedAt: new Date()
+            };
+
+            try {
+                if (currentEditId) {
+                    await firebase.firestore()
+                        .collection('users').doc(userId)
+                        .collection('clients').doc(currentEditId).update(clientData);
+                } else {
+                    clientData.createdAt = new Date();
+                    await firebase.firestore()
+                        .collection('users').doc(userId)
+                        .collection('clients').add(clientData);
+                }
+                closeClientModal();
+                loadClients();
+            } catch (error) {
+                console.error('Erreur sauvegarde:', error);
+            }
+        }
+
+        // ===== MODIFIER / SUPPRIMER =====
+        function editClient(clientId) { openClientModal(clientId); }
+
+        function deleteClient(clientId) {
+            deleteClientId = clientId;
+            document.getElementById('deleteModal').classList.add('show');
+        }
+
+        async function confirmDelete() {
+            if (!deleteClientId) return;
+            const userId = firebase.auth().currentUser.uid;
+
+            try {
+                // Supprimer le client
+                await firebase.firestore()
+                    .collection('users').doc(userId)
+                    .collection('clients').doc(deleteClientId).delete();
+
+                // Supprimer les factures associées
+                const facturesSnap = await firebase.firestore()
+                    .collection('users').doc(userId)
+                    .collection('factures')
+                    .where('clientId', '==', deleteClientId).get();
+
+                const batch = firebase.firestore().batch();
+                facturesSnap.forEach(doc => batch.delete(doc.ref));
+                await batch.commit();
+
+                closeDeleteModal();
+                loadClients();
+            } catch (error) {
+                console.error('Erreur suppression:', error);
+            }
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('show');
+            deleteClientId = null;
+        }
+
+        // ===== WHATSAPP =====
+        function openWhatsApp(phone, name, amount) {
+            const cleanPhone = phone.replace(/[^\d+]/g, '');
+            const message = amount > 0
+                ? `Bonjour ${name}, votre facture de ${formatAmount(amount)} FCFA est en attente de paiement. Merci de régulariser.`
+                : `Bonjour ${name}, nous vous remercions pour votre fidélité. Tous vos comptes sont à jour.`;
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+    </script>
+</body>
+</html>

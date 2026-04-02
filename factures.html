@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNE CashFlow - Factures</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="factures.css">
+</head>
+<body class="has-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>FNE CashFlow</h1>
+            <button class="sidebar-close" id="sidebarClose">&times;</button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link" data-page="dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-text">Tableau de bord</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="clients.html" class="nav-link" data-page="clients">
+                        <span class="nav-icon">👥</span>
+                        <span class="nav-text">Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="factures.html" class="nav-link active" data-page="factures">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-text">Factures</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="paiements.html" class="nav-link" data-page="paiements">
+                        <span class="nav-icon">💰</span>
+                        <span class="nav-text">Paiements</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button class="logout-btn" id="logoutBtn">
+                <span class="nav-icon">🚪</span>
+                <span class="nav-text">Déconnexion</span>
+            </button>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="header-title">
+                <h2>Factures</h2>
+            </div>
+            <div class="header-user">
+                <span class="user-email" id="userEmail">chargement...</span>
+            </div>
+        </header>
+        
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Actions -->
+            <div class="page-actions">
+                <div class="filters">
+                    <select id="filterClient" class="filter-select">
+                        <option value="">Tous les clients</option>
+                    </select>
+                    <select id="filterStatut" class="filter-select">
+                        <option value="">Tous les statuts</option>
+                        <option value="impaye">Impayé</option>
+                        <option value="partiel">Partiel</option>
+                        <option value="paye">Payé</option>
+                    </select>
+                </div>
+                <button class="btn-primary" id="addFactureBtn">
+                    <span>➕</span>
+                    Nouvelle facture
+                </button>
+            </div>
+            
+            <!-- Liste des factures -->
+            <div class="factures-container">
+                <div class="factures-header">
+                    <h3>Liste des factures</h3>
+                    <span class="factures-count" id="facturesCount">0 facture</span>
+                </div>
+                
+                <div class="factures-list" id="facturesList">
+                    <div class="empty-state">
+                        <p>Aucune facture pour le moment</p>
+                        <button class="btn-secondary" onclick="document.getElementById('addFactureBtn').click()">
+                            Créer votre première facture
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Modal Ajout Facture -->
+    <div class="modal" id="factureModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nouvelle facture</h2>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            
+            <form id="factureForm" class="facture-form">
+                <div class="form-group">
+                    <label for="factureClient">Client *</label>
+                    <select id="factureClient" required>
+                        <option value="">Sélectionner un client</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="factureDescription">Description *</label>
+                    <input type="text" id="factureDescription" required placeholder="Ex: Vente de marchandises">
+                </div>
+                
+                <div class="form-group">
+                    <label for="factureMontant">Montant (FCFA) *</label>
+                    <input type="number" id="factureMontant" required min="0" step="100" placeholder="Ex: 50000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="factureDate">Date *</label>
+                    <input type="date" id="factureDate" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">Annuler</button>
+                    <button type="submit" class="btn-primary" id="saveFactureBtn">Créer la facture</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal Email -->
+    <div class="modal" id="emailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Relancer par email</h2>
+                <button class="modal-close" id="closeEmailModalBtn">&times;</button>
+            </div>
+            
+            <form id="emailForm" class="email-form">
+                <input type="hidden" id="emailFactureId">
+                
+                <div class="form-group">
+                    <label for="emailDestinataire">Email du destinataire *</label>
+                    <input type="email" id="emailDestinataire" required placeholder="email@exemple.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailObjet">Objet *</label>
+                    <input type="text" id="emailObjet" required placeholder="Rappel de paiement">
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailMessage">Message *</label>
+                    <textarea id="emailMessage" required rows="6" placeholder="Message de relance..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelEmailBtn">Annuler</button>
+                    <button type="submit" class="btn-primary" id="sendEmailBtn">Envoyer l'email</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal SMS -->
+    <div class="modal" id="smsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Relancer par SMS</h2>
+                <button class="modal-close" id="closeSMSModalBtn">&times;</button>
+            </div>
+            
+            <form id="smsForm" class="sms-form">
+                <input type="hidden" id="smsFactureId">
+                
+                <div class="form-group">
+                    <label for="smsDestinataire">Numéro du destinataire *</label>
+                    <input type="tel" id="smsDestinataire" required placeholder="+225 07 00 00 00 00">
+                </div>
+                
+                <div class="form-group">
+                    <label for="smsMessage">Message *</label>
+                    <textarea id="smsMessage" required rows="4" placeholder="Message SMS..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelSMSBtn">Annuler</button>
+                    <button type="button" class="btn-primary" id="sendSMSBtn">Envoyer SMS</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Variables globales
+        let factures = [];
+        let clients = [];
+        let filteredFactures = [];
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initFacturesPage();
+        });
+        
+        function initFacturesPage() {
+            // Afficher l'email utilisateur
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    document.getElementById('userEmail').textContent = user.email;
+                    loadClients();
+                    loadFactures();
+                } else {
+                    window.location.href = 'index.html';
+                }
+            });
+            
+            // Navigation sidebar
+            setupSidebar();
+            
+            // Événements
+            setupEventListeners();
+        }
+        
+        function setupSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarClose = document.getElementById('sidebarClose');
+            const sidebar = document.getElementById('sidebar');
+            
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.add('open');
+            });
+            
+            sidebarClose.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+            
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                firebase.auth().signOut().then(() => {
+                    window.location.href = 'index.html';
+                });
+            });
+        }
+        
+        function setupEventListeners() {
+            // Ajouter facture
+            document.getElementById('addFactureBtn').addEventListener('click', () => {
+                openFactureModal();
+            });
+            
+            // Filtres
+            document.getElementById('filterClient').addEventListener('change', applyFilters);
+            document.getElementById('filterStatut').addEventListener('change', applyFilters);
+            
+            // Modal facture
+            document.getElementById('closeModalBtn').addEventListener('click', closeFactureModal);
+            document.getElementById('cancelBtn').addEventListener('click', closeFactureModal);
+            document.getElementById('factureForm').addEventListener('submit', saveFacture);
+            
+            // Modals de relance
+            document.getElementById('closeEmailModalBtn').addEventListener('click', closeEmailModal);
+            document.getElementById('cancelEmailBtn').addEventListener('click', closeEmailModal);
+            document.getElementById('emailForm').addEventListener('submit', sendEmail);
+            
+            document.getElementById('closeSMSModalBtn').addEventListener('click', closeSMSModal);
+            document.getElementById('cancelSMSBtn').addEventListener('click', closeSMSModal);
+            document.getElementById('sendSMSBtn').addEventListener('click', sendSMS);
+            
+            // Fermer modals en cliquant à l'extérieur
+            document.getElementById('factureModal').addEventListener('click', (e) => {
+                if (e.target.id === 'factureModal') closeFactureModal();
+            });
+            
+            document.getElementById('emailModal').addEventListener('click', (e) => {
+                if (e.target.id === 'emailModal') closeEmailModal();
+            });
+            
+            document.getElementById('smsModal').addEventListener('click', (e) => {
+                if (e.target.id === 'smsModal') closeSMSModal();
+            });
+        }
+        
+        // Charger les clients
+        async function loadClients() {
+            try {
+                const userId = firebase.auth().currentUser.uid;
+                const snapshot = await firebase.firestore().collection('users').doc(userId).collection('clients').get();
+                
+                clients = [];
+                snapshot.forEach(doc => {
+                    clients.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                // Remplir le select de clients
+                const select = document.getElementById('factureClient');
+                select.innerHTML = '<option value="">Sélectionner un client</option>' +
+                    clients.map(client => `<option value="${client.id}">${client.nom}</option>`).join('');
+            } catch (error) {
+                console.error('Erreur chargement clients:', error);
+            }
+        }
+        
+        // Charger les factures
+        async function loadFactures() {
+            try {
+                const userId = firebase.auth().currentUser.uid;
+                const snapshot = await firebase.firestore().collection('users').doc(userId).collection('factures').get();
+                
+                factures = [];
+                snapshot.forEach(doc => {
+                    const facture = doc.data();
+                    facture.id = doc.id;
+                    
+                    // Calculer le statut et le reste à payer
+                    calculateFactureStatus(facture);
+                    
+                    factures.push(facture);
+                });
+                
+                // Trier par date décroissante
+                factures.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                filteredFactures = [...factures];
+                displayFactures(filteredFactures);
+            } catch (error) {
+                console.error('Erreur chargement factures:', error);
+            }
+        }
+        
+        // Calculer le statut d'une facture
+        async function calculateFactureStatus(facture) {
+            try {
+                const userId = firebase.auth().currentUser.uid;
+                const paiementsSnapshot = await firebase.firestore().collection('users').doc(userId)
+                    .collection('paiements')
+                    .where('factureId', '==', facture.id)
+                    .get();
+                
+                let totalPaiements = 0;
+                paiementsSnapshot.forEach(doc => {
+                    totalPaiements += doc.data().montant;
+                });
+                
+                facture.totalPaiements = totalPaiements;
+                facture.resteAPayer = facture.montant - totalPaiements;
+                
+                // Déterminer le statut
+                if (facture.resteAPayer <= 0) {
+                    facture.statut = 'paye';
+                } else if (totalPaiements > 0) {
+                    facture.statut = 'partiel';
+                } else {
+                    facture.statut = 'impaye';
+                }
+            } catch (error) {
+                console.error('Erreur calcul statut facture:', error);
+                facture.statut = 'impaye';
+                facture.resteAPayer = facture.montant;
+            }
+        }
+        
+        // Afficher les factures
+        function displayFactures(facturesToDisplay) {
+            const facturesList = document.getElementById('facturesList');
+            const facturesCount = document.getElementById('facturesCount');
+            
+            facturesCount.textContent = `${facturesToDisplay.length} facture${facturesToDisplay.length > 1 ? 's' : ''}`;
+            
+            if (facturesToDisplay.length === 0) {
+                facturesList.innerHTML = `
+                    <div class="empty-state">
+                        <p>Aucune facture trouvée</p>
+                        <button class="btn-secondary" onclick="document.getElementById('addFactureBtn').click()">
+                            Créer votre première facture
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            facturesList.innerHTML = facturesToDisplay.map(facture => {
+                const statutClass = facture.statut === 'impaye' ? 'status-unpaid' : 
+                                  facture.statut === 'partiel' ? 'status-partial' : 'status-paid';
+                const statutText = facture.statut === 'impaye' ? 'Impayé' : 
+                                 facture.statut === 'partiel' ? 'Partiel' : 'Payé';
+                
+                return `
+                    <div class="facture-card">
+                        <div class="facture-info">
+                            <div class="facture-header">
+                                <h4 class="facture-client">${facture.clientNom}</h4>
+                                <span class="facture-status ${statutClass}">${statutText}</span>
+                            </div>
+                            <div class="facture-details">
+                                <p class="facture-description">${facture.description}</p>
+                                <p class="facture-date">📅 ${formatDate(facture.date)}</p>
+                            </div>
+                        </div>
+                        <div class="facture-amounts">
+                            <div class="amount-row">
+                                <span class="amount-label">Total:</span>
+                                <span class="amount-total">${formatAmount(facture.montant)}</span>
+                            </div>
+                            <div class="amount-row">
+                                <span class="amount-label">Payé:</span>
+                                <span class="amount-paid">${formatAmount(facture.totalPaiements || 0)}</span>
+                            </div>
+                            <div class="amount-row">
+                                <span class="amount-label">Reste:</span>
+                                <span class="amount-remaining ${facture.resteAPayer > 0 ? 'amount-due' : 'amount-zero'}">
+                                    ${formatAmount(facture.resteAPayer)}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="facture-actions">
+                            <button class="btn-whatsapp" onclick="openWhatsApp('${facture.telephone}', '${facture.clientNom}', ${facture.resteAPayer})" title="Relancer via WhatsApp">
+                                📱 Relancer
+                            </button>
+                            <button class="btn-email" onclick="openEmailModal('${facture.id}')" title="Relancer par email">
+                                ✉️ Email
+                            </button>
+                            <button class="btn-sms" onclick="openSMSModal('${facture.id}')" title="Relancer par SMS">
+                                💬 SMS
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Appliquer les filtres
+        function applyFilters() {
+            const clientFilter = document.getElementById('filterClient').value;
+            const statutFilter = document.getElementById('filterStatut').value;
+            
+            filteredFactures = factures.filter(facture => {
+                let matchClient = !clientFilter || facture.clientId === clientFilter;
+                let matchStatut = !statutFilter || facture.statut === statutFilter;
+                return matchClient && matchStatut;
+            });
+            
+            displayFactures(filteredFactures);
+        }
+        
+        // Ouvrir la modal facture
+        function openFactureModal() {
+            const modal = document.getElementById('factureModal');
+            const form = document.getElementById('factureForm');
+            
+            form.reset();
+            
+            // Mettre la date du jour par défaut
+            document.getElementById('factureDate').value = new Date().toISOString().split('T')[0];
+            
+            modal.classList.add('show');
+        }
+        
+        // Fermer la modal facture
+        function closeFactureModal() {
+            document.getElementById('factureModal').classList.remove('show');
+        }
+        
+        // Ouvrir la modal Email
+        function openEmailModal(factureId) {
+            const modal = document.getElementById('emailModal');
+            const form = document.getElementById('emailForm');
+            const facture = factures.find(f => f.id === factureId);
+            const client = clients.find(c => c.id === facture.clientId);
+            
+            form.reset();
+            document.getElementById('emailFactureId').value = factureId;
+            
+            // Pré-remplir les champs
+            document.getElementById('emailDestinataire').value = client.email || '';
+            document.getElementById('emailObjet').value = `Rappel de paiement — Facture ${facture.id}`;
+            document.getElementById('emailMessage').value = `Bonjour ${facture.clientNom},
+
+Nous vous rappelons que votre facture d'un montant de ${formatAmount(facture.montant)} présente un solde impayé de ${formatAmount(facture.resteAPayer)} FCFA.
+
+Merci de régulariser dans les plus brefs délais.
+
+Cordialement,
+FNE CashFlow`;
+            
+            modal.classList.add('show');
+        }
+        
+        // Fermer la modal Email
+        function closeEmailModal() {
+            document.getElementById('emailModal').classList.remove('show');
+        }
+        
+        // Envoyer un email
+        function sendEmail(e) {
+            e.preventDefault();
+            
+            const emailData = {
+                to: document.getElementById('emailDestinataire').value,
+                subject: document.getElementById('emailObjet').value,
+                message: document.getElementById('emailMessage').value
+            };
+            
+            // Vérifier que l'email est renseigné
+            if (!emailData.to) {
+                alert('Veuillez renseigner l\'email du destinataire ou ajouter un email au client.');
+                return;
+            }
+            
+            // Envoyer l'email via EmailJS
+            emailjs.send("service_id", "template_id", emailData)
+                .then(() => {
+                    alert('Email envoyé avec succès !');
+                    closeEmailModal();
+                    
+                    // Enregistrer la date de dernière relance
+                    const factureId = document.getElementById('emailFactureId').value;
+                    updateLastRelance(factureId, 'email');
+                })
+                .catch((error) => {
+                    console.error('Erreur envoi email:', error);
+                    alert('Erreur lors de l\'envoi de l\'email. Veuillez réessayer.');
+                });
+        }
+        
+        // Ouvrir la modal SMS
+        function openSMSModal(factureId) {
+            const modal = document.getElementById('smsModal');
+            const form = document.getElementById('smsForm');
+            const facture = factures.find(f => f.id === factureId);
+            const client = clients.find(c => c.id === facture.clientId);
+            
+            form.reset();
+            document.getElementById('smsFactureId').value = factureId;
+            
+            // Pré-remplir les champs
+            document.getElementById('smsDestinataire').value = client.telephone || '';
+            document.getElementById('smsMessage').value = `Bonjour ${facture.clientNom}, votre facture de ${formatAmount(facture.resteAPayer)} FCFA est en attente. Merci de régulariser.`;
+            
+            modal.classList.add('show');
+        }
+        
+        // Fermer la modal SMS
+        function closeSMSModal() {
+            document.getElementById('smsModal').classList.remove('show');
+        }
+        
+        // Envoyer un SMS
+        function sendSMS() {
+            const message = document.getElementById('smsMessage').value;
+            const phoneNumber = document.getElementById('smsDestinataire').value;
+            
+            if (!phoneNumber) {
+                alert('Veuillez renseigner le numéro de téléphone du destinataire.');
+                return;
+            }
+            
+            // Générer le lien SMS
+            const smsLink = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+            
+            // Ouvrir le lien SMS (fonctionne sur mobile)
+            window.open(smsLink, '_blank');
+            
+            // Enregistrer la date de dernière relance
+            const factureId = document.getElementById('smsFactureId').value;
+            updateLastRelance(factureId, 'sms');
+            
+            closeSMSModal();
+        }
+        
+        // Mettre à jour la dernière relance
+        async function updateLastRelance(factureId, canal) {
+            try {
+                const userId = firebase.auth().currentUser.uid;
+                await firebase.firestore()
+                    .collection('users').doc(userId)
+                    .collection('factures')
+                    .doc(factureId)
+                    .update({
+                        derniereRelance: {
+                            date: new Date(),
+                            canal: canal
+                        }
+                    });
+            } catch (error) {
+                console.error('Erreur mise à jour relance:', error);
+            }
+        }
+        
+        // Sauvegarder une facture
+        async function saveFacture(e) {
+            e.preventDefault();
+            
+            const clientId = document.getElementById('factureClient').value;
+            const client = clients.find(c => c.id === clientId);
+            
+            const factureData = {
+                clientId: clientId,
+                clientNom: client.nom,
+                description: document.getElementById('factureDescription').value,
+                montant: parseFloat(document.getElementById('factureMontant').value),
+                date: new Date(document.getElementById('factureDate').value),
+                createdAt: new Date()
+            };
+            
+            try {
+                const userId = firebase.auth().currentUser.uid;
+                await firebase.firestore().collection('users').doc(userId).collection('factures').add(factureData);
+                
+                closeFactureModal();
+                loadFactures();
+            } catch (error) {
+                console.error('Erreur sauvegarde facture:', error);
+            }
+        }
+        
+        // Formater la date
+        function formatDate(date) {
+            return new Date(date).toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+        
+        // Formater les montants
+        function formatAmount(amount) {
+            return new Intl.NumberFormat('fr-FR').format(amount) + ' FCFA';
+        }
+    </script>
+</body>
+</html>

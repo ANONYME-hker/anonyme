@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNE CashFlow - Tableau de bord</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    
+    <!-- SheetJS pour export Excel -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="has-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>FNE CashFlow</h1>
+            <button class="sidebar-close" id="sidebarClose">&times;</button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link active" data-page="dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-text">Tableau de bord</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="clients.html" class="nav-link" data-page="clients">
+                        <span class="nav-icon">👥</span>
+                        <span class="nav-text">Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="factures.html" class="nav-link" data-page="factures">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-text">Factures</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="paiements.html" class="nav-link" data-page="paiements">
+                        <span class="nav-icon">💰</span>
+                        <span class="nav-text">Paiements</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button class="logout-btn" id="logoutBtn">
+                <span class="nav-icon">🚪</span>
+                <span class="nav-text">Déconnexion</span>
+            </button>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="header-title">
+                <h2>Tableau de bord</h2>
+            </div>
+            <div class="header-user">
+                <span class="user-email" id="userEmail">chargement...</span>
+                <button class="export-btn" onclick="showExportModal()" title="Exporter les données">
+                    📊 Export
+                </button>
+            </div>
+        </header>
+        
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- SECTION 1 : BANNIÈRE PRINCIPALE -->
+            <section class="main-banner">
+                <div class="banner-content">
+                    <div class="main-amount" id="totalImpayeBanner">0 FCFA</div>
+                    <div class="banner-subtitle">Combien d'argent j'attends encore ?</div>
+                    <div class="banner-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Total ventes</span>
+                            <span class="detail-value" id="totalVentesBanner">0 FCFA</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Total encaissé</span>
+                            <span class="detail-value encaisse" id="totalEncaisseBanner">0 FCFA</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Taux de recouvrement</span>
+                            <span class="detail-value" id="tauxRecouvrement">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 2 : 4 CARTES STATISTIQUES -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="nombreClientsCard">0</div>
+                        <div class="stat-label">Clients</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📄</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="nombreFacturesCard">0</div>
+                        <div class="stat-label">Factures totales</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="facturesImpayeesCard">0</div>
+                        <div class="stat-label">Factures impayées</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🔄</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="facturesPartiellesCard">0</div>
+                        <div class="stat-label">Factures partielles</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 3 : TOP 5 CLIENTS DÉBITEURS -->
+            <section class="top-debiteurs">
+                <div class="section-header">
+                    <h3>Top 5 clients débiteurs</h3>
+                </div>
+                <div class="debiteurs-list" id="topDebiteursList">
+                    <div class="loading-message">Chargement...</div>
+                </div>
+            </section>
+            
+            <!-- SECTION 4 : ACTIVITÉ RÉCENTE -->
+            <section class="recent-activity">
+                <div class="activity-column">
+                    <div class="section-header">
+                        <h3>5 dernières factures créées</h3>
+                    </div>
+                    <div class="activity-list" id="lastFacturesList">
+                        <div class="loading-message">Chargement...</div>
+                    </div>
+                </div>
+                
+                <div class="activity-column">
+                    <div class="section-header">
+                        <h3>5 derniers paiements reçus</h3>
+                    </div>
+                    <div class="activity-list" id="lastPaiementsList">
+                        <div class="loading-message">Chargement...</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 5 : GRAPHIQUE CSS -->
+            <section class="chart-section">
+                <div class="section-header">
+                    <h3>Taux de recouvrement</h3>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill encaisse" id="progressEncaisse"></div>
+                        <div class="progress-fill impaye" id="progressImpaye"></div>
+                    </div>
+                    <div class="progress-percentage" id="progressPercentage">0% encaissé</div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Modal d'export avec filtre période -->
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Exporter les données</h3>
+                <button class="modal-close" id="closeExportModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exportStartDate">Date de début</label>
+                    <input type="date" id="exportStartDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="exportEndDate">Date de fin</label>
+                    <input type="date" id="exportEndDate" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="exportOnlyUnpaid" checked>
+                        Exporter seulement les factures impayées
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeExportModal()">Annuler</button>
+                    <button type="button" class="btn-primary" onclick="exportToExcel()">Exporter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Attendre que Firebase confirme l'état de connexion
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // Connecté — initialiser la page
+            document.getElementById('userEmail').textContent = user.email;
+            setupSidebar();
+            loadDashboardStats();
+        } else {
+            // Pas connecté — retour au login
+            window.location.href = 'index.html';
+        }
+    });
+});
+
+function setupSidebar() {
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebarClose = document.getElementById('sidebarClose');
+    const sidebar = document.getElementById('sidebar');
+    
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.add('open');
+    });
+    
+    sidebarClose.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+    });
+    
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        firebase.auth().signOut().then(() => {
+            window.location.href = 'index.html';
+        });
+    });
+}
+
+// Charger les statistiques du dashboard
+async function loadDashboardStats() {
+    try {
+        const userId = firebase.auth().currentUser.uid;
+        
+        // Afficher "Chargement..." pendant le fetch
+        showLoadingStates();
+        
+        // Charger toutes les données en parallèle pour performance
+        const [facturesSnap, paiementsSnap, clientsSnap] = await Promise.all([
+            firebase.firestore().collection('users').doc(userId).collection('factures').get(),
+            firebase.firestore().collection('users').doc(userId).collection('paiements').get(),
+            firebase.firestore().collection('users').doc(userId).collection('clients').get()
+        ]);
+        
+        // Extraire les données
+        const factures = facturesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const paiements = paiementsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const clients = clientsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        // Si aucune donnée, afficher message d'accueil
+        if (factures.length === 0 && clients.length === 0) {
+            showWelcomeMessage();
+            return;
+        }
+        
+        // Calculer toutes les statistiques
+        const stats = await calculateAllStats(factures, paiements, clients);
+        
+        // Afficher toutes les sections
+        displayMainBanner(stats);
+        displayStatCards(stats);
+        displayTopDebiteurs(stats.debiteurs);
+        displayRecentActivity(stats.lastFactures, stats.lastPaiements);
+        displayProgressChart(stats);
+        
+    } catch (error) {
+        console.error('Erreur chargement dashboard:', error);
+        showErrorMessage();
+    }
+}
+
+// Afficher les états de chargement
+function showLoadingStates() {
+    document.getElementById('totalImpayeBanner').textContent = 'Chargement...';
+    document.getElementById('nombreClientsCard').textContent = '...';
+    document.getElementById('nombreFacturesCard').textContent = '...';
+    document.getElementById('facturesImpayeesCard').textContent = '...';
+    document.getElementById('facturesPartiellesCard').textContent = '...';
+}
+
+// Afficher message d'accueil si aucune donnée
+function showWelcomeMessage() {
+    document.querySelector('.page-content').innerHTML = `
+        <div class="welcome-message">
+            <div class="welcome-icon">👋</div>
+            <h2>Bienvenue dans FNE CashFlow !</h2>
+            <p>Commencez par ajouter votre premier client pour suivre vos factures et paiements.</p>
+            <a href="clients.html" class="btn-primary">
+                <span>➕</span> Ajouter mon premier client
+            </a>
+        </div>
+    `;
+}
+
+// Afficher message d'erreur
+function showErrorMessage() {
+    document.querySelector('.page-content').innerHTML = `
+        <div class="error-message">
+            <div class="error-icon">⚠️</div>
+            <h2>Erreur de chargement</h2>
+            <p>Impossible de charger les données. Vérifiez votre connexion et réessayez.</p>
+            <button onclick="location.reload()" class="btn-primary">
+                🔄 Réessayer
+            </button>
+        </div>
+    `;
+}
+
+// Calculer toutes les statistiques
+async function calculateAllStats(factures, paiements, clients) {
+    // Calculer les totaux de base
+    const totalVentes = factures.reduce((sum, f) => sum + f.montant, 0);
+    const totalEncaisse = paiements.reduce((sum, p) => sum + p.montant, 0);
+    const totalImpaye = totalVentes - totalEncaisse;
+    const tauxRecouvrement = totalVentes > 0 ? (totalEncaisse / totalVentes) * 100 : 0;
+    
+    // Calculer les statuts des factures
+    const facturesStats = await calculateFacturesStats(factures, paiements);
+    
+    // Calculer les dettes par client
+    const debiteurs = await calculateClientDebts(clients, factures, paiements);
+    
+    // Trier les activités récentes
+    const lastFactures = factures
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 5);
+    
+    const lastPaiements = paiements
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 5);
+    
+    return {
+        totalVentes,
+        totalEncaisse,
+        totalImpaye,
+        tauxRecouvrement,
+        nombreClients: clients.length,
+        nombreFactures: factures.length,
+        ...facturesStats,
+        debiteurs: debiteurs.slice(0, 5),
+        lastFactures,
+        lastPaiements
+    };
+}
+
+// Calculer les statistiques des factures
+async function calculateFacturesStats(factures, paiements) {
+    let impayees = 0;
+    let partielles = 0;
+    
+    for (const facture of factures) {
+        const totalPaiements = paiements
+            .filter(p => p.factureId === facture.id)
+            .reduce((sum, p) => sum + p.montant, 0);
+        
+        const resteAPayer = facture.montant - totalPaiements;
+        
+        if (resteAPayer >= facture.montant) {
+            impayees++;
+        } else if (resteAPayer > 0) {
+            partielles++;
+        }
+    }
+    
+    return { facturesImpayees: impayees, facturesPartielles: partielles };
+}
+
+// Calculer les dettes par client
+async function calculateClientDebts(clients, factures, paiements) {
+    const dettes = [];
+    
+    for (const client of clients) {
+        // Total des factures du client
+        const totalFactures = factures
+            .filter(f => f.clientId === client.id)
+            .reduce((sum, f) => sum + f.montant, 0);
+        
+        // Total des paiements du client
+        const totalPaiements = paiements
+            .filter(p => p.clientId === client.id)
+            .reduce((sum, p) => sum + p.montant, 0);
+        
+        const dette = totalFactures - totalPaiements;
+        
+        if (dette > 0) {
+            // Trouver la date de la dernière facture
+            const dernieresFactures = factures
+                .filter(f => f.clientId === client.id)
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const derniereFacture = dernieresFactures.length > 0 ? dernieresFactures[0] : null;
+            
+            dettes.push({
+                ...client,
+                dette,
+                derniereFacture: derniereFacture ? formatDate(derniereFacture.date) : 'N/A'
+            });
+        }
+    }
+    
+    // Trier par dette décroissante
+    return dettes.sort((a, b) => b.dette - a.dette);
+}
+
+// Afficher la bannière principale
+function displayMainBanner(stats) {
+    document.getElementById('totalImpayeBanner').textContent = formatAmount(stats.totalImpaye);
+    document.getElementById('totalVentesBanner').textContent = formatAmount(stats.totalVentes);
+    document.getElementById('totalEncaisseBanner').textContent = formatAmount(stats.totalEncaisse);
+    document.getElementById('tauxRecouvrement').textContent = stats.tauxRecouvrement.toFixed(1) + '%';
+}
+
+// Afficher les cartes statistiques
+function displayStatCards(stats) {
+    document.getElementById('nombreClientsCard').textContent = stats.nombreClients;
+    document.getElementById('nombreFacturesCard').textContent = stats.nombreFactures;
+    document.getElementById('facturesImpayeesCard').textContent = stats.facturesImpayees;
+    document.getElementById('facturesPartiellesCard').textContent = stats.facturesPartielles;
+}
+
+// Afficher le top 5 débiteurs
+function displayTopDebiteurs(debiteurs) {
+    const container = document.getElementById('topDebiteursList');
+    
+    if (debiteurs.length === 0) {
+        container.innerHTML = '<div class="empty-message">Aucun débiteur 🎉</div>';
+        return;
+    }
+    
+    container.innerHTML = debiteurs.map(debiteur => `
+        <div class="debiteur-item">
+            <div class="debiteur-info">
+                <div class="debiteur-name">${debiteur.nom}</div>
+                <div class="debiteur-details">
+                    <span class="debiteur-amount">${formatAmount(debiteur.dette)}</span>
+                    <span class="debiteur-date">Dernière facture: ${debiteur.derniereFacture}</span>
+                </div>
+            </div>
+            <div class="debiteur-actions">
+                <button class="btn-whatsapp" onclick="openWhatsApp('${debiteur.telephone}', '${debiteur.nom}', ${debiteur.dette})">
+                    📱 Relancer
+                </button>
+                <a href="factures.html" class="btn-secondary">
+                    📄 Voir factures
+                </a>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Afficher l'activité récente
+function displayRecentActivity(lastFactures, lastPaiements) {
+    // Afficher les dernières factures
+    const facturesContainer = document.getElementById('lastFacturesList');
+    if (lastFactures.length === 0) {
+        facturesContainer.innerHTML = '<div class="empty-message">Aucune facture</div>';
+    } else {
+        facturesContainer.innerHTML = lastFactures.map(facture => {
+            const statutClass = facture.statut === 'impaye' ? 'status-unpaid' : 
+                              facture.statut === 'partiel' ? 'status-partial' : 'status-paid';
+            const statutText = facture.statut === 'impaye' ? 'Impayé' : 
+                             facture.statut === 'partiel' ? 'Partiel' : 'Payé';
+            
+            return `
+                <div class="activity-item">
+                    <div class="activity-info">
+                        <span class="activity-client">${facture.clientNom}</span>
+                        <span class="activity-amount">${formatAmount(facture.montant)}</span>
+                    </div>
+                    <div class="activity-meta">
+                        <span class="activity-status ${statutClass}">${statutText}</span>
+                        <span class="activity-date">${formatDate(facture.date)}</span>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    // Afficher les derniers paiements
+    const paiementsContainer = document.getElementById('lastPaiementsList');
+    if (lastPaiements.length === 0) {
+        paiementsContainer.innerHTML = '<div class="empty-message">Aucun paiement</div>';
+    } else {
+        paiementsContainer.innerHTML = lastPaiements.map(paiement => {
+            const methodeIcon = {
+                'cash': '💵',
+                'orange_money': '🟠',
+                'wave': '🟡',
+                'mtn': '🟡'
+            }[paiement.methode] || '💰';
+            
+            return `
+                <div class="activity-item">
+                    <div class="activity-info">
+                        <span class="activity-client">${paiement.clientNom}</span>
+                        <span class="activity-amount">${formatAmount(paiement.montant)}</span>
+                    </div>
+                    <div class="activity-meta">
+                        <span class="activity-method">${methodeIcon} ${paiement.methode.replace('_', ' ')}</span>
+                        <span class="activity-date">${formatDate(paiement.date)}</span>
+                    </div>
+                    <div class="encaisse-badge">Encaissé</div>
+                </div>
+            `;
+        }).join('');
+    }
+}
+
+// Afficher le graphique de progression simple
+function displayProgressChart(stats) {
+    const encaissePercent = stats.tauxRecouvrement;
+    const impayePercent = 100 - encaissePercent;
+    
+    document.getElementById('progressEncaisse').style.width = `${encaissePercent}%`;
+    document.getElementById('progressImpaye').style.width = `${impayePercent}%`;
+    document.getElementById('progressPercentage').textContent = `${encaissePercent.toFixed(1)}% encaissé`;
+}
+
+// Ouvrir WhatsApp
+function openWhatsApp(phone, name, amount) {
+    const cleanPhone = phone.replace(/[^\d+]/g, '');
+    const message = amount > 0 
+        ? `Bonjour ${name}, votre facture de ${formatAmount(amount)} est en attente de paiement. Merci de régulariser.`
+        : `Bonjour ${name}, nous vous remercions pour votre fidélité. Tous vos comptes sont à jour.`;
+    
+    const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+}
+
+// Formater la date
+function formatDate(date) {
+    if (!date) return 'N/A';
+    const d = date?.toDate ? date.toDate() : new Date(date);
+    return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+// Formater les montants
+function formatAmount(amount) {
+    return new Intl.NumberFormat('fr-FR').format(amount) + ' FCFA';
+}
+
+// ===== MODAL D'EXPORT =====
+function showExportModal() {
+    // Définir les dates par défaut (mois en cours)
+    const today = new Date();
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    
+    document.getElementById('exportStartDate').value = firstDay.toISOString().split('T')[0];
+    document.getElementById('exportEndDate').value = today.toISOString().split('T')[0];
+    
+    document.getElementById('exportModal').classList.add('show');
+}
+
+function closeExportModal() {
+    document.getElementById('exportModal').classList.remove('show');
+}
+
+// Fermer la modal avec le bouton X
+document.addEventListener('DOMContentLoaded', function() {
+    const closeExportBtn = document.getElementById('closeExportModal');
+    if (closeExportBtn) {
+        closeExportBtn.addEventListener('click', closeExportModal);
+    }
+    
+    // Fermer en cliquant à l'extérieur
+    document.getElementById('exportModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeExportModal();
+        }
+    });
+});
+
+// ===== EXPORT EXCEL AVEC FILTRES =====
+async function exportToExcel() {
+    try {
+        const userId = firebase.auth().currentUser.uid;
+        
+        // Récupérer les filtres
+        const startDate = new Date(document.getElementById('exportStartDate').value);
+        const endDate = new Date(document.getElementById('exportEndDate').value);
+        endDate.setHours(23, 59, 59, 999); // Inclure toute la journée de fin
+        const onlyUnpaid = document.getElementById('exportOnlyUnpaid').checked;
+        
+        // Validation des dates
+        if (startDate > endDate) {
+            alert('La date de début doit être antérieure à la date de fin.');
+            return;
+        }
+        
+        // Afficher un message de chargement
+        const exportBtn = document.querySelector('.export-btn');
+        const originalText = exportBtn.innerHTML;
+        exportBtn.innerHTML = '⏳ Export...';
+        exportBtn.disabled = true;
+        
+        // Charger toutes les données
+        const [facturesSnap, paiementsSnap, clientsSnap] = await Promise.all([
+            firebase.firestore().collection('users').doc(userId).collection('factures').get(),
+            firebase.firestore().collection('users').doc(userId).collection('paiements').get(),
+            firebase.firestore().collection('users').doc(userId).collection('clients').get()
+        ]);
+        
+        // Extraire et filtrer les données
+        const clients = clientsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        let factures = facturesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const paiements = paiementsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        // Filtrer les factures par période
+        factures = factures.filter(facture => {
+            const factureDate = facture.date?.toDate ? facture.date.toDate() : new Date(facture.date);
+            return factureDate >= startDate && factureDate <= endDate;
+        });
+        
+        // Filtrer seulement les impayées si demandé
+        if (onlyUnpaid) {
+            factures = factures.filter(facture => {
+                const totalPaiements = paiements
+                    .filter(p => p.factureId === facture.id)
+                    .reduce((sum, p) => sum + p.montant, 0);
+                return facture.montant > totalPaiements;
+            });
+        }
+        
+        // Filtrer les paiements par période
+        const filteredPaiements = paiements.filter(paiement => {
+            const paiementDate = paiement.date?.toDate ? paiement.date.toDate() : new Date(paiement.date);
+            return paiementDate >= startDate && paiementDate <= endDate;
+        });
+        
+        // Créer le classeur Excel
+        const wb = XLSX.utils.book_new();
+        
+        // Feuille 1 : Clients (sans ID)
+        const clientsData = clients.map(client => ({
+            'Nom': client.nom,
+            'Téléphone': client.telephone,
+            'Email': client.email || '',
+            'Entreprise': client.entreprise || '',
+            'Date création': client.createdAt ? formatDate(client.createdAt) : formatDate(client.createdAt)
+        }));
+        const wsClients = XLSX.utils.json_to_sheet(clientsData);
+        XLSX.utils.book_append_sheet(wb, wsClients, 'Clients');
+        
+        // Feuille 2 : Factures (sans ID, avec statut de paiement)
+        const facturesData = factures.map(facture => {
+            const totalPaiements = paiements
+                .filter(p => p.factureId === facture.id)
+                .reduce((sum, p) => sum + p.montant, 0);
+            const reste = facture.montant - totalPaiements;
+            const statutPaiement = reste <= 0 ? 'Payé' : reste >= facture.montant ? 'Impayé' : 'Partiel';
+            
+            return {
+                'Client': facture.clientNom,
+                'Description': facture.description || '',
+                'Montant facture': facture.montant,
+                'Montant payé': totalPaiements,
+                'Reste à payer': reste,
+                'Statut paiement': statutPaiement,
+                'Date': formatDate(facture.date)
+            };
+        });
+        const wsFactures = XLSX.utils.json_to_sheet(facturesData);
+        XLSX.utils.book_append_sheet(wb, wsFactures, 'Factures');
+        
+        // Feuille 3 : Paiements (sans ID)
+        const paiementsData = filteredPaiements.map(paiement => ({
+            'Client': paiement.clientNom,
+            'Montant': paiement.montant,
+            'Méthode': paiement.methode,
+            'Date': formatDate(paiement.date),
+            'Note': paiement.note || ''
+        }));
+        const wsPaiements = XLSX.utils.json_to_sheet(paiementsData);
+        XLSX.utils.book_append_sheet(wb, wsPaiements, 'Paiements');
+        
+        // Feuille 4 : Résumé par période
+        const totalVentes = factures.reduce((sum, f) => sum + f.montant, 0);
+        const totalEncaisse = filteredPaiements.reduce((sum, p) => sum + p.montant, 0);
+        const totalImpaye = totalVentes - totalEncaisse;
+        
+        const resumeData = [
+            { 'Période': `${formatDate(startDate)} - ${formatDate(endDate)}` },
+            { '': '' },
+            { 'Métrique': 'Total factures période', 'Valeur': factures.length },
+            { 'Métrique': 'Total paiements période', 'Valeur': filteredPaiements.length },
+            { 'Métrique': 'Total ventes (FCFA)', 'Valeur': totalVentes },
+            { 'Métrique': 'Total encaissé (FCFA)', 'Valeur': totalEncaisse },
+            { 'Métrique': 'Total impayé (FCFA)', 'Valeur': totalImpaye },
+            { 'Métrique': 'Taux recouvrement (%)', 'Valeur': totalVentes > 0 ? ((totalEncaisse / totalVentes) * 100).toFixed(1) : 0 },
+            { '': '' },
+            { 'Type export': onlyUnpaid ? 'Factures impayées uniquement' : 'Toutes les factures' },
+            { 'Date export': new Date().toLocaleString('fr-FR') }
+        ];
+        const wsResume = XLSX.utils.json_to_sheet(resumeData);
+        XLSX.utils.book_append_sheet(wb, wsResume, 'Résumé');
+        
+        // Générer le nom du fichier avec la période
+        const fileName = `FNE_CashFlow_Export_${formatDate(startDate)}_${formatDate(endDate)}.xlsx`;
+        
+        // Télécharger le fichier
+        XLSX.writeFile(wb, fileName);
+        
+        // Fermer la modal et restaurer le bouton
+        closeExportModal();
+        exportBtn.innerHTML = originalText;
+        exportBtn.disabled = false;
+        
+        alert(`Export réussi ! Fichier "${fileName}" téléchargé.`);
+        
+    } catch (error) {
+        console.error('Erreur export Excel:', error);
+        
+        // Restaurer le bouton en cas d'erreur
+        const exportBtn = document.querySelector('.export-btn');
+        exportBtn.innerHTML = '📊 Export';
+        exportBtn.disabled = false;
+        
+        alert('Erreur lors de l\'export. Vérifiez votre connexion et réessayez.');
+    }
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,559 @@
+/* Styles spécifiques à la page paiements - DESIGN MODERNE */
+
+/* Sections */
+.factures-impayees,
+.paiements-historique {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.factures-impayees::before,
+.paiements-historique::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 20px 20px 0 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--medium-gray);
+}
+
+.section-header h3 {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  font-weight: 700;
+}
+
+.factures-count,
+.paiements-count {
+  background: var(--gradient-primary);
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Factures List */
+.factures-list {
+  display: grid;
+  gap: 20px;
+}
+
+.facture-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+  border: 1px solid var(--medium-gray);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.facture-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-warning);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.facture-card:hover::before {
+  transform: scaleX(1);
+}
+
+.facture-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-6px) scale(1.02);
+  border-color: var(--warning-orange);
+}
+
+.facture-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.facture-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.facture-client {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.facture-status {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
+}
+
+.status-unpaid {
+  background: var(--gradient-danger);
+  color: var(--white);
+}
+
+.status-partial {
+  background: var(--gradient-warning);
+  color: var(--white);
+}
+
+.status-paid {
+  background: var(--gradient-success);
+  color: var(--white);
+}
+
+.facture-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.facture-description {
+  color: var(--text-dark);
+  font-weight: 500;
+  margin: 0;
+}
+
+.facture-date {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.facture-amounts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+  text-align: right;
+  margin-left: 20px;
+}
+
+.amount-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.amount-label {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.amount-total {
+  font-weight: 700;
+  color: var(--text-dark);
+  font-size: 1rem;
+}
+
+.amount-paid {
+  font-weight: 600;
+  color: var(--success-green);
+  font-size: 0.95rem;
+}
+
+.amount-remaining {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.amount-due {
+  color: var(--error-red);
+}
+
+.amount-zero {
+  color: var(--success-green);
+}
+
+.btn-pay {
+  background: var(--success-green);
+  color: var(--white);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.btn-pay:hover {
+  background: #2F855A;
+}
+
+.paiement-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.paiement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.paiement-client {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.paiement-amount {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: var(--gradient-success);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 8px 0;
+}
+
+.paiement-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.paiement-method {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.method-icon {
+  font-size: 1.2rem;
+}
+
+.paiement-date {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.paiement-note {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* Actions */
+.btn-whatsapp, .btn-edit, .btn-delete, .btn-pay {
+  background: var(--white);
+  border: 2px solid var(--medium-gray);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.btn-whatsapp:hover {
+  background: #25D366;
+  border-color: #25D366;
+  color: var(--white);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-pay {
+  background: var(--gradient-success);
+  border-color: var(--success-green);
+  color: var(--white);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-pay:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-edit:hover {
+  background: var(--gradient-primary);
+  border-color: var(--primary-blue);
+  color: var(--white);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-delete:hover {
+  background: var(--gradient-danger);
+  border-color: var(--error-red);
+  color: var(--white);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 0;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid var(--border-gray);
+}
+
+.modal-header h2 {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-light);
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paiement-form {
+  padding: 24px;
+}
+
+.paiement-form .form-group {
+  margin-bottom: 20px;
+}
+
+.paiement-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.paiement-form input,
+.paiement-form select,
+.paiement-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border-gray);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: var(--white);
+}
+
+.paiement-form input:focus,
+.paiement-form select:focus,
+.paiement-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+.paiement-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.facture-info {
+  background: var(--light-gray);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.selected-facture {
+  line-height: 1.6;
+}
+
+.remaining-amount {
+  color: var(--error-red);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.free-payment {
+  text-align: center;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-light);
+  border: 2px solid var(--border-gray);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--light-gray);
+  color: var(--text-dark);
+}
+
+.btn-primary {
+  background: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: #2B6CB0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .facture-card,
+  .paiement-card {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .facture-amounts,
+  .paiement-amount {
+    margin-left: 0;
+    text-align: left;
+    border-top: 1px solid var(--border-gray);
+    padding-top: 16px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .factures-impayees,
+  .paiements-historique {
+    padding: 16px;
+  }
+  
+  .facture-card,
+  .paiement-card {
+    padding: 16px;
+  }
+  
+  .paiement-form {
+    padding: 16px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

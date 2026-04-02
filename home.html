@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNE CashFlow - Accueil</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>FNE CashFlow</h1>
+                <p>Redirection en cours...</p>
+            </div>
+            
+            <div class="nav-buttons">
+                <button onclick="window.location.href='index.html'" class="btn-primary">
+                    📝 Page de connexion
+                </button>
+                <button onclick="window.location.href='dashboard.html'" class="btn-secondary">
+                    📊 Tableau de bord
+                </button>
+                <button onclick="window.location.href='clients.html'" class="btn-secondary">
+                    👥 Gestion des clients
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="firebase-config.js"></script>
+    <script>
+        // Vérifier l'état de connexion et rediriger automatiquement
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log('Utilisateur connecté, redirection vers dashboard...');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            } else {
+                console.log('Utilisateur non connecté, reste sur la page d\'accueil');
+            }
+        });
+    </script>
+</body>
+</html>
