@@ -56,6 +56,22 @@
                     Créer un compte
                 </button>
             </div>
+            
+            <!-- Info Application -->
+            <div class="info-section">
+                <h3>📋 Info Application</h3>
+                <div class="info-links">
+                    <button type="button" class="info-link" id="showPresentationBtn">
+                        🎯 Présentation de FNE CashFlow
+                    </button>
+                    <button type="button" class="info-link" id="showCguBtn">
+                        📚 Conditions Générales d'Utilisation
+                    </button>
+                    <button type="button" class="info-link" id="showPrivacyBtn">
+                        🔒 Politique de Confidentialité
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -89,6 +105,197 @@
                 
                 <div class="register-error" id="registerError"></div>
             </form>
+        </div>
+    </div>
+    
+    <!-- Modal Présentation -->
+    <div class="modal" id="presentationModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>🎯 Présentation de FNE CashFlow</h2>
+                <button class="modal-close" id="closePresentationBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="presentation-content">
+                    <h3>FNE CashFlow - Votre Solution de Gestion Financière</h3>
+                    <p>FNE CashFlow est l'application web moderne conçue pour les PME et commerces qui souhaitent gérer efficacement leurs factures, paiements et relances clients.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">👥</div>
+                            <h4>Gestion des Clients</h4>
+                            <p>Ajoutez et gérez facilement votre base de clients avec informations complètes et historique des transactions.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📄</div>
+                            <h4>Facturation Intelligente</h4>
+                            <p>Créez des factures professionnelles avec suivi automatique des statuts et des paiements.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">💳</div>
+                            <h4>Paiements Simplifiés</h4>
+                            <p>Enregistrez les paiements, calculez automatiquement les soldes et générez des rapports.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📊</div>
+                            <h4>Dashboard en Temps Réel</h4>
+                            <p>Visualisez vos statistiques, top débiteurs et taux de recouvrement instantanément.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📱</div>
+                            <h4>Relances Automatiques</h4>
+                            <p>Envoyez des rappels par WhatsApp, Email et SMS pour optimiser votre recouvrement.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📈</div>
+                            <h4>Export Excel</h4>
+                            <p>Générez des rapports détaillés et exportez vos données pour analyse approfondie.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-section">
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Sécurisé</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Accessible</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Scalable</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Paperasse</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal CGU -->
+    <div class="modal" id="cguModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>📚 Conditions Générales d'Utilisation</h2>
+                <button class="modal-close" id="closeCguBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cgu-content">
+                    <div class="document-info">
+                        <h4>FNE CashFlow - Application de suivi des factures et paiements</h4>
+                        <p><strong>Éditeur :</strong> Othniel Delloh</p>
+                        <p><strong>Localisation :</strong> Abidjan, Côte d'Ivoire</p>
+                        <p><strong>Contact :</strong> othnieldelloh@gmail.com</p>
+                        <p><strong>Version :</strong> 1.0 — 02/04/2026</p>
+                    </div>
+                    
+                    <div class="cgu-section">
+                        <h4>Article 1 — Objet</h4>
+                        <p>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation de l'application FNE CashFlow. En créant un compte ou en utilisant l'application, l'utilisateur accepte sans réserve les présentes CGU.</p>
+                    </div>
+                    
+                    <div class="cgu-section">
+                        <h4>Article 2 — Description du service</h4>
+                        <p>FNE CashFlow est une application web de gestion des factures, des paiements et des relances clients. Elle permet à toute entreprise, PME ou commerce de gérer ses clients, créer des factures, enregistrer les paiements, calculer automatiquement les soldes impayés, relancer les clients via WhatsApp ou email, et consulter un tableau de bord financier en temps réel.</p>
+                    </div>
+                    
+                    <div class="cgu-section">
+                        <h4>Article 3 — Accès au service</h4>
+                        <p>L'accès à FNE CashFlow est conditionné à la création d'un compte utilisateur avec une adresse email valide et un mot de passe. L'utilisateur est seul responsable de la confidentialité de ses identifiants de connexion.</p>
+                    </div>
+                    
+                    <div class="cgu-section">
+                        <h4>Article 4 — Utilisation autorisée</h4>
+                        <p>L'utilisateur s'engage à utiliser FNE CashFlow exclusivement à des fins légales et professionnelles. Il est notamment interdit d'utiliser l'application à des fins frauduleuses, d'accéder aux données d'autres utilisateurs, ou d'introduire des virus ou code malveillant.</p>
+                    </div>
+                    
+                    <div class="cgu-section">
+                        <h4>Article 5 — Propriété des données</h4>
+                        <p>Les données saisies par l'utilisateur (clients, factures, paiements) lui appartiennent intégralement. FNE CashFlow n'utilise ces données qu'aux fins de fonctionnement du service. L'utilisateur peut demander l'exportation ou la suppression de ses données à tout moment.</p>
+                    </div>
+                    
+                    <div class="cgu-section">
+                        <h4>Article 6 — Disponibilité du service</h4>
+                        <p>FNE CashFlow s'efforce d'assurer la disponibilité du service 24h/24 et 7j/7. Des interruptions temporaires peuvent survenir pour des raisons de maintenance ou de force majeure.</p>
+                    </div>
+                    
+                    <div class="cgu-section">
+                        <h4>Article 7 — Responsabilité</h4>
+                        <p>FNE CashFlow est un outil d'aide à la gestion financière. Il ne remplace pas un logiciel de comptabilité certifié ni les services d'un expert-comptable. L'utilisateur reste seul responsable des décisions prises sur la base des informations affichées.</p>
+                    </div>
+                    
+                    <div class="cgu-section">
+                        <h4>Article 8 — Droit applicable</h4>
+                        <p>Les présentes CGU sont soumises au droit ivoirien. Tout litige sera soumis aux tribunaux compétents d'Abidjan, Côte d'Ivoire.</p>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h4>Contact</h4>
+                        <p>📧 othnieldelloh@gmail.com</p>
+                        <p>📱 +225 07 47 65 19 61</p>
+                        <p>📍 Abidjan, Côte d'Ivoire</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Confidentialité -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>🔒 Politique de Confidentialité</h2>
+                <button class="modal-close" id="closePrivacyBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="privacy-content">
+                    <h4>Dernière mise à jour : 02/04/2026</h4>
+                    <p>FNE CashFlow accorde une importance primordiale à la protection des données personnelles de ses utilisateurs.</p>
+                    
+                    <div class="privacy-section">
+                        <h4>1. Responsable du traitement</h4>
+                        <p><strong>Nom :</strong> Othniel Delloh</p>
+                        <p><strong>Qualité :</strong> Développeur et éditeur de FNE CashFlow</p>
+                        <p><strong>Email :</strong> othnieldelloh@gmail.com</p>
+                        <p><strong>Adresse :</strong> Abidjan, Côte d'Ivoire</p>
+                    </div>
+                    
+                    <div class="privacy-section">
+                        <h4>2. Données collectées</h4>
+                        <ul>
+                            <li><strong>Données de compte :</strong> adresse email, mot de passe (chiffré), date de création</li>
+                            <li><strong>Données métier :</strong> noms et coordonnées clients, montants factures, historique paiements</li>
+                            <li><strong>Données techniques :</strong> adresse IP, type de navigateur (sécurité uniquement)</li>
+                        </ul>
+                        <p><em>FNE CashFlow ne collecte aucune donnée bancaire ou numéro de carte.</em></p>
+                    </div>
+                    
+                    <div class="privacy-section">
+                        <h4>3. Sécurité des données</h4>
+                        <p>Les données sont hébergées sur Google Firebase (Europe), certifié ISO 27001. Les données sont chiffrées en transit (HTTPS) et au repos. Chaque utilisateur n'a accès qu'à ses propres données grâce à des règles de sécurité strictes.</p>
+                    </div>
+                    
+                    <div class="privacy-section">
+                        <h4>4. Vos droits</h4>
+                        <ul>
+                            <li><strong>Droit d'accès :</strong> obtenir une copie de vos données</li>
+                            <li><strong>Droit de rectification :</strong> corriger des données inexactes</li>
+                            <li><strong>Droit à l'effacement :</strong> demander la suppression de vos données</li>
+                            <li><strong>Droit à la portabilité :</strong> recevoir vos données dans un format exploitable</li>
+                        </ul>
+                        <p>Pour exercer ces droits, contactez-nous à : othnieldelloh@gmail.com</p>
+                    </div>
+                    
+                    <div class="privacy-section">
+                        <h4>5. Partage des données</h4>
+                        <p>FNE CashFlow ne vend, ne loue et ne partage aucune donnée personnelle avec des tiers à des fins commerciales. Les seuls sous-traitants sont Google Firebase (hébergement) et EmailJS (envoi d'emails).</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     

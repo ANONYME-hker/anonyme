@@ -11,6 +11,67 @@ document.addEventListener('DOMContentLoaded', function() {
   const loginError = document.getElementById('loginError');
   const registerError = document.getElementById('registerError');
 
+  // Nouveaux éléments pour les modals d'info
+  const showPresentationBtn = document.getElementById('showPresentationBtn');
+  const showCguBtn = document.getElementById('showCguBtn');
+  const showPrivacyBtn = document.getElementById('showPrivacyBtn');
+  const closePresentationBtn = document.getElementById('closePresentationBtn');
+  const closeCguBtn = document.getElementById('closeCguBtn');
+  const closePrivacyBtn = document.getElementById('closePrivacyBtn');
+  const presentationModal = document.getElementById('presentationModal');
+  const cguModal = document.getElementById('cguModal');
+  const privacyModal = document.getElementById('privacyModal');
+
+  // Modal Présentation
+  if (showPresentationBtn) {
+    showPresentationBtn.addEventListener('click', () => {
+      presentationModal.classList.add('show');
+    });
+  }
+
+  if (closePresentationBtn) {
+    closePresentationBtn.addEventListener('click', () => {
+      presentationModal.classList.remove('show');
+    });
+  }
+
+  // Modal CGU
+  if (showCguBtn) {
+    showCguBtn.addEventListener('click', () => {
+      cguModal.classList.add('show');
+    });
+  }
+
+  if (closeCguBtn) {
+    closeCguBtn.addEventListener('click', () => {
+      cguModal.classList.remove('show');
+    });
+  }
+
+  // Modal Confidentialité
+  if (showPrivacyBtn) {
+    showPrivacyBtn.addEventListener('click', () => {
+      privacyModal.classList.add('show');
+    });
+  }
+
+  if (closePrivacyBtn) {
+    closePrivacyBtn.addEventListener('click', () => {
+      privacyModal.classList.remove('show');
+    });
+  }
+
+  // Fermer les modals en cliquant à l'extérieur
+  [presentationModal, cguModal, privacyModal].forEach(modal => {
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('show');
+        }
+      });
+    }
+  });
+
   // Afficher/masquer la modal d'inscription
   if (showRegisterBtn) {
     showRegisterBtn.addEventListener('click', () => {

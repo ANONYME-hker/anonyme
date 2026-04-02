@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGU et Confidentialité - FNE CashFlow</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        :root {
+            --primary-blue: #1A56A0;
+            --primary-gold: #F0A500;
+            --primary-dark: #0F4C81;
+            --primary-light: #4A90E2;
+            --white: #FFFFFF;
+            --light-gray: #F5F7FA;
+            --medium-gray: #E2E8F0;
+            --dark-gray: #718096;
+            --text-dark: #2D3748;
+            --text-light: #718096;
+            --success-green: #38A169;
+            --warning-orange: #F6AD55;
+            --error-red: #E53E3E;
+            
+            --font-title: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.16);
+            --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            --gradient-gold: linear-gradient(135deg, var(--primary-gold), #D68910);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(240, 165, 0, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--medium-gray);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            background: var(--gradient-primary);
+            color: var(--white);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header Section */
+        .document-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .document-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .document-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .document-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .document-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .info-item {
+            padding: 12px 16px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Navigation */
+        .nav-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-title {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 16px;
+        }
+
+        .nav-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .nav-link {
+            background: var(--light-gray);
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: var(--gradient-primary);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .content-section:hover::before {
+            transform: scaleX(1);
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-number {
+            background: var(--gradient-primary);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .article {
+            margin-bottom: 24px;
+            padding-left: 20px;
+            border-left: 3px solid var(--medium-gray);
+        }
+
+        .article-title {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .article-content {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .article-content ul {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .article-content li::before {
+            content: '•';
+            color: var(--primary-blue);
+            font-weight: 700;
+            position: absolute;
+            left: -16px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(240, 165, 0, 0.1));
+            border-left: 4px solid var(--primary-gold);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .highlight-title {
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .contact-title {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-light);
+            border-top: 1px solid var(--medium-gray);
+            margin-top: 60px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .document-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .section-number {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .content-section {
+                padding: 24px;
+            }
+
+            .document-header {
+                padding: 24px;
+            }
+
+            .nav-links {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 16px 40px;
+            }
+
+            .document-title {
+                font-size: 1.5rem;
+            }
+
+            .content-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .contact-section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">FNE CashFlow</div>
+            <a href="presentation.html" class="back-btn">
+                <span>←</span>
+                Retour à l'accueil
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Document Header -->
+        <div class="document-header">
+            <h1 class="document-title">Conditions Générales d'Utilisation</h1>
+            <p class="document-subtitle">Application de suivi des factures et paiements</p>
+            
+            <div class="document-info">
+                <div class="info-item">
+                    <div class="info-label">Éditeur</div>
+                    <div class="info-value">Othniel Delloh</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Localisation</div>
+                    <div class="info-value">Abidjan, Côte d'Ivoire</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Contact</div>
+                    <div class="info-value">othnieldelloh@gmail.com</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Version</div>
+                    <div class="info-value">1.0 — 02/04/2026</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-section">
+            <h2 class="nav-title">📋 Navigation rapide</h2>
+            <div class="nav-links">
+                <a href="#article1" class="nav-link">📝 Article 1 — Objet</a>
+                <a href="#article2" class="nav-link">🔧 Article 2 — Description du service</a>
+                <a href="#article3" class="nav-link">🔑 Article 3 — Accès au service</a>
+                <a href="#article4" class="nav-link">✅ Article 4 — Utilisation autorisée</a>
+                <a href="#article5" class="nav-link">💾 Article 5 — Propriété des données</a>
+                <a href="#article6" class="nav-link">⏰ Article 6 — Disponibilité du service</a>
+                <a href="#article7" class="nav-link">⚖️ Article 7 — Responsabilité</a>
+                <a href="#article8" class="nav-link">🔄 Article 8 — Modification des CGU</a>
+                <a href="#article9" class="nav-link">🚪 Article 9 — Résiliation</a>
+                <a href="#article10" class="nav-link">⚖️ Article 10 — Droit applicable</a>
+                <a href="#confidentialite" class="nav-link">🔒 Politique de confidentialité</a>
+                <a href="#responsabilite" class="nav-link">🛡️ Clause de non-responsabilité</a>
+            </div>
+        </div>
+
+        <!-- Articles -->
+        <div id="article1" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">1</span>
+                Objet
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 1 — Objet</h3>
+                <div class="article-content">
+                    <p>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation de l'application FNE CashFlow, éditée par Othniel Delloh, développeur informatique freelance basé à Abidjan, Côte d'Ivoire. En créant un compte ou en utilisant l'application, l'utilisateur accepte sans réserve les présentes CGU.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="article2" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">2</span>
+                Description du service
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 2 — Description du service</h3>
+                <div class="article-content">
+                    <p>FNE CashFlow est une application web de gestion des factures, des paiements et des relances clients. Elle permet à toute entreprise, PME ou commerce de :</p>
+                    <ul>
+                        <li>Gérer ses clients et leurs coordonnées</li>
+                        <li>Créer et suivre des factures</li>
+                        <li>Enregistrer les paiements reçus (Cash, Orange Money, Wave, MTN Money)</li>
+                        <li>Calculer automatiquement les soldes impayés</li>
+                        <li>Relancer les clients via WhatsApp ou email</li>
+                        <li>Consulter un tableau de bord financier en temps réel</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="article3" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">3</span>
+                Accès au service
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 3 — Accès au service</h3>
+                <div class="article-content">
+                    <p>L'accès à FNE CashFlow est conditionné à la création d'un compte utilisateur avec une adresse email valide et un mot de passe. L'utilisateur est seul responsable de la confidentialité de ses identifiants de connexion. Toute utilisation du compte est réputée effectuée par l'utilisateur titulaire du compte.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">🔐 Sécurité recommandée</div>
+                        <p>Utilisez un mot de passe fort et unique pour votre compte FNE CashFlow. Ne partagez jamais vos identifiants avec des tiers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="article4" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">4</span>
+                Utilisation autorisée
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 4 — Utilisation autorisée</h3>
+                <div class="article-content">
+                    <p>L'utilisateur s'engage à utiliser FNE CashFlow exclusivement à des fins légales et professionnelles. Il est notamment interdit de :</p>
+                    <ul>
+                        <li>Utiliser l'application à des fins frauduleuses ou illicites</li>
+                        <li>Tenter d'accéder aux données d'autres utilisateurs</li>
+                        <li>Introduire des virus ou tout autre code malveillant</li>
+                        <li>Revendre ou sous-licencier l'accès à l'application sans autorisation écrite</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="article5" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">5</span>
+                Propriété des données
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 5 — Propriété des données</h3>
+                <div class="article-content">
+                    <p>Les données saisies par l'utilisateur (clients, factures, paiements) lui appartiennent intégralement. FNE CashFlow n'utilise ces données qu'aux fins de fonctionnement du service. L'utilisateur peut demander l'exportation ou la suppression de ses données à tout moment en contactant othnieldelloh@gmail.com.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">💾 Vos données vous appartiennent</div>
+                        <p>Vous conservez la pleine propriété de toutes vos données. Nous ne les utilisons jamais à des fins commerciales ou publicitaires.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="article6" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">6</span>
+                Disponibilité du service
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 6 — Disponibilité du service</h3>
+                <div class="article-content">
+                    <p>FNE CashFlow s'efforce d'assurer la disponibilité du service 24h/24 et 7j/7. Toutefois, des interruptions temporaires peuvent survenir pour des raisons de maintenance, de mise à jour ou de force majeure. FNE CashFlow ne pourra être tenu responsable des conséquences d'une indisponibilité temporaire du service.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="article7" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">7</span>
+                Responsabilité
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 7 — Responsabilité</h3>
+                <div class="article-content">
+                    <p>FNE CashFlow est un outil d'aide à la gestion financière. Il ne remplace pas un logiciel de comptabilité certifié ni les services d'un expert-comptable. L'utilisateur reste seul responsable des décisions prises sur la base des informations affichées par l'application.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="article8" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">8</span>
+                Modification des CGU
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 8 — Modification des CGU</h3>
+                <div class="article-content">
+                    <p>FNE CashFlow se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés de toute modification significative par email ou par notification dans l'application. La poursuite de l'utilisation du service après notification vaut acceptation des nouvelles conditions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="article9" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">9</span>
+                Résiliation
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 9 — Résiliation</h3>
+                <div class="article-content">
+                    <p>L'utilisateur peut résilier son compte à tout moment en contactant othnieldelloh@gmail.com. FNE CashFlow se réserve le droit de suspendre ou de supprimer tout compte en cas de violation des présentes CGU, sans préavis ni indemnité.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="article10" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">10</span>
+                Droit applicable
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Article 10 — Droit applicable</h3>
+                <div class="article-content">
+                    <p>Les présentes CGU sont soumises au droit ivoirien. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux compétents d'Abidjan, Côte d'Ivoire.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Politique de confidentialité -->
+        <div id="confidentialite" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">🔒</span>
+                Politique de confidentialité
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Dernière mise à jour : 02/04/2026</h3>
+                <div class="article-content">
+                    <p>FNE CashFlow accorde une importance primordiale à la protection des données personnelles de ses utilisateurs. La présente politique de confidentialité explique quelles données sont collectées, comment elles sont utilisées et quels sont vos droits.</p>
+                    
+                    <h4 style="margin-top: 24px; margin-bottom: 12px; color: var(--primary-blue);">1. Responsable du traitement</h4>
+                    <p>Le responsable du traitement des données est :</p>
+                    <ul>
+                        <li><strong>Nom :</strong> Othniel Delloh</li>
+                        <li><strong>Qualité :</strong> Développeur et éditeur de FNE CashFlow</li>
+                        <li><strong>Adresse :</strong> Abidjan, Côte d'Ivoire</li>
+                        <li><strong>Email :</strong> othnieldelloh@gmail.com</li>
+                    </ul>
+
+                    <h4 style="margin-top: 24px; margin-bottom: 12px; color: var(--primary-blue);">2. Données collectées</h4>
+                    <p>Dans le cadre de l'utilisation de FNE CashFlow, les données suivantes sont collectées :</p>
+                    <ul>
+                        <li><strong>Données de compte :</strong> adresse email, mot de passe (chiffré), date de création du compte</li>
+                        <li><strong>Données métier :</strong> noms et coordonnées de vos clients, montants des factures, historique des paiements</li>
+                        <li><strong>Données techniques :</strong> adresse IP, type de navigateur, pages visitées (à des fins de sécurité uniquement)</li>
+                    </ul>
+                    <p>FNE CashFlow ne collecte aucune donnée bancaire, aucun numéro de carte et aucune information de paiement personnel.</p>
+
+                    <h4 style="margin-top: 24px; margin-bottom: 12px; color: var(--primary-blue);">3. Sécurité des données</h4>
+                    <p>Les données de FNE CashFlow sont hébergées sur les serveurs de Google Firebase (Google Cloud Platform), localisés en Europe. Google Firebase est certifié ISO 27001 et conforme aux normes de sécurité les plus élevées. Les données sont chiffrées en transit (HTTPS) et au repos.</p>
+
+                    <div class="highlight-box">
+                        <div class="highlight-title">🛡️ Protection garantie</div>
+                        <p>Chaque utilisateur n'a accès qu'à ses propres données grâce à des règles de sécurité Firestore strictes. Il est techniquement impossible pour un utilisateur d'accéder aux données d'un autre.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clause de non-responsabilité -->
+        <div id="responsabilite" class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">🛡️</span>
+                Clause de non-responsabilité
+            </h2>
+            <div class="article">
+                <h3 class="article-title">Limitation de responsabilité</h3>
+                <div class="article-content">
+                    <h4 style="margin-bottom: 12px; color: var(--primary-blue);">1. Exactitude des informations</h4>
+                    <p>FNE CashFlow affiche des informations calculées sur la base des données saisies par l'utilisateur. L'exactitude de ces informations dépend entièrement de la qualité et de l'exhaustivité des données entrées. FNE CashFlow ne peut être tenu responsable d'erreurs résultant de données incorrectes ou incomplètes saisies par l'utilisateur.</p>
+
+                    <h4 style="margin-top: 20px; margin-bottom: 12px; color: var(--primary-blue);">2. Décisions financières</h4>
+                    <p>Les informations fournies par FNE CashFlow (tableaux de bord, statistiques, soldes) sont des outils d'aide à la décision. Elles ne constituent pas des conseils financiers, comptables ou juridiques. L'utilisateur est seul responsable des décisions prises sur la base de ces informations. FNE CashFlow recommande de consulter un expert-comptable pour toute décision financière importante.</p>
+
+                    <h4 style="margin-top: 20px; margin-bottom: 12px; color: var(--primary-blue);">3. Limitation de responsabilité</h4>
+                    <p>Dans les limites autorisées par la loi applicable, la responsabilité totale de FNE CashFlow envers un utilisateur, pour quelque cause que ce soit, ne pourra excéder le montant des sommes effectivement versées par cet utilisateur au titre de l'abonnement au cours des trois (3) derniers mois précédant l'événement donnant lieu à responsabilité.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2 class="contact-title">📞 Contactez-nous</h2>
+            <p>Pour toute question relative aux présentes CGU ou à la gestion de vos données personnelles, contactez-nous :</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    othnieldelloh@gmail.com
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    +225 07 47 65 19 61
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    Abidjan, Côte d'Ivoire
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 FNE CashFlow. Tous droits réservés. Made with ❤️ au Sénégal</p>
+        <p>Document généré le 02/04/2026 — Version 1.0</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = 'var(--shadow-xl)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'var(--shadow-md)';
+            }
+        });
+
+        // Highlight current section in navigation
+        const sections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.background = '';
+                link.style.color = '';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.background = 'var(--gradient-primary)';
+                    link.style.color = 'var(--white)';
+                }
+            });
+        });
+
+        // Add entrance animations
+        window.addEventListener('load', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.content-section').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Add fadeInUp animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
