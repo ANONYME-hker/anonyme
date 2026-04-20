@@ -3,142 +3,178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Joyeux Anniversaire - PELEY NIAMESSOU ADRO</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
 <style>
 
-/* 🎨 Nouvelle palette (plus festive) */
-:root {
-    --blue-dark: #1E3C72;
-    --blue-light: #2A5298;
-    --gold: #FFD700;
-    --gold-soft: #FFF3B0;
-    --white: #ffffff;
-    --accent: #FF7E5F;
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* 🎨 Variables */
+:root{
+    --bg1:#0f2027;
+    --bg2:#203a43;
+    --bg3:#2c5364;
+    --gold:#FFD700;
+    --glass:rgba(255,255,255,0.08);
 }
 
-/* Base */
-body {
-    margin: 0;
-    font-family: 'Crimson Pro', serif;
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue-light), var(--accent));
-    color: var(--white);
-    overflow-x: hidden;
+/* 🌌 BACKGROUND ANIMÉ */
+body{
+    font-family: 'Inter', sans-serif;
+    color:white;
+    overflow-x:hidden;
+    background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #1a2a6c);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
 }
 
-/* Effet lumière */
-.bg-light {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at top, rgba(255,215,0,0.2), transparent 60%);
-    z-index: 0;
+@keyframes gradientMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
 
-/* Canvas */
-#canvas {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
+/* ✨ PARTICLES */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:0;
 }
 
-/* Container */
-.container {
-    position: relative;
-    z-index: 1;
-    max-width: 850px;
-    margin: auto;
-    padding: 40px 20px;
-    backdrop-filter: blur(6px);
+/* CONTAINER */
+.container{
+    position:relative;
+    z-index:2;
+    max-width:900px;
+    margin:auto;
+    padding:60px 20px;
 }
 
-/* Title */
-h1 {
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
-    margin-top: 60px;
-    background: linear-gradient(90deg, #FFD700, #FFF3B0, #FFD700);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* 🧊 GLASS CARD */
+.glass{
+    background:var(--glass);
+    backdrop-filter: blur(14px);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    transition:0.4s;
 }
 
-/* Divider */
-.divider {
-    width: 200px;
-    height: 2px;
-    background: var(--gold);
-    margin: 20px auto;
+.glass:hover{
+    transform:translateY(-10px) scale(1.01);
 }
 
-/* Paragraph */
-.paragraph {
-    font-size: 1.2rem;
-    margin: 25px 0;
-    text-align: center;
+/* 🎂 HERO */
+.hero{
+    text-align:center;
+    margin-bottom:60px;
 }
 
-/* Section label */
-.section-label {
-    text-align: center;
-    color: var(--gold);
-    margin-top: 50px;
-    letter-spacing: 2px;
-    font-family: 'Cinzel', serif;
+/* TITRE PREMIUM */
+h1{
+    font-family:'Cinzel', serif;
+    font-size:3rem;
+    font-weight:900;
+    background: linear-gradient(90deg, #FFD700, #fff, #FFD700);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation: shine 4s linear infinite;
 }
 
-/* Cards */
-.card {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 12px;
-    border-left: 4px solid var(--gold);
-    transition: 0.3s;
+@keyframes shine{
+    0%{background-position:-200%}
+    100%{background-position:200%}
 }
 
-.card:hover {
-    transform: translateY(-5px);
+/* ✨ SOUS TITRE */
+.subtitle{
+    margin-top:15px;
+    opacity:0.8;
 }
 
-/* Verse */
-.verse {
-    font-style: italic;
-    color: var(--gold-soft);
+/* DIVIDER */
+.divider{
+    width:120px;
+    height:2px;
+    background:#FFD700;
+    margin:25px auto;
 }
 
-/* Footer */
-.footer {
-    text-align: center;
-    margin-top: 50px;
+/* TEXTE */
+p{
+    font-size:1.15rem;
+    line-height:1.8;
+    margin:20px 0;
 }
 
-.footer p {
-    color: var(--gold);
-    font-family: 'Cinzel', serif;
+/* 📜 VERSES */
+.verse-card{
+    background:rgba(255,255,255,0.05);
+    border-left:4px solid gold;
+    padding:20px;
+    margin:20px 0;
+    border-radius:12px;
+    transition:0.3s;
 }
 
-/* Cake */
-.cake {
-    text-align: center;
-    font-size: 60px;
+.verse-card:hover{
+    background:rgba(255,255,255,0.12);
+    transform:translateX(10px);
 }
 
-/* Animation simple */
-.fade {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: 0.6s;
+.verse{
+    font-style:italic;
+    color:#ffeaa7;
 }
 
-.fade.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* FOOTER */
+.footer{
+    text-align:center;
+    margin-top:50px;
+}
+
+.footer p{
+    color:#FFD700;
+    font-family:'Cinzel';
+}
+
+/* 🎬 INTRO */
+.intro{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    flex-direction:column;
+    transition:1s;
+}
+
+.intro h2{
+    font-family:'Cinzel';
+    color:#FFD700;
+    font-size:2.5rem;
+    animation:fadeIn 3s forwards;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(40px)}
+    to{opacity:1; transform:translateY(0)}
+}
+
+.intro.hide{
+    opacity:0;
+    pointer-events:none;
 }
 
 </style>
@@ -146,59 +182,65 @@ h1 {
 
 <body>
 
-<div class="bg-light"></div>
+<div class="intro" id="intro">
+<h2>✨ Joyeux Anniversaire ✨</h2>
+</div>
+
 <canvas id="canvas"></canvas>
 
 <div class="container">
 
-<div class="cake">🎂</div>
+<div class="hero glass">
+<h1>PELEY NIAMESSOU ADRO</h1>
+<div class="divider"></div>
+<p class="subtitle">Une célébration d'excellence, de leadership et d'inspiration 🎉</p>
+</div>
 
-<h1>Joyeux Anniversaire<br>PELEY NIAMESSOU ADRO 🎉</h1>
+<div class="glass">
+<p>
+En ce jour exceptionnel, il est exprimé des vœux sincères et respectueux. 
+Ce moment célèbre un parcours remarquable, une vision affirmée et un leadership inspirant.
+</p>
+
+<p>
+L'engagement, la rigueur et la constance démontrent une véritable excellence professionnelle. 
+La qualité d'encadrement et la capacité à inspirer constituent une référence au quotidien.
+</p>
 
 <div class="divider"></div>
 
-<p class="paragraph fade">
-En ce jour particulier, nous souhaitons vous adresser nos vœux les plus sincères et respectueux. 
-Aujourd’hui, nous célébrons bien plus qu’une date : un parcours remarquable, une vision et un leadership inspirant.
-</p>
-
-<p class="paragraph fade">
-Votre engagement, votre rigueur et votre sens des responsabilités font de vous une référence. 
-Votre manière de diriger et d’accompagner constitue une véritable source d’inspiration au quotidien.
-</p>
-
-<div class="section-label fade">PAROLES DE SAGESSE</div>
-
-<div class="card fade">
+<div class="verse-card">
 <p class="verse">« Recommande à l'Éternel tes œuvres, et tes projets réussiront. »</p>
 <p>Proverbes 16:3</p>
 </div>
 
-<div class="card fade">
-<p class="verse">« Si quelqu'un manque de sagesse, qu'il la demande à Dieu... »</p>
+<div class="verse-card">
+<p class="verse">« Si quelqu'un manque de sagesse, qu'il la demande à Dieu. »</p>
 <p>Jacques 1:5</p>
 </div>
 
-<div class="card fade">
-<p class="verse">« Que l'Éternel te bénisse et te garde ! »</p>
+<div class="verse-card">
+<p class="verse">« Que l'Éternel te bénisse et te garde. »</p>
 <p>Nombres 6:24-26</p>
 </div>
 
-<p class="paragraph fade">
-Que cette nouvelle année de vie vous apporte encore plus de réussite, de sérénité, de santé et d’accomplissements. 
-Que chacun de vos projets soit couronné de succès.
+<p>
+Que cette nouvelle année apporte réussite, élévation, santé et accomplissement. 
+Que chaque projet soit couronné de succès.
 </p>
 
-<div class="footer fade">
-<p>Veuillez recevoir l’expression de notre profond respect.</p>
-<p>Joyeux anniversaire et que Dieu vous bénisse abondamment 🙏</p>
+<div class="footer">
+<p>Respect profond et meilleures pensées.</p>
+<p>🙏 Que Dieu bénisse abondamment</p>
+</div>
+
 </div>
 
 </div>
 
 <script>
 
-/* ✨ Particules simples */
+/* PARTICLES PREMIUM */
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -207,53 +249,35 @@ canvas.height = window.innerHeight;
 
 let particles = [];
 
-for (let i = 0; i < 60; i++) {
+for(let i=0;i<120;i++){
     particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2,
-        d: Math.random()
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        d:Math.random()*1
     });
 }
 
-function draw() {
+function animate(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = "rgba(255,215,0,0.6)";
-    particles.forEach(p => {
+    ctx.fillStyle="rgba(255,215,0,0.6)";
+    particles.forEach(p=>{
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
         ctx.fill();
-    });
-    update();
-}
-
-function update() {
-    particles.forEach(p => {
         p.y -= p.d;
-        if (p.y < 0) p.y = canvas.height;
+        if(p.y<0) p.y=canvas.height;
     });
+    requestAnimationFrame(animate);
 }
 
-setInterval(draw, 30);
+animate();
 
-/* 🎉 Confetti */
-setTimeout(() => {
-    confetti({
-        particleCount: 120,
-        spread: 80
-    });
-}, 1000);
-
-/* 👀 Scroll animation */
-const faders = document.querySelectorAll(".fade");
-
-window.addEventListener("scroll", () => {
-    faders.forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight - 50) {
-            el.classList.add("visible");
-        }
-    });
-});
+/* INTRO */
+setTimeout(()=>{
+    document.getElementById("intro").classList.add("hide");
+    confetti({particleCount:200,spread:100});
+},2500);
 
 </script>
 
