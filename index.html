@@ -1,666 +1,261 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joyeux Anniversaire - PELEY NIAMESSOU ADRO</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-    
-    <!-- Canvas Confetti CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    
-    <style>
-        /* CSS Variables */
-        :root {
-            --midnight-dark: #04080F;
-            --midnight-light: #070D1A;
-            --gold-primary: #D4AF37;
-            --gold-light: #F0C040;
-            --gold-dark: #B8860B;
-            --ivory: #FDF6E3;
-            --verse-gold: #E8D5A0;
-            --navy: #1A3A6B;
-            --magenta: #8B1A4A;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joyeux Anniversaire - PELEY NIAMESSOU ADRO</title>
 
-        /* Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro&display=swap" rel="stylesheet">
 
-        html {
-            scroll-behavior: smooth;
-        }
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-        body {
-            font-family: 'Crimson Pro', serif;
-            background: linear-gradient(135deg, var(--midnight-dark), var(--midnight-light));
-            color: var(--ivory);
-            line-height: 1.8;
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100vh;
-        }
+<style>
 
-        /* Canvas Background */
-        #particleCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
+/* 🎨 Nouvelle palette (plus festive) */
+:root {
+    --blue-dark: #1E3C72;
+    --blue-light: #2A5298;
+    --gold: #FFD700;
+    --gold-soft: #FFF3B0;
+    --white: #ffffff;
+    --accent: #FF7E5F;
+}
 
-        /* Intro Overlay */
-        .intro-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--midnight-dark);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 1;
-            transition: opacity 1.2s ease-out;
-        }
+/* Base */
+body {
+    margin: 0;
+    font-family: 'Crimson Pro', serif;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-light), var(--accent));
+    color: var(--white);
+    overflow-x: hidden;
+}
 
-        .intro-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+/* Effet lumière */
+.bg-light {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top, rgba(255,215,0,0.2), transparent 60%);
+    z-index: 0;
+}
 
-        .intro-name {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            font-weight: 700;
-            color: var(--gold-primary);
-            text-align: center;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid var(--gold-primary);
-            width: 0;
-            animation: typing 3.2s steps(40, end) forwards;
-        }
+/* Canvas */
+#canvas {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
 
-        .intro-subtitle {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--ivory);
-            margin-top: 1.5rem;
-            opacity: 0;
-            transition: opacity 1s ease-out 3.2s;
-        }
+/* Container */
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 850px;
+    margin: auto;
+    padding: 40px 20px;
+    backdrop-filter: blur(6px);
+}
 
-        .intro-subtitle.show {
-            opacity: 1;
-        }
+/* Title */
+h1 {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    margin-top: 60px;
+    background: linear-gradient(90deg, #FFD700, #FFF3B0, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        .intro-divider {
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-            margin: 2rem 0;
-            transition: width 1s ease-out 4.2s;
-        }
+/* Divider */
+.divider {
+    width: 200px;
+    height: 2px;
+    background: var(--gold);
+    margin: 20px auto;
+}
 
-        .intro-divider.expand {
-            width: 300px;
-        }
+/* Paragraph */
+.paragraph {
+    font-size: 1.2rem;
+    margin: 25px 0;
+    text-align: center;
+}
 
-        /* Main Container */
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 0 1.5rem 5rem;
-        }
+/* Section label */
+.section-label {
+    text-align: center;
+    color: var(--gold);
+    margin-top: 50px;
+    letter-spacing: 2px;
+    font-family: 'Cinzel', serif;
+}
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+/* Cards */
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+    border-left: 4px solid var(--gold);
+    transition: 0.3s;
+}
 
-        /* SVG Birthday Cake */
-        .cake-container {
-            margin-bottom: 3rem;
-        }
+.card:hover {
+    transform: translateY(-5px);
+}
 
-        .cake-svg {
-            width: 120px;
-            height: 120px;
-        }
+/* Verse */
+.verse {
+    font-style: italic;
+    color: var(--gold-soft);
+}
 
-        .flame {
-            animation: flicker 0.6s ease-in-out infinite alternate;
-            transform-origin: center bottom;
-        }
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 50px;
+}
 
-        .flame:nth-child(2) {
-            animation-delay: 0.2s;
-        }
+.footer p {
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+}
 
-        .flame:nth-child(3) {
-            animation-delay: 0.4s;
-        }
+/* Cake */
+.cake {
+    text-align: center;
+    font-size: 60px;
+}
 
-        @keyframes flicker {
-            0% { transform: scaleX(1) scaleY(1) rotate(-2deg); }
-            100% { transform: scaleX(1.1) scaleY(1.15) rotate(2deg); }
-        }
+/* Animation simple */
+.fade {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.6s;
+}
 
-        /* Hero Title with Shimmer */
-        .hero-title {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            color: var(--ivory);
-            margin: 2rem 0;
-            line-height: 1.3;
-            background: linear-gradient(90deg, 
-                var(--gold-dark), 
-                var(--gold-light), 
-                var(--gold-primary), 
-                var(--gold-light), 
-                var(--gold-dark));
-            background-size: 300% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3.5s linear infinite;
-        }
+.fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        @keyframes shimmer {
-            0% { background-position: 100% 0; }
-            100% { background-position: -100% 0; }
-        }
-
-        /* Animated Gold Divider */
-        .gold-divider {
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-            margin: 3rem auto;
-            animation: expandDivider 1s ease-out 3.5s forwards;
-        }
-
-        @keyframes expandDivider {
-            to { width: 320px; }
-        }
-
-        /* Content Sections */
-        .content-section {
-            margin: 4rem 0;
-        }
-
-        /* Paragraphs with Scroll Reveal */
-        .paragraph {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .paragraph.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Section Labels */
-        .section-label {
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--gold-primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .section-label.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Bible Verse Cards */
-        .verse-card {
-            background: rgba(212, 175, 55, 0.08);
-            border-left: 4px solid var(--gold-primary);
-            border-right: 12px solid transparent;
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            position: relative;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .verse-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .verse-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at top left, rgba(212, 175, 55, 0.1), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .verse-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 48px rgba(212, 175, 55, 0.2);
-        }
-
-        .verse-card:hover::before {
-            opacity: 1;
-        }
-
-        .verse-badge {
-            display: inline-block;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
-            color: var(--midnight-dark);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
-        }
-
-        .verse-quote {
-            font-style: italic;
-            color: var(--verse-gold);
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .verse-comment {
-            color: rgba(253, 246, 227, 0.75);
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 4rem 0;
-            margin-top: 4rem;
-        }
-
-        .prayer-emoji {
-            font-size: 2.5rem;
-            display: block;
-            margin-bottom: 1.5rem;
-            animation: pulse 2.5s ease-in-out infinite;
-        }
-
-        .blessing-text {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            color: var(--gold-primary);
-            line-height: 1.6;
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.18); }
-        }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
-            50% { text-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
-        }
-
-        /* Typing Animation */
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem 3rem;
-            }
-            
-            .paragraph {
-                font-size: 1.1rem;
-            }
-            
-            .verse-card {
-                padding: 1.5rem;
-            }
-            
-            .hero-title {
-                font-size: clamp(1.5rem, 4vw, 2rem);
-            }
-        }
-    </style>
+</style>
 </head>
+
 <body>
-    <!-- Particle Canvas Background -->
-    <canvas id="particleCanvas"></canvas>
 
-    <!-- Cinematic Intro -->
-    <div class="intro-overlay" id="introOverlay">
-        <div class="intro-name">PELEY NIAMESSOU ADRO</div>
-        <div class="intro-divider" id="introDivider"></div>
-        <div class="intro-subtitle" id="introSubtitle">Joyeux Anniversaire &#x1F382;</div>
-    </div>
+<div class="bg-light"></div>
+<canvas id="canvas"></canvas>
 
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="cake-container">
-                <svg class="cake-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Gold Plate -->
-                    <ellipse cx="60" cy="105" rx="35" ry="8" fill="#D4AF37"/>
-                    
-                    <!-- Bottom Tier -->
-                    <rect x="25" y="75" width="70" height="30" fill="#1A3A6B" rx="5"/>
-                    
-                    <!-- Gold Stars on Bottom Tier -->
-                    <path d="M35 85 L37 90 L42 90 L38 93 L40 98 L35 95 L30 98 L32 93 L28 90 L33 90 Z" fill="#D4AF37"/>
-                    <path d="M85 85 L87 90 L92 90 L88 93 L90 98 L85 95 L80 98 L82 93 L78 90 L83 90 Z" fill="#D4AF37"/>
-                    
-                    <!-- Top Tier -->
-                    <rect x="35" y="50" width="50" height="25" fill="#8B1A4A" rx="5"/>
-                    
-                    <!-- Wicks -->
-                    <line x1="45" y1="50" x2="45" y2="40" stroke="#654321" stroke-width="2"/>
-                    <line x1="60" y1="50" x2="60" y2="40" stroke="#654321" stroke-width="2"/>
-                    <line x1="75" y1="50" x2="75" y2="40" stroke="#654321" stroke-width="2"/>
-                    
-                    <!-- Candle Flames -->
-                    <ellipse class="flame" cx="45" cy="35" rx="4" ry="8" fill="#FFA500"/>
-                    <ellipse class="flame" cx="60" cy="35" rx="4" ry="8" fill="#FFA500"/>
-                    <ellipse class="flame" cx="75" cy="35" rx="4" ry="8" fill="#FFA500"/>
-                </svg>
-            </div>
-            
-            <h1 class="hero-title">
-                Joyeux Anniversaire à vous, Monsieur<br>
-                PELEY NIAMESSOU ADRO &#x1F382;
-            </h1>
-            
-            <div class="gold-divider"></div>
-        </section>
+<div class="container">
 
-        <!-- First Content Section -->
-        <section class="content-section">
-            <p class="paragraph">
-                En ce jour particulier, permettez-moi de vous adresser mes v&#x153;ux les plus sincères 
-                et les plus respectueux. Aujourd'hui, nous ne célébrons pas seulement une date, 
-                mais une vie, un parcours et un leadership remarquable.
-            </p>
+<div class="cake">🎂</div>
 
-            <p class="paragraph">
-                Vous êtes un responsable formidable, un modèle d'engagement, de rigueur et de 
-                détermination. Votre manière de diriger, d'encadrer et d'inspirer fait de vous 
-                une véritable référence pour nous. Travailler sous votre responsabilité est à la 
-                fois un honneur et une source d'apprentissage constant.
-            </p>
-        </section>
+<h1>Joyeux Anniversaire<br>PELEY NIAMESSOU ADRO 🎉</h1>
 
-        <!-- Verses Section -->
-        <section class="content-section">
-            <div class="section-label">Paroles de Sagesse</div>
-            
-            <div class="verse-card">
-                <div class="verse-badge">Proverbes 16:3</div>
-                <div class="verse-quote">
-                    « Recommande à l'Éternel tes &#x153;uvres, et tes projets réussiront. »
-                </div>
-                <div class="verse-comment">
-                    Et nous voyons à travers votre parcours que vos efforts sont accompagnés et bénis.
-                </div>
-            </div>
+<div class="divider"></div>
 
-            <div class="verse-card">
-                <div class="verse-badge">Jacques 1:5</div>
-                <div class="verse-quote">
-                    « Si quelqu'un d'entre vous manque de sagesse, qu'il la demande à Dieu... »
-                </div>
-                <div class="verse-comment">
-                    Que Dieu continue de vous accorder une sagesse encore plus grande afin de guider 
-                    avec excellence tous ceux qui vous entourent.
-                </div>
-            </div>
+<p class="paragraph fade">
+En ce jour particulier, nous souhaitons vous adresser nos vœux les plus sincères et respectueux. 
+Aujourd’hui, nous célébrons bien plus qu’une date : un parcours remarquable, une vision et un leadership inspirant.
+</p>
 
-            <div class="verse-card">
-                <div class="verse-badge">Nombres 6:24-26</div>
-                <div class="verse-quote">
-                    « Que l'Éternel te bénisse et te garde ! Que l'Éternel fasse luire sa face 
-                    sur toi et t'accorde sa grâce ! »
-                </div>
-                <div class="verse-comment">
-                    Que cette bénédiction vous accompagne chaque jour, dans votre vie 
-                    professionnelle comme personnelle.
-                </div>
-            </div>
-        </section>
+<p class="paragraph fade">
+Votre engagement, votre rigueur et votre sens des responsabilités font de vous une référence. 
+Votre manière de diriger et d’accompagner constitue une véritable source d’inspiration au quotidien.
+</p>
 
-        <!-- Closing Section -->
-        <section class="content-section">
-            <p class="paragraph">
-                Que cette nouvelle année de vie vous apporte davantage de succès, de paix, de santé 
-                et d'accomplissements. Que Dieu vous élève encore plus haut et fasse prospérer 
-                tout ce que vous entreprendrez.
-            </p>
-        </section>
+<div class="section-label fade">PAROLES DE SAGESSE</div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="prayer-emoji">&#x1F64F;</div>
-            <div class="blessing-text">
-                Recevez, Monsieur, l'expression de notre profond respect.<br>
-                Joyeux anniversaire à vous et que Dieu vous bénisse abondamment.
-            </div>
-        </footer>
-    </div>
+<div class="card fade">
+<p class="verse">« Recommande à l'Éternel tes œuvres, et tes projets réussiront. »</p>
+<p>Proverbes 16:3</p>
+</div>
 
-    <script>
-        // Floating Gold Particle Stars
-        class ParticleSystem {
-            constructor() {
-                this.canvas = document.getElementById('particleCanvas');
-                this.ctx = this.canvas.getContext('2d');
-                this.particles = [];
-                this.particleCount = 80;
-                
-                this.resize();
-                this.init();
-                this.animate();
-                
-                window.addEventListener('resize', () => this.resize());
-            }
+<div class="card fade">
+<p class="verse">« Si quelqu'un manque de sagesse, qu'il la demande à Dieu... »</p>
+<p>Jacques 1:5</p>
+</div>
 
-            resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
+<div class="card fade">
+<p class="verse">« Que l'Éternel te bénisse et te garde ! »</p>
+<p>Nombres 6:24-26</p>
+</div>
 
-            init() {
-                for (let i = 0; i < this.particleCount; i++) {
-                    this.particles.push({
-                        x: Math.random() * this.canvas.width,
-                        y: Math.random() * this.canvas.height + this.canvas.height,
-                        radius: Math.random() * 1.7 + 0.3,
-                        speedX: (Math.random() - 0.5) * 0.2,
-                        speedY: Math.random() * 0.3 + 0.1,
-                        alpha: Math.random() * 0.5 + 0.3,
-                        alphaSpeed: Math.random() * 0.02 + 0.01,
-                        alphaDirection: 1,
-                        time: Math.random() * Math.PI * 2
-                    });
-                }
-            }
+<p class="paragraph fade">
+Que cette nouvelle année de vie vous apporte encore plus de réussite, de sérénité, de santé et d’accomplissements. 
+Que chacun de vos projets soit couronné de succès.
+</p>
 
-            animate() {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                this.particles.forEach(particle => {
-                    // Update position
-                    particle.y -= particle.speedY;
-                    particle.x += particle.speedX;
-                    particle.time += 0.05;
-                    
-                    // Alpha sine wave pulse
-                    particle.alpha += particle.alphaSpeed * particle.alphaDirection;
-                    if (particle.alpha > 0.8 || particle.alpha < 0.2) {
-                        particle.alphaDirection *= -1;
-                    }
-                    
-                    // Reset particle when it goes off screen
-                    if (particle.y < -10) {
-                        particle.y = this.canvas.height + 10;
-                        particle.x = Math.random() * this.canvas.width;
-                    }
-                    
-                    // Draw particle with glow
-                    this.ctx.beginPath();
-                    this.ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-                    this.ctx.fillStyle = `rgba(212, 175, 55, ${particle.alpha})`;
-                    this.ctx.fill();
-                    
-                    // Add glow effect
-                    this.ctx.shadowBlur = 8;
-                    this.ctx.shadowColor = `rgba(212, 175, 55, ${particle.alpha * 0.5})`;
-                    this.ctx.fill();
-                    this.ctx.shadowBlur = 0;
-                });
-                
-                requestAnimationFrame(() => this.animate());
-            }
+<div class="footer fade">
+<p>Veuillez recevoir l’expression de notre profond respect.</p>
+<p>Joyeux anniversaire et que Dieu vous bénisse abondamment 🙏</p>
+</div>
+
+</div>
+
+<script>
+
+/* ✨ Particules simples */
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 60; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2,
+        d: Math.random()
+    });
+}
+
+function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "rgba(255,215,0,0.6)";
+    particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+    });
+    update();
+}
+
+function update() {
+    particles.forEach(p => {
+        p.y -= p.d;
+        if (p.y < 0) p.y = canvas.height;
+    });
+}
+
+setInterval(draw, 30);
+
+/* 🎉 Confetti */
+setTimeout(() => {
+    confetti({
+        particleCount: 120,
+        spread: 80
+    });
+}, 1000);
+
+/* 👀 Scroll animation */
+const faders = document.querySelectorAll(".fade");
+
+window.addEventListener("scroll", () => {
+    faders.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+            el.classList.add("visible");
         }
+    });
+});
 
-        // Scroll Reveal Animation
-        class ScrollReveal {
-            constructor() {
-                this.elements = document.querySelectorAll('.paragraph, .verse-card, .section-label');
-                this.observer = new IntersectionObserver(
-                    (entries) => {
-                        entries.forEach((entry) => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('visible');
-                            }
-                        });
-                    },
-                    { threshold: 0.1 }
-                );
-                
-                this.observe();
-            }
+</script>
 
-            observe() {
-                this.elements.forEach((element, index) => {
-                    setTimeout(() => {
-                        this.observer.observe(element);
-                    }, index * 80);
-                });
-            }
-        }
-
-        // Intro Overlay Management
-        class IntroManager {
-            constructor() {
-                this.overlay = document.getElementById('introOverlay');
-                this.subtitle = document.getElementById('introSubtitle');
-                this.divider = document.getElementById('introDivider');
-                
-                this.init();
-            }
-
-            init() {
-                // Show subtitle after typing completes
-                setTimeout(() => {
-                    this.subtitle.classList.add('show');
-                }, 3200);
-                
-                // Expand divider after subtitle
-                setTimeout(() => {
-                    this.divider.classList.add('expand');
-                }, 4200);
-                
-                // Dismiss overlay and fire confetti
-                setTimeout(() => {
-                    this.dismiss();
-                }, 6200);
-            }
-
-            dismiss() {
-                this.overlay.classList.add('hidden');
-                
-                // Fire confetti bursts
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 120,
-                        spread: 80,
-                        origin: { y: 0.6 },
-                        colors: ['#D4AF37', '#F0C040', '#FFFFFF', '#1A3A6B'],
-                        gravity: 0.8,
-                        scalar: 1.2
-                    });
-                }, 100);
-                
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 80,
-                        angle: 60,
-                        spread: 70,
-                        origin: { x: 0 },
-                        colors: ['#D4AF37', '#F0C040', '#B8860B'],
-                        gravity: 0.9
-                    });
-                }, 600);
-            }
-        }
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            // Start particle system
-            new ParticleSystem();
-            
-            // Start scroll reveal
-            new ScrollReveal();
-            
-            // Start intro sequence
-            new IntroManager();
-        });
-    </script>
 </body>
 </html>
