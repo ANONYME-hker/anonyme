@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For Saphinael 💗 One month of us</title>
+<meta name="theme-color" content="#14060f">
+<meta name="description" content="A little something for the most beautiful girl in my world.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#14060f; --plum:#2a0f26; --wine:#4a1636;
+  --rose:#ff4d85; --pink:#ff8fb1; --blush:#ffe3ea; --gold:#f3c98b;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Jost',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);color:var(--blush);background:var(--night);
+  background-image:
+    radial-gradient(60rem 40rem at 15% 0%,rgba(255,77,133,.22),transparent 60%),
+    radial-gradient(50rem 40rem at 90% 45%,rgba(243,201,139,.10),transparent 60%),
+    radial-gradient(60rem 50rem at 10% 100%,rgba(122,31,90,.45),transparent 60%);
+  background-attachment:fixed;
+  line-height:1.6;overflow-x:hidden;-webkit-tap-highlight-color:transparent;
+}
+#sky{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+main{position:relative;z-index:1}
+body.yes #sky{z-index:6}
+section{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4.5rem 1.25rem;text-align:center}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:12px}
+
+/* HERO */
+.heart-draw{width:min(46vw,200px);height:auto;overflow:visible;cursor:pointer;filter:drop-shadow(0 0 22px rgba(255,77,133,.55))}
+.heart-draw path{fill:rgba(255,77,133,0);stroke:url(#hg);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.6s cubic-bezier(.6,.1,.2,1) .3s forwards,fill 1.4s ease 2.7s forwards,beat 1.6s ease-in-out 4s infinite;transform-origin:50% 55%}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fill{to{fill:rgba(255,77,133,.9)}}
+@keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.09)}28%{transform:scale(1)}42%{transform:scale(1.06)}70%{transform:scale(1)}}
+.hello{margin-top:1.6rem;font-family:var(--serif);font-style:italic;font-size:1.35rem;color:var(--pink);letter-spacing:.02em}
+h1{font-family:var(--serif);font-style:italic;font-weight:600;font-size:clamp(3.4rem,15vw,8rem);line-height:1;
+  background:linear-gradient(100deg,var(--blush) 10%,var(--pink) 45%,var(--gold) 90%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  padding:.1em .15em;margin-top:.2rem}
+.typed{min-height:4.2em;max-width:30ch;margin-top:1.2rem;font-family:var(--serif);font-size:clamp(1.35rem,4.6vw,1.9rem);font-style:italic;color:var(--blush)}
+.typed::after{content:"";display:inline-block;width:2px;height:1em;background:var(--rose);margin-left:3px;vertical-align:-.12em;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.btn{font:500 1rem var(--sans);letter-spacing:.04em;color:var(--night);background:linear-gradient(120deg,var(--pink),var(--gold));border:0;border-radius:999px;padding:.95rem 2.1rem;cursor:pointer;
+  box-shadow:0 10px 30px -8px rgba(255,77,133,.65);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px -8px rgba(255,77,133,.85)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--blush);border:1px solid rgba(255,227,234,.35);box-shadow:none}
+
+/* REASONS */
+h2{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(2rem,7vw,3.4rem);line-height:1.15;max-width:18ch}
+.sub{margin-top:.8rem;color:var(--pink);font-weight:300}
+.grid{margin-top:2.4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;width:min(100%,900px)}
+.card{perspective:900px;height:190px;background:none;border:0;cursor:pointer;color:inherit;font:inherit}
+.card .in{position:relative;display:block;width:100%;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,1.2,.4,1)}
+.card.on .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:1.2rem;border-radius:22px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front{flex-direction:column;gap:.5rem;font-family:var(--serif);font-style:italic;font-size:1.7rem;
+  background:linear-gradient(160deg,rgba(255,77,133,.22),rgba(74,22,54,.7));border:1px solid rgba(255,143,177,.35)}
+.front small{font-family:var(--sans);font-style:normal;font-size:.78rem;font-weight:300;color:var(--pink)}
+.back{transform:rotateY(180deg);font-family:var(--serif);font-style:italic;font-size:1.22rem;line-height:1.4;
+  background:linear-gradient(160deg,var(--rose),#c2275f);color:#fff;box-shadow:0 18px 40px -16px rgba(255,77,133,.8)}
+.count{margin-top:1.3rem;font-weight:300;color:var(--pink);font-size:.95rem}
+
+/* LETTER */
+.paper{width:min(100%,640px);text-align:left;padding:clamp(1.6rem,5vw,3rem);border-radius:26px;
+  background:linear-gradient(170deg,rgba(255,227,234,.08),rgba(255,227,234,.03));border:1px solid rgba(255,227,234,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.paper p{position:relative;font-family:var(--serif);font-size:clamp(1.25rem,3.8vw,1.55rem);line-height:1.55;margin-bottom:1rem}
+.paper .ghost{color:transparent}
+.paper .live{position:absolute;inset:0;color:var(--blush)}
+.paper .sig{font-style:italic;color:var(--gold);text-align:right}
+
+/* ASK */
+.ask h2{max-width:14ch}
+.btns{margin-top:2.2rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;align-items:center;min-height:3.5rem}
+#no{transition:left .35s cubic-bezier(.3,1.4,.5,1),top .35s cubic-bezier(.3,1.4,.5,1)}
+.yes-msg{position:fixed;inset:0;z-index:5;display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;
+  background:radial-gradient(circle at 50% 40%,rgba(122,31,90,.96),rgba(20,6,15,.98))}
+.yes-msg.show{display:flex;animation:pop .8s ease both}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.yes-msg .big{font-size:clamp(4rem,20vw,7rem);filter:drop-shadow(0 0 30px rgba(255,77,133,.8));animation:beat 1.6s ease-in-out infinite}
+.yes-msg h3{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(2rem,8vw,3.6rem);line-height:1.15;margin-top:1rem;max-width:16ch}
+.yes-msg p{margin-top:1rem;color:var(--pink);max-width:34ch}
+.yes-msg .btn{margin-top:2rem}
+footer{position:relative;z-index:1;text-align:center;padding:2rem 1rem 3rem;font-family:var(--serif);font-style:italic;color:var(--pink)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .heart-draw path{animation:none;stroke-dashoffset:0;fill:rgba(255,77,133,.9)}
+  .typed::after,.yes-msg .big{animation:none}
+  .card .in{transition:none}
+}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <svg class="heart-draw" viewBox="0 0 100 90" role="img" aria-label="A heart, drawn just for you">
+      <defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe3ea"/><stop offset="1" stop-color="#ff4d85"/></linearGradient></defs>
+      <path pathLength="1" d="M50 85 C10 55 0 30 15 15 C28 3 45 8 50 24 C55 8 72 3 85 15 C100 30 90 55 50 85Z"/>
+    </svg>
+    <p class="hello">For the most beautiful girl in my world,</p>
+    <h1>Saphinael</h1>
+    <p class="typed" id="typed" aria-live="polite"></p>
+    <button class="btn" id="begin">Tap to begin ♥</button>
+  </section>
+
+  <!-- REASONS -->
+  <section id="reasons">
+    <h2>Six things I see when I look at you</h2>
+    <p class="sub">Tap each one. Every card is true.</p>
+    <div class="grid" id="grid"></div>
+    <p class="count" id="count">0 of 6 opened</p>
+  </section>
+
+  <!-- LETTER -->
+  <section id="letter">
+    <h2>One month, in words</h2>
+    <div class="paper" id="paper" style="margin-top:2rem"></div>
+  </section>
+
+  <!-- ASK -->
+  <section class="ask" id="ask">
+    <h2>Will you keep choosing me?</h2>
+    <p class="sub">I promise to keep choosing you.</p>
+    <div class="btns" id="btns">
+      <button class="btn" id="yes">Yes, always ♥</button>
+      <button class="btn ghost" id="no">No</button>
+    </div>
+  </section>
+</main>
+
+<footer>Happy one month, Saphinael. This is only chapter one. — Othniel</footer>
+
+<div class="yes-msg" id="yesMsg" role="dialog" aria-live="polite" aria-label="Thank you">
+  <div class="big">💗</div>
+  <h3>You just made me the happiest man alive.</h3>
+  <p>Happy one month, my love. You are beautiful, you are loved, and you are mine.</p>
+  <button class="btn" id="again">Read it again ♥</button>
+</div>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => document.querySelector(s);
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  /* ---------- Falling petals + heart bursts ---------- */
+  const c = $('#sky'), x = c.getContext('2d');
+  let W, H;
+  const size = () => {
+    const d = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    c.width = W * d; c.height = H * d; x.setTransform(d, 0, 0, d, 0, 0);
+  };
+  addEventListener('resize', size); size();
+  const cols = ['#ff4d85', '#ff8fb1', '#ffe3ea', '#f3c98b'];
+  const petal = () => ({
+    x: Math.random() * W, y: -20, s: 6 + Math.random() * 10,
+    vy: .4 + Math.random() * .8, vx: (Math.random() - .5) * .4,
+    r: Math.random() * 6, vr: (Math.random() - .5) * .03,
+    c: cols[Math.random() * cols.length | 0], a: .25 + Math.random() * .45,
+    heart: Math.random() < .35, burst: false
+  });
+  const ps = [];
+  if (!reduce) for (let i = 0; i < 38; i++) { const p = petal(); p.y = Math.random() * H; ps.push(p); }
+  const burst = (px, py, n = 14) => {
+    if (reduce) return;
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * 6.28, v = 1.5 + Math.random() * 3.5;
+      ps.push({ x: px, y: py, s: 10 + Math.random() * 16, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 2,
+        r: 0, vr: (Math.random() - .5) * .1, c: cols[Math.random() * 3 | 0], a: 1, heart: true, burst: true, life: 60 + Math.random() * 30 });
+    }
+  };
+  const frame = () => {
+    x.clearRect(0, 0, W, H);
+    for (let i = ps.length - 1; i >= 0; i--) {
+      const p = ps[i];
+      p.r += p.vr;
+      if (p.burst) {
+        p.x += p.vx; p.y += p.vy; p.vy += .06; p.life--; p.a = Math.max(0, p.life / 60);
+        if (p.life <= 0) { ps.splice(i, 1); continue; }
+      } else {
+        p.x += p.vx + Math.sin(p.y / 60) * .3; p.y += p.vy;
+        if (p.y > H + 20) Object.assign(p, petal());
+      }
+      x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.globalAlpha = Math.min(1, p.a); x.fillStyle = p.c;
+      if (p.heart) { x.font = p.s + 'px serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('♥', 0, 0); }
+      else { x.beginPath(); x.ellipse(0, 0, p.s * .55, p.s * .3, 0, 0, 6.28); x.fill(); }
+      x.restore();
+    }
+    requestAnimationFrame(frame);
+  };
+  frame();
+  addEventListener('pointerdown', e => burst(e.clientX, e.clientY));
+
+  /* ---------- Hero typewriter ---------- */
+  const lines = [
+    'You are, quite simply, the most beautiful thing in my world.',
+    'One month with you feels like a lifetime I would choose again.',
+    'Beautiful inside, beautiful outside, and somehow, you are mine.',
+    'Happy one month, my love.'
+  ];
+  const typed = $('#typed');
+  const typeInto = async (el, text, speed = 42) => {
+    for (let i = 1; i <= text.length; i++) { el.textContent = text.slice(0, i); await sleep(speed); }
+  };
+  (async () => {
+    if (reduce) { typed.textContent = lines[0]; return; }
+    await sleep(1800);
+    for (let i = 0; ; i = (i + 1) % lines.length) {
+      await typeInto(typed, lines[i]);
+      await sleep(2400);
+      for (let k = lines[i].length; k >= 0; k -= 2) { typed.textContent = lines[i].slice(0, k); await sleep(14); }
+      await sleep(250);
+    }
+  })();
+  $('#begin').addEventListener('click', () => $('#reasons').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }));
+
+  /* ---------- Reason cards ---------- */
+  const reasons = [
+    ['Your smile', 'It slows the whole room down. I forget what I was saying every single time.'],
+    ['Your eyes', 'I could get lost in them and never once ask for directions.'],
+    ['Your laugh', 'My favorite sound in the world. I would do anything to hear it again.'],
+    ['Your heart', 'Kind without even trying. That is the most beautiful thing about you.'],
+    ['Your glow', 'You walk in and the light changes. Everyone notices, and I am the lucky one.'],
+    ['Your presence', 'One month in, and home feels like wherever you are.']
+  ];
+  const grid = $('#grid'), count = $('#count');
+  reasons.forEach(([t, m]) => {
+    const b = document.createElement('button');
+    b.className = 'card'; b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = `<span class="in"><span class="face front">${t}<small>tap to open</small></span><span class="face back">${m}</span></span>`;
+    b.addEventListener('click', () => {
+      const on = b.classList.toggle('on');
+      b.setAttribute('aria-pressed', on);
+      const n = grid.querySelectorAll('.on').length;
+      count.textContent = n === 6 ? 'All six opened. And there are a thousand more. ♥' : `${n} of 6 opened`;
+    });
+    grid.appendChild(b);
+  });
+
+  /* ---------- Letter (types in when visible) ---------- */
+  const letter = [
+    'Saphinael,',
+    'One month ago, my life quietly turned into my favorite story.',
+    'Since then, ordinary days have become the ones I remember most: your voice, your laugh, the way you make everything feel lighter.',
+    'You are beautiful, not only in the way the world can see, but in the way you make people feel seen.',
+    'Thank you for your patience, your warmth, and for simply being you. I would not change a thing.',
+    'This is only the first chapter. I want all the others with you.'
+  ];
+  const paper = $('#paper');
+  const live = [];
+  letter.forEach(t => {
+    const p = document.createElement('p');
+    p.innerHTML = `<span class="ghost"></span><span class="live" aria-hidden="true"></span>`;
+    p.firstChild.textContent = t;
+    paper.appendChild(p); live.push([p.lastChild, t]);
+  });
+  const sig = document.createElement('p'); sig.className = 'sig'; sig.textContent = 'Forever yours, Othniel ♥';
+  paper.appendChild(sig); sig.style.opacity = reduce ? 1 : 0; sig.style.transition = 'opacity 1.2s';
+  let wrote = false;
+  const write = async () => {
+    if (wrote) return; wrote = true;
+    for (const [el, t] of live) { if (reduce) el.textContent = t; else { await typeInto(el, t, 26); await sleep(350); } }
+    sig.style.opacity = 1;
+  };
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { write(); o.disconnect(); } }, { threshold: .35 }).observe(paper);
+
+  /* ---------- The question ---------- */
+  const no = $('#no'), yes = $('#yes'), msg = $('#yesMsg');
+  const nos = ['No', 'Are you sure?', 'Think again 😌', 'Wrong button!', 'Nope, not this one', 'Just say yes ♥'];
+  let tries = 0;
+  const dodge = e => {
+    e.preventDefault();
+    tries++;
+    no.textContent = nos[Math.min(tries, nos.length - 1)];
+    const r = no.getBoundingClientRect();
+    no.style.position = 'fixed'; no.style.zIndex = 3;
+    no.style.left = (12 + Math.random() * Math.max(10, W - r.width - 24)) + 'px';
+    no.style.top = (12 + Math.random() * Math.max(10, H - r.height - 24)) + 'px';
+    yes.style.transform = `scale(${Math.min(1 + tries * .08, 1.5)})`;
+  };
+  ['pointerenter', 'click', 'touchstart'].forEach(ev => no.addEventListener(ev, dodge, { passive: false }));
+  yes.addEventListener('click', () => {
+    msg.classList.add('show'); document.body.classList.add('yes');
+    let n = 0;
+    const t = setInterval(() => { burst(Math.random() * W, Math.random() * H * .8, 18); if (++n > 14) clearInterval(t); }, 260);
+  });
+  $('#again').addEventListener('click', () => { msg.classList.remove('show'); document.body.classList.remove('yes'); scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
+})();
+</script>
+</body>
+</html>
