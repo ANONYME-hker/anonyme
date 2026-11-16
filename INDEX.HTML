@@ -482,10 +482,50 @@ footer small {
     transition-duration:.01ms!important;
   }
 }
+
+/* ROMANTIC ACCESS GATE */
+#love-gate {
+  position:fixed; inset:0; z-index:99999;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px; background:linear-gradient(145deg,#fff8f4,#f8dfe0 55%,#ead0d8);
+  transition:opacity .8s ease,visibility .8s ease;
+}
+#love-gate.unlocked {opacity:0;visibility:hidden;pointer-events:none}
+body.gate-locked {overflow:hidden}
+.gate-card {width:min(100%,440px);padding:clamp(28px,6vw,46px) 26px;text-align:center;
+  background:rgba(255,253,249,.94);border:1px solid #f0d9d6;border-radius:24px;
+  box-shadow:0 25px 70px #54263725}
+.gate-heart {font-size:42px;color:var(--rose);margin-bottom:12px}
+.gate-card h2 {font-family:var(--script);font-size:clamp(48px,10vw,65px);color:var(--rose);line-height:1.1}
+.gate-question {font-family:var(--serif);font-size:23px;line-height:1.45;margin:18px 0 8px}
+.gate-hint {font-size:12px;letter-spacing:1px;color:var(--gold);margin-bottom:18px}
+#love-answer {width:100%;padding:15px 16px;border:1px solid #e9c4cc;border-radius:12px;
+  background:white;color:var(--wine);font:16px var(--sans);text-align:center;outline:none}
+#love-answer:focus {border-color:var(--rose);box-shadow:0 0 0 3px #ce637e20}
+#love-unlock {width:100%;margin-top:14px;border:0;border-radius:40px;padding:15px 20px;
+  color:white;background:linear-gradient(120deg,#d66c85,#a94161);box-shadow:0 12px 28px #ce637e35;cursor:pointer;font:500 14px var(--sans)}
+#love-error {min-height:24px;margin-top:12px;color:#a94161;font-size:13px}
+
 </style>
 </head>
 
-<body>
+<body class="gate-locked">
+
+<!-- ROMANTIC ACCESS GATE -->
+<div id="love-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="gate-card">
+    <div class="gate-heart" aria-hidden="true">♥</div>
+    <h2 id="gate-title">Before you enter...</h2>
+    <p class="gate-question">What is the name your man loves to call you?</p>
+    <p class="gate-hint">A little question, just for you ♥</p>
+    <form id="love-form">
+      <input id="love-answer" type="text" placeholder="Your answer..." autocomplete="off" aria-label="Your answer" required>
+      <button id="love-unlock" type="submit">Unlock my heart ♥</button>
+    </form>
+    <p id="love-error" aria-live="polite"></p>
+  </div>
+</div>
+
 
 <canvas id="petals"></canvas>
 
@@ -639,6 +679,24 @@ footer small {
 <script>
 (() => {
   const $ = s => document.querySelector(s);
+  // ROMANTIC ACCESS GATE — playful client-side entry question
+  const gate = document.getElementById('love-gate');
+  const gateForm = document.getElementById('love-form');
+  const gateAnswer = document.getElementById('love-answer');
+  const gateError = document.getElementById('love-error');
+  gateForm.addEventListener('submit', event => {
+    event.preventDefault();
+    if (gateAnswer.value.trim().toLowerCase() === 'babe') {
+      gate.classList.add('unlocked');
+      document.body.classList.remove('gate-locked');
+      setTimeout(() => gate.remove(), 900);
+    } else {
+      gateError.textContent = 'Not quite, my love. Try again ♥';
+      gateAnswer.value = '';
+      gateAnswer.focus();
+    }
+  });
+
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const sleep = ms => new Promise(r => setTimeout(r,ms));
   const random = (a,b) => a + Math.random()*(b-a);
